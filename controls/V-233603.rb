@@ -1,0 +1,59 @@
+# encoding: UTF-8
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+control	'V-233603' do
+	title	"PostgreSQL must only accept end entity certificates issued by DoD PKI or DoD-approved PKI 
+	Certification Authorities (CAs) for the establishment of all encrypted sessions."
+	desc	"Only DoD-approved external PKIs have been evaluated to ensure security controls and identity vetting 
+	procedures are in place that are sufficient for DoD systems to rely on the identity asserted in the certificate. 
+	PKIs lacking sufficient security controls and identity vetting procedures risk being compromised and issuing 
+	certificates that enable adversaries to impersonate legitimate users. 
+
+The authoritative list of DoD-approved PKIs is published at https://cyber.mil/pki-pke/interoperability
+
+This requirement focuses on communications protection for PostgreSQL session rather than for the network packet."
+	desc	'rationale', ''
+	desc	'check', "As the database administrator (shown here as \"postgres\"), verify the following setting in 
+	postgresql.conf:
+
+$ sudo su - postgres
+$ psql -c \"SHOW ssl_ca_file\"
+$ psql -c \"SHOW ssl_cert_file\"
+
+If the database is not configured to use only DOD-approved certificates, this is a finding."
+	desc	'fix', "Revoke trust in any certificates not issued by a DoD-approved certificate authority.
+
+Configure PostgreSQL to accept only DoD and DoD-approved PKI end-entity certificates.
+
+To configure PostgreSQL to accept approved CAs, see the official PostgreSQL documentation: 
+http://www.postgresql.org/docs/current/static/ssl-tcp.html
+
+For more information on configuring PostgreSQL to use SSL, see supplementary content APPENDIX-G."
+	impact 0.5
+	tag severity: 'medium'
+	tag gtitle: nil
+	tag gid: nil
+	tag rid: nil
+	tag stig_id: nil
+	tag fix_id: nil
+	tag cci: nil
+	tag nist: nil
+
+	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
+	describe sql.query('SHOW ssl_ca_file;', [pg_db]) do
+	  its('output') { should_not eq '' }
+	end
+  
+	describe sql.query('SHOW ssl_cert_file;', [pg_db]) do
+	  its('output') { should_not eq '' }
+	end
+  end
+
