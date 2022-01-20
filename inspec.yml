@@ -1,12 +1,12 @@
-name: postgres-saf-validation
-title: MITRE PostgreSQL 12.X Security Technical Implementation Guide InSpec Profile
-maintainer: The Authors
-copyright: MITRE Corporation
-copyright_email: you@example.com
+name: crunchy-data-postgresql-stig-baseline
+title: crunchy-data-postgresql-stig-baseline
+maintainer: MITRE SAF Team
+copyright: MITRE, 2022
+copyright_email: saf@groups.mitre.org
 license: Apache-2.0
-summary: "MITRE PostgreSQL 12.X Security Technical Implementation Guide InSpec Profile"
-
-version: 0.0.1
+summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 1, Release: 1 Benchmark Date: 20 Nov 2020"
+version: 1.1.0
+inspec_version: ">= 4.0"
 
 inputs:
   - name: pg_owner
@@ -226,25 +226,25 @@ inputs:
     required: true
 
   - name: pgaudit_installation
-    description: "V-233607 uses this location of the pgaudit installation on the system (e.g., /usr/pgsql-12.5/share/contrib/pgaudit)"
+    description: "V-233607 uses this location of the pgaudit installation on the system (e.g., /usr/pgsql-10/share/contrib/pgaudit)"
     type: string
-    value: "/usr/pgsql-12/share/contrib/pgaudit"
+    value: "/usr/pgsql-10/share/contrib/pgaudit"
     required: true
 
   - name: pg_shared_dirs
     description: "The location of the Postgres system libraries"
     type: array
     value:
-      - "/usr/pgsql-12"
-      - "/usr/pgsql-12/bin"
-      - "/usr/pgsql-12/lib"
-      - "/usr/pgsql-12/share"
+      - "/usr/pgsql-10"
+      - "/usr/pgsql-10/bin"
+      - "/usr/pgsql-10/lib"
+      - "/usr/pgsql-10/share"
     required: true
 
   - name: pg_version
     description: "The version of the Postgres software"
     type: string
-    value: "12.5"
+    value: "10.0"
     required: true
 
   - name: pg_data_dir
