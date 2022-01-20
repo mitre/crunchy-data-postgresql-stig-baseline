@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_owner = input('pg_owner')
-
-pg_conf_file = input('pg_conf_file')
-
 control	'V-233531' do
 	title	"The audit information produced by PostgreSQL must be protected from unauthorized deletion."
 	desc	"If audit data were to become compromised, then competent forensic analysis and discovery of the true 
@@ -99,13 +85,27 @@ $ chmod 0700 <log directory name>
 $ chmod 0600 <log directory name>/*.log"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000120-DB-000061'
+  tag gid: 'V-233531'
+  tag rid: 'SV-233531r617333_rule'
+  tag stig_id: 'CD12-00-002300'
+  tag fix_id: 'F-36690r606817_fix'
+  tag cci: ["CCI-000164"]
+  tag nist: ["AU-9"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_owner = input('pg_owner')
+
+pg_conf_file = input('pg_conf_file')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
    

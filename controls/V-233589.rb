@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233589' do
 	title	"PostgreSQL must initiate session auditing upon startup."
 	desc	"Session auditing is for use when a user's activities are under investigation. To ensure the capture 
@@ -35,13 +27,21 @@ For session logging, using pgaudit is recommended. For instructions on how to se
 content APPENDIX-B."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000092-DB-000208'
+  tag gid: 'V-233589'
+  tag rid: 'SV-233589r617333_rule'
+  tag stig_id: 'CD12-00-008600'
+  tag fix_id: 'F-36748r606991_fix'
+  tag cci: ["CCI-001464"]
+  tag nist: ["AU-14 (1)"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

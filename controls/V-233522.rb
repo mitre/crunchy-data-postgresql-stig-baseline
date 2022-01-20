@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password',)
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_max_connections = input('pg_max_connections')
-
 control	'V-233522' do
 	title	"PostgreSQL must limit the number of concurrent sessions to an organization-defined number per user for 
 	all accounts and/or account types."
@@ -72,13 +60,26 @@ To limit the amount of connections allowed by a specific role, as the database a
 $ psql -c \"ALTER ROLE <rolname> CONNECTION LIMIT 1\";"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000001-DB-000031'
+  tag gid: 'V-233522'
+  tag rid: 'SV-233522r617333_rule'
+  tag stig_id: 'CD12-00-001200'
+  tag fix_id: 'F-36681r606790_fix'
+  tag cci: ["CCI-000054"]
+  tag nist: ["AC-10"]
+
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password',)
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_max_connections = input('pg_max_connections')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

@@ -1,9 +1,5 @@
 # encoding: UTF-8
 
-pg_version = input('pg_version')
-
-pg_shared_dirs = input('pg_shared_dirs')
-
 control	'V-233541' do
 	title	"Database software, including PostgreSQL configuration files, must be stored in dedicated directories 
 	separate from the host OS and other applications."
@@ -34,13 +30,17 @@ If other applications are located in the same directory as PostgreSQL, this is a
 	library directory."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000133-DB-000199'
+  tag gid: 'V-233541'
+  tag rid: 'SV-233541r617333_rule'
+  tag stig_id: 'CD12-00-003300'
+  tag fix_id: 'F-36700r606847_fix'
+  tag cci: ["CCI-001499"]
+  tag nist: ["CM-5 (6)"]
+
+pg_version = input('pg_version')
+
+pg_shared_dirs = input('pg_shared_dirs')
 
 	pg_shared_dirs.each do |dir|
 		describe directory(dir) do

@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233600' do
 	title	"PostgreSQL must provide the means for individuals in authorized roles to change the auditing to be 
 	performed on all application components, based on all selectable event criteria within organization-defined 
@@ -113,13 +103,23 @@ For a specific audit role:
 0 17 * * * postgres /usr/bin/psql -c \"REVOKE select(password) ON public.stig_audit_example FROM auditor;\""
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000516-DB-000363'
+  tag gid: 'V-233600'
+  tag rid: 'SV-233600r617339_rule'
+  tag stig_id: 'CD12-00-010000'
+  tag fix_id: 'F-36759r617338_fix'
+  tag cci: ["CCI-001914"]
+  tag nist: ["AU-12 (3)"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

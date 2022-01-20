@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233610' do
 	title	"PostgreSQL must off-load audit data to a separate log management facility; this must be continuous 
 	and in near real time for systems with a network connection to the storage facility and weekly or more often 
@@ -66,13 +56,23 @@ Now, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000515-DB-000318'
+  tag gid: 'V-233610'
+  tag rid: 'SV-233610r617333_rule'
+  tag stig_id: 'CD12-00-011300'
+  tag fix_id: 'F-36769r607054_fix'
+  tag cci: ["CCI-001851"]
+  tag nist: ["AU-4 (1)"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
     sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

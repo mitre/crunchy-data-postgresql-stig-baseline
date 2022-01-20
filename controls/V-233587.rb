@@ -63,13 +63,13 @@ If any such permissions exist and are not documented and approved, this is a fin
 Implement the approved permissions. Revoke any unapproved permissions."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000378-DB-000365'
+  tag gid: 'V-233587'
+  tag rid: 'SV-233587r617333_rule'
+  tag stig_id: 'CD12-00-008400'
+  tag fix_id: 'F-36746r606985_fix'
+  tag cci: ["CCI-001812"]
+  tag nist: ["CM-11 (2)"]
 
 	describe "Review PostgreSQL and database security settings with respect to non-administrative users' permissions." do
 		skip "If any such permissions exist and are not documented and approved, this is a finding"

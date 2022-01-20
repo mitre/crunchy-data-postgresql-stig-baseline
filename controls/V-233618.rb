@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_conf_file = input('pg_conf_file')
-
 control	'V-233618' do
 	title	"PostgreSQL must protect its audit configuration from unauthorized modification."
 	desc	"Protecting audit data also includes identifying and protecting the tools used to view and manipulate 
@@ -64,13 +52,25 @@ $ chown postgres:postgres ${PGDATA?}/*.conf
 $ chmod 0600 ${PGDATA?}/*.conf"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000122-DB-000203'
+  tag gid: 'V-233618'
+  tag rid: 'SV-233618r617333_rule'
+  tag stig_id: 'CD12-00-012200'
+  tag fix_id: 'F-36777r607078_fix'
+  tag cci: ["CCI-001494"]
+  tag nist: ["AU-9"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_conf_file = input('pg_conf_file')
 
 	describe file(pg_conf_file) do
 		it { should be_file }

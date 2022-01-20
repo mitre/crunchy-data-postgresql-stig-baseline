@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
 control	'V-233530' do
 	title	"PostgreSQL must enforce discretionary access control policies, as defined by the data owner, over 
 	defined subjects and objects."
@@ -75,13 +63,26 @@ $ psql -c \"REVOKE SELECT ON TABLE test.test_table FROM bob\"
 $ psql -c \"REVOKE CREATE ON SCHEMA test FROM bob\""
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000328-DB-000301'
+  tag gid: 'V-233530'
+  tag rid: 'SV-233530r617333_rule'
+  tag stig_id: 'CD12-00-002200'
+  tag fix_id: 'F-36689r606814_fix'
+  tag cci: ["CCI-002165"]
+  tag nist: ["AC-3 (4)"]
+
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_superusers = input('pg_superusers')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

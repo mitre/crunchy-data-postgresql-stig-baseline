@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
 control	'V-233602' do
 	title	"PostgreSQL must enforce authorized access to all PKI private keys stored/utilized by PostgreSQL."
 	desc	"The DoD standard for authentication is DoD-approved PKI certificates. PKI certificate-based 
@@ -65,16 +51,31 @@ Now, as the system administrator, restart the server with the new configuration:
 # SYSTEMD SERVER ONLY
 $ sudo systemctl restart postgresql-${PGVER?}
 
-For more information on configuring PostgreSQL to use SSL, see supplementary content APPENDIX-G."
-	impact 0.8
+For more information on configuring PostgreSQL to use SSL, see supplementary
+content APPENDIX-G."
+  impact 0.7
 	tag severity: 'high'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000176-DB-000068'
+  tag gid: 'V-233602'
+  tag rid: 'SV-233602r617333_rule'
+  tag stig_id: 'CD12-00-010200'
+  tag fix_id: 'F-36761r607030_fix'
+  tag cci: ["CCI-000186"]
+  tag nist: ["IA-5 (2) (b)"]
+
+pg_ver = input('pg_version')
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_data_dir = input('pg_data_dir')
 
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))

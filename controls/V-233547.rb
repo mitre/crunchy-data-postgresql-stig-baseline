@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233547' do
 	title	"PostgreSQL must produce audit records of its enforcement of access restrictions associated with changes 
 	to the configuration of PostgreSQL or database(s)."
@@ -65,13 +51,27 @@ All denials are logged by default if logging is enabled. To ensure that logging 
 content APPENDIX-C for instructions on enabling logging."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000381-DB-000361'
+  tag gid: 'V-233547'
+  tag rid: 'SV-233547r617333_rule'
+  tag stig_id: 'CD12-00-004100'
+  tag fix_id: 'F-36706r606865_fix'
+  tag cci: ["CCI-001814"]
+  tag nist: ["CM-5 (1)"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
   #Execute an incorrectly-formed SQL statement with bad syntax, to prompt log ouput
   if file(pg_audit_log_dir).exist?

@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233596' do
 	title	"If passwords are used for authentication, PostgreSQL must store only hashed, salted representations of 
 	passwords."
@@ -59,13 +49,23 @@ As the system administrator, restart the server with the new configuration:
 $ sudo systemctl restart postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000171-DB-000074'
+  tag gid: 'V-233596'
+  tag rid: 'SV-233596r617333_rule'
+  tag stig_id: 'CD12-00-009500'
+  tag fix_id: 'F-36755r607012_fix'
+  tag cci: ["CCI-000196"]
+  tag nist: ["IA-5 (1) (c)"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

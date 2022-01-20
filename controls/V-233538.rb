@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233538' do
 	title	"PostgreSQL must maintain the confidentiality and integrity of information during reception."
 	desc	"Information can be either unintentionally or maliciously disclosed or modified during reception, 
@@ -43,13 +35,21 @@ If PostgreSQL, associated applications, and infrastructure do not employ protect
 To configure PostgreSQL to use SSL, see supplementary content APPENDIX-G for instructions on enabling SSL."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000442-DB-000379'
+  tag gid: 'V-233538'
+  tag rid: 'SV-233538r617333_rule'
+  tag stig_id: 'CD12-00-003000'
+  tag fix_id: 'F-36697r606838_fix'
+  tag cci: ["CCI-002422"]
+  tag nist: ["SC-8 (2)"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

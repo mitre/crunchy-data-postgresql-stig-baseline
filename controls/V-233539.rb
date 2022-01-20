@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
 control	'V-233539' do
 	title	"Database objects (including but not limited to tables, indexes, storage, trigger procedures, functions, 
 	links to software external to PostgreSQL, etc.) must be owned by database/DBMS principals authorized for ownership."
@@ -53,13 +41,25 @@ $ sudo su - postgres
 $ psql -c \"ALTER SCHEMA test OWNER TO bob\""
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000133-DB-000200'
+  tag gid: 'V-233539'
+  tag rid: 'SV-233539r617333_rule'
+  tag stig_id: 'CD12-00-003100'
+  tag fix_id: 'F-36698r606841_fix'
+  tag cci: ["CCI-001499"]
+  tag nist: ["CM-5 (6)"]
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_superusers = input('pg_superusers')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

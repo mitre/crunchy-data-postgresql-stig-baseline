@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233598' do
 	title	"PostgreSQL must protect against a user falsely repudiating having performed organization-defined actions."
 	desc	"Non-repudiation of actions taken is required in order to maintain data integrity. Examples of particular 
@@ -68,13 +58,23 @@ Use accounts assigned to individual users. Where the application connects to Pos
 account, ensure it also captures the individual user identification and passes it to PostgreSQL."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000080-DB-000063'
+  tag gid: 'V-233598'
+  tag rid: 'SV-233598r617333_rule'
+  tag stig_id: 'CD12-00-009700'
+  tag fix_id: 'F-36757r607018_fix'
+  tag cci: ["CCI-000166"]
+  tag nist: ["AU-10"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

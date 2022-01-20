@@ -71,16 +71,17 @@ DROP EXTENSION <extension_name>
 
 To remove unwanted privileges from a role, use the REVOKE command. 
 
-See the PostgreSQL documentation for more details: http://www.postgresql.org/docs/current/static/sql-revoke.html."
-	impact 0.8
+See the PostgreSQL documentation for more details:
+http://www.postgresql.org/docs/current/static/sql-revoke.html."
+  impact 0.7
 	tag severity: 'high'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000340-DB-000304'
+  tag gid: 'V-233614'
+  tag rid: 'SV-233614r617333_rule'
+  tag stig_id: 'CD12-00-011700'
+  tag fix_id: 'F-36773r607066_fix'
+  tag cci: ["CCI-002235"]
+  tag nist: ["AC-6 (10)"]
 
 	describe "Review the system documentation to obtain the definition of the PostgreSQL functionality considered privileged in the context of the system in question." do
 		skip "If the configuration does not protect all of the actions defined as privileged, this is a finding."

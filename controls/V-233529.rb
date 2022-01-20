@@ -25,13 +25,13 @@ If there have been incidents where PostgreSQL ran out of audit log space, this i
 	desc	'fix', "Allocate sufficient audit file/table space to support peak demand."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000357-DB-000316'
+  tag gid: 'V-233529'
+  tag rid: 'SV-233529r617333_rule'
+  tag stig_id: 'CD12-00-002100'
+  tag fix_id: 'F-36688r606811_fix'
+  tag cci: ["CCI-001849"]
+  tag nist: ["AU-4"]
 
 	describe "Investigate if there are any incidents where PostgreSQL ran out of audit log space." do
 		skip "If there have been incidents where PostgreSQL ran out of audit log space, this is a finding."

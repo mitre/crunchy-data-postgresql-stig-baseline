@@ -50,13 +50,13 @@ This script would be added to a cron job:
 0 17 * * * postgres /var/lib/pgsql/no_login.sh -d postgres -r"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000295-DB-000305'
+  tag gid: 'V-233613'
+  tag rid: 'SV-233613r617333_rule'
+  tag stig_id: 'CD12-00-011600'
+  tag fix_id: 'F-36772r607063_fix'
+  tag cci: ["CCI-002361"]
+  tag nist: ["AC-12"]
 
 	describe "Check if organization's definition of circumstances requiring automatic session termination is met" do
 		skip "If the documentation requires automatic session termination, but PostgreSQL is not configured accordingly, this is a finding"

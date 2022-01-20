@@ -1,21 +1,5 @@
 # encoding: UTF-8
 
-pg_conf_file= input('pg_conf_file')
-
-pg_host = input('pg_host')
-
-login_user = input('login_user')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_superusers = input('pg_superusers')
-
-approved_ext = input('approved_ext')
-
 control	'V-233593' do
 	title	"Access to external executables must be disabled or restricted."
 	desc	"Information systems are capable of providing a wide variety of functions and services. Some of the 
@@ -62,13 +46,29 @@ $ sudo su - postgres
 $ psql -c \"DROP EXTENSION extension_name\""
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000141-DB-000093'
+  tag gid: 'V-233593'
+  tag rid: 'SV-233593r617333_rule'
+  tag stig_id: 'CD12-00-009100'
+  tag fix_id: 'F-36752r607003_fix'
+  tag cci: ["CCI-000381"]
+  tag nist: ["CM-7 a"]
+
+pg_conf_file= input('pg_conf_file')
+
+pg_host = input('pg_host')
+
+login_user = input('login_user')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_superusers = input('pg_superusers')
+
+approved_ext = input('approved_ext')
 
 	dbs = nil
 	db = nil

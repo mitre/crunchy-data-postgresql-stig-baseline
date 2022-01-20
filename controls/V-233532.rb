@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_timezone = input('pg_timezone')
-
 control	'V-233532' do
 	title	"PostgreSQL must record time stamps, in audit records and application data that can be mapped to 
 	Coordinated Universal Time (UTC, formerly GMT)."
@@ -51,13 +39,25 @@ Next, restart the database:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000374-DB-000322'
+  tag gid: 'V-233532'
+  tag rid: 'SV-233532r617333_rule'
+  tag stig_id: 'CD12-00-002400'
+  tag fix_id: 'F-36691r606820_fix'
+  tag cci: ["CCI-001890"]
+  tag nist: ["AU-8 b"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_timezone = input('pg_timezone')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

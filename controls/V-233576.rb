@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_log_dir = input('pg_log_dir')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233576' do
 	title	"PostgreSQL must generate audit records when unsuccessful attempts to add privileges/permissions occur."
 	desc	"Failed attempts to change the permissions, privileges, and roles granted to users and roles must be 
@@ -49,13 +37,25 @@ All denials are logged by default if logging is enabled. To ensure logging is en
 APPENDIX-C for instructions on enabling logging."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000495-DB-000327'
+  tag gid: 'V-233576'
+  tag rid: 'SV-233576r617333_rule'
+  tag stig_id: 'CD12-00-006900'
+  tag fix_id: 'F-36735r606952_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_log_dir = input('pg_log_dir')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 	if file(pg_audit_log_dir).exist?  

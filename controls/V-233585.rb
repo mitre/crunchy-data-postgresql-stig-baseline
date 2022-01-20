@@ -25,16 +25,17 @@ PostgreSQL uses OpenSSL for cryptographic modules. To configure OpenSSL to be FI
 official RHEL Documentation: 
 https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Security_Guide/sect-Security_Guide-Federal_Standards_And_Regulations-Federal_Information_Processing_Standard.html
 
-For more information on configuring PostgreSQL to use SSL, see supplementary content APPENDIX-G."
-	impact 0.8
+For more information on configuring PostgreSQL to use SSL, see supplementary
+content APPENDIX-G."
+  impact 0.7
 	tag severity: 'high'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000514-DB-000383'
+  tag gid: 'V-233585'
+  tag rid: 'SV-233585r617333_rule'
+  tag stig_id: 'CD12-00-008200'
+  tag fix_id: 'F-36744r606979_fix'
+  tag cci: ["CCI-002450"]
+  tag nist: ["SC-13"]
 
 	describe kernel_parameter('crypto.fips_enabled') do
 		its('value') { should cmp 1 }

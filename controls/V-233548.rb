@@ -33,13 +33,13 @@ $ psql -p 5432 -c \"SHOW port\"
 $ export PGPORT=5432"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000383-DB-000364'
+  tag gid: 'V-233548'
+  tag rid: 'SV-233548r617333_rule'
+  tag stig_id: 'CD12-00-004150'
+  tag fix_id: 'F-36707r606868_fix'
+  tag cci: ["CCI-001762"]
+  tag nist: ["CM-7 (1) (b)"]
 
 	describe "Check that all network functions, ports, protocols, and services comply with PPSM guidance" do
 		skip "If network functions, ports, procols, and services do not comply with PPSM guidance, this is a finding."

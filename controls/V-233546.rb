@@ -1,21 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_object_granted_privileges = input('pg_object_granted_privileges')
-
-pg_object_public_privileges = input('pg_object_public_privileges')
-
-pg_object_exceptions = input('pg_object_exceptions')
-
 control	'V-233546' do
 	title	"PostgreSQL must isolate security functions from non-security functions."
 	desc	"An isolation boundary provides access control and protects the integrity of the hardware, software, 
@@ -71,13 +55,29 @@ Do not grant access to pg_catalog or information_schema to anyone but the databa
 database administrator account(s) must not be granted to anyone without official approval."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000233-DB-000124'
+  tag gid: 'V-233546'
+  tag rid: 'SV-233546r617333_rule'
+  tag stig_id: 'CD12-00-004000'
+  tag fix_id: 'F-36705r606862_fix'
+  tag cci: ["CCI-001084"]
+  tag nist: ["SC-3"]
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_object_granted_privileges = input('pg_object_granted_privileges')
+
+pg_object_public_privileges = input('pg_object_public_privileges')
+
+pg_object_exceptions = input('pg_object_exceptions')
 
 	exceptions = "#{pg_object_exceptions.map { |e| "'#{e}'" }.join(',')}"
 	object_acl = "^(((#{pg_owner}=[#{pg_object_granted_privileges}]+|"\

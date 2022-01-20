@@ -30,13 +30,13 @@ It is possible to create scripts or implement third-party tools to enable real-t
 PostgreSQL."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000360-DB-000320'
+  tag gid: 'V-233535'
+  tag rid: 'SV-233535r617333_rule'
+  tag stig_id: 'CD12-00-002700'
+  tag fix_id: 'F-36694r606829_fix'
+  tag cci: ["CCI-001858"]
+  tag nist: ["AU-5 (2)"]
 
 	describe "Review the system documentation to determine which audit failure events require real-time alerts." do
 		skip "If the real-time alerting that is specified in the documentation is not enabled, this is a finding."

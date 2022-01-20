@@ -25,16 +25,17 @@ If \"fips\" is not included in the OpenSSL version, this is a finding."
 
 http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140sp/140sp1758.pdf
 
-For more information on configuring PostgreSQL to use SSL, see supplementary content APPENDIX-G."
-	impact 0.8
+For more information on configuring PostgreSQL to use SSL, see supplementary
+content APPENDIX-G."
+  impact 0.7
 	tag severity: 'high'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000179-DB-000114'
+  tag gid: 'V-233619'
+  tag rid: 'SV-233619r617333_rule'
+  tag stig_id: 'CD12-00-012300'
+  tag fix_id: 'F-36778r607081_fix'
+  tag cci: ["CCI-000803"]
+  tag nist: ["IA-7"]
 
 	describe command('openssl') do
 		it { should exist }

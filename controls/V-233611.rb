@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233611' do
 	title	"PostgreSQL must maintain the authenticity of communications sessions by guarding against 
 	man-in-the-middle attacks that guess at Session ID values."
@@ -52,13 +42,23 @@ For further SSL configurations, see the official documentation:
 https://www.postgresql.org/docs/current/static/ssl-tcp.html"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000224-DB-000384'
+  tag gid: 'V-233611'
+  tag rid: 'SV-233611r617333_rule'
+  tag stig_id: 'CD12-00-011400'
+  tag fix_id: 'F-36770r607057_fix'
+  tag cci: ["CCI-001188"]
+  tag nist: ["SC-23 (3)"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

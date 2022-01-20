@@ -46,13 +46,13 @@ documentation on installing pgaudit.
 To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000089-DB-000064'
+  tag gid: 'V-233580'
+  tag rid: 'SV-233580r617333_rule'
+  tag stig_id: 'CD12-00-007400'
+  tag fix_id: 'F-36739r606964_fix'
+  tag cci: ["CCI-000169"]
+  tag nist: ["AU-12 a"]
 
 	describe "Check PostgreSQL auditing to determine whether organization-defined auditable events are being audited by the system" do
 		skip "If organization-defined auditable events are not being audited, this is a finding."

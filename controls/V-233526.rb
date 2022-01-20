@@ -53,13 +53,13 @@ Use prepared statements when taking user input.
 Do not allow general users direct console access to PostgreSQL."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000251-DB-000160'
+  tag gid: 'V-233526'
+  tag rid: 'SV-233526r617333_rule'
+  tag stig_id: 'CD12-00-001800'
+  tag fix_id: 'F-36685r606802_fix'
+  tag cci: ["CCI-001310"]
+  tag nist: ["SI-10"]
 
 	describe "Review PostgreSQL code, application code, settings, column and field definitions, and constraints to determine 
 	whether the database is protected against invalid input." do

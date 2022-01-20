@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password',)
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233544' do
 	title	"When invalid inputs are received, PostgreSQL must behave in a predictable and documented manner that 
 	reflects organizational and system objectives."
@@ -51,13 +41,23 @@ To ensure that logging is enabled, review supplementary content APPENDIX-C for i
 All errors and denials are logged if logging is enabled."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000447-DB-000393'
+  tag gid: 'V-233544'
+  tag rid: 'SV-233544r617333_rule'
+  tag stig_id: 'CD12-00-003700'
+  tag fix_id: 'F-36703r606856_fix'
+  tag cci: ["CCI-002754"]
+  tag nist: ["SI-10 (3)"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password',)
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

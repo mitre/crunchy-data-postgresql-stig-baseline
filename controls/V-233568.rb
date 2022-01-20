@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233568' do
 	title	"PostgreSQL must generate audit records when privileges/permissions are deleted."
 	desc	"Changes in the permissions, privileges, and roles granted to users and roles must be tracked. Without 
@@ -51,13 +41,23 @@ Next, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000499-DB-000330'
+  tag gid: 'V-233568'
+  tag rid: 'SV-233568r617333_rule'
+  tag stig_id: 'CD12-00-006100'
+  tag fix_id: 'F-36727r606928_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

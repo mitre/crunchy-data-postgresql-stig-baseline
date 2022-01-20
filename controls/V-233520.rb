@@ -1,29 +1,5 @@
 # encoding: UTF-8
 
-# frozen_string_literal: true
-
-pg_ver = input('pg_version')
-
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_superusers = input('pg_superusers')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-pg_replicas = input('pg_replicas')
-
-approved_auth_methods = input('approved_auth_methods')
-
 control	'V-233520' do
 	title	"PostgreSQL must enforce approved authorizations for logical access to information and system resources 
 	in accordance with applicable access control policies."
@@ -191,13 +167,39 @@ After changes to pg_hba.conf, reload the server:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000033-DB-000084'
+  tag gid: 'V-233520'
+  tag rid: 'SV-233520r617333_rule'
+  tag stig_id: 'CD12-00-000900'
+  tag fix_id: 'F-36679r606784_fix'
+  tag cci: ["CCI-000213"]
+  tag nist: ["AC-3"]
+
+
+
+# frozen_string_literal: true
+
+pg_ver = input('pg_version')
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_superusers = input('pg_superusers')
+
+pg_hba_conf_file = input('pg_hba_conf_file')
+
+pg_replicas = input('pg_replicas')
+
+approved_auth_methods = input('approved_auth_methods')
 
 	if input('windows_runner')
 		describe 'Requires manual review at this time.' do

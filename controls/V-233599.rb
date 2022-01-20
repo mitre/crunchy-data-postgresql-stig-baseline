@@ -1,7 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
 control	'V-233599' do
 	title	"The system must provide a warning to appropriate support staff when allocated audit record storage 
 	volume reaches 75 percent of maximum audit record storage capacity."
@@ -47,13 +45,15 @@ fi
 Schedule this script in cron to run around the clock."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000359-DB-000319'
+  tag gid: 'V-233599'
+  tag rid: 'SV-233599r617333_rule'
+  tag stig_id: 'CD12-00-009900'
+  tag fix_id: 'F-36758r607021_fix'
+  tag cci: ["CCI-001855"]
+  tag nist: ["AU-5 (1)"]
+
+pg_ver = input('pg_version')
 
 	describe "Check system configuration for storage alerts." do
 		skip "Review system configuration. If no script/tool is monitoring the partition for the PostgreSQL log directories, this is a finding."

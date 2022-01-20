@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233553' do
 	title	"PostgreSQL must generate audit records when unsuccessful logons or connection attempts occur."
 	desc	"For completeness of forensic analysis, it is necessary to track failed attempts to log on to 
@@ -64,13 +50,27 @@ Next, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000503-DB-000351'
+  tag gid: 'V-233553'
+  tag rid: 'SV-233553r617333_rule'
+  tag stig_id: 'CD12-00-004600'
+  tag fix_id: 'F-36712r606883_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
 
 	if file(pg_audit_log_dir).exist?

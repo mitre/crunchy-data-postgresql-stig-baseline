@@ -1,9 +1,5 @@
 # encoding: UTF-8
 
-pg_data_dir = input('pg_data_dir')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
-
 control	'V-233519' do
 	title	"If passwords are used for authentication, PostgreSQL must transmit only encrypted representations of 
 	passwords."
@@ -38,13 +34,18 @@ $ vi ${PGDATA?}/pg_hba.conf
 host all all .example.com scram-sha-256"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000172-DB-000075'
+  tag gid: 'V-233519'
+  tag rid: 'SV-233519r617333_rule'
+  tag stig_id: 'CD12-00-000800'
+  tag fix_id: 'F-36678r606781_fix'
+  tag cci: ["CCI-000197"]
+  tag nist: ["IA-5 (1) (c)"]
+
+
+pg_data_dir = input('pg_data_dir')
+
+pg_hba_conf_file = input('pg_hba_conf_file')
 
 	describe postgres_hba_conf(pg_hba_conf_file) do
 		its('auth_method') { should_not include 'password' }

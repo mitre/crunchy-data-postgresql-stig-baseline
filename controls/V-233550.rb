@@ -1,7 +1,5 @@
 # encoding: UTF-8
 
-pg_version = input('pg_version')
-
 control	'V-233550' do
 	title	"When updates are applied to PostgreSQL software, any software components that have been replaced or 
 	made unnecessary must be removed."
@@ -24,14 +22,16 @@ If multiple versions of postgres are installed but are unused, this is a finding
 	updated."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000454-DB-000389'
+  tag gid: 'V-233550'
+  tag rid: 'SV-233550r617333_rule'
+  tag stig_id: 'CD12-00-004300'
+  tag fix_id: 'F-36709r606874_fix'
+  tag cci: ["CCI-002617"]
+  tag nist: ["SI-2 (6)"]
 
+
+pg_version = input('pg_version')
 
 	if os.debian?
 		dpkg_packages = command("apt list --installed | grep \"postgres\"").stdout.split("\n")

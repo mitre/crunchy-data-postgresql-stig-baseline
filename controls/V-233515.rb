@@ -56,9 +56,10 @@ As the database administrator (shown here as \"postgres\"), edit pg_hba.conf aut
 $ sudo su - postgres
 $ vi ${PGDATA?}/pg_hba.conf
 
-For each PostgreSQL-managed account that is not documented and approved, either transfer it to management by the 
-external mechanism, or document the need for it and obtain approval, as appropriate."
-	impact 0.8
+For each PostgreSQL-managed account that is not documented and approved, either
+transfer it to management by the external mechanism, or document the need for it
+and obtain approval, as appropriate."
+  impact 0.7
 	tag severity: 'high'
   tag gtitle: 'SRG-APP-000023-DB-000001'
   tag gid: 'V-233515'

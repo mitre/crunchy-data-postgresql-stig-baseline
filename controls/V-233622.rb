@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233622' do
 	title	"PostgreSQL must generate audit records for all direct access to the database(s)."
 	desc	"In this context, direct access is any query, command, or call to the DBMS that comes from any source 
@@ -54,13 +44,23 @@ Now, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000508-DB-000358'
+  tag gid: 'V-233622'
+  tag rid: 'SV-233622r617333_rule'
+  tag stig_id: 'CD12-00-012700'
+  tag fix_id: 'F-36781r607090_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

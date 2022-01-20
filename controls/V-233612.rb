@@ -1,25 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_users = input('pg_users')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-pg_replicas = input('pg_replicas')
-
-approved_auth_methods = input('approved_auth_methods')
-
 control	'V-233612' do
 	title	"PostgreSQL must uniquely identify and authenticate organizational users (or processes acting on behalf 
 	of organizational users)."
@@ -83,13 +63,33 @@ For more information on pg_hba.conf, see the official documentation:
 https://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000148-DB-000103'
+  tag gid: 'V-233612'
+  tag rid: 'SV-233612r617333_rule'
+  tag stig_id: 'CD12-00-011500'
+  tag fix_id: 'F-36771r607060_fix'
+  tag cci: ["CCI-000764"]
+  tag nist: ["IA-2"]
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_users = input('pg_users')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_hba_conf_file = input('pg_hba_conf_file')
+
+pg_replicas = input('pg_replicas')
+
+approved_auth_methods = input('approved_auth_methods')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

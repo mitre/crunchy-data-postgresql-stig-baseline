@@ -35,13 +35,13 @@ If the cn and the username mapping do not match, this is a finding."
 For information on configuring PostgreSQL to use SSL, see supplementary content APPENDIX-G."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000177-DB-000069'
+  tag gid: 'V-233615'
+  tag rid: 'SV-233615r617333_rule'
+  tag stig_id: 'CD12-00-011800'
+  tag fix_id: 'F-36774r607069_fix'
+  tag cci: ["CCI-000187"]
+  tag nist: ["IA-5 (2) (c)"]
 
 	describe "The cn  attribute of the certificate will be compared to the requested database user name, and if they match the login will be allowed." do
 		skip "If the cn and the username mapping do not match, this is a finding."

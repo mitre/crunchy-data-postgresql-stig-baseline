@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_superusers = input('pg_superusers')
-
 control	'V-233534' do
 	title	"PostgreSQL must allow only the Information System Security Manager (ISSM), or individuals or roles 
 	appointed by the ISSM, to select which auditable events are to be audited."
@@ -62,13 +48,27 @@ $ chown postgres:postgres ${PGDATA?}/postgresql.conf
 $ chmod 600 ${PGDATA?}/postgresql.conf"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000090-DB-000065'
+  tag gid: 'V-233534'
+  tag rid: 'SV-233534r617333_rule'
+  tag stig_id: 'CD12-00-002600'
+  tag fix_id: 'F-36693r606826_fix'
+  tag cci: ["CCI-000171"]
+  tag nist: ["AU-12 b"]
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_superusers = input('pg_superusers')
 
 	describe directory(pg_data_dir) do
 		it { should be_directory }

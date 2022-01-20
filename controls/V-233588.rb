@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
 control	'V-233588' do
 	title	"PostgreSQL must separate user functionality (including user interface services) from database 
 	management functionality."
@@ -51,13 +39,25 @@ To remove privileges, see the following example:
 ALTER ROLE <username> NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS;"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000211-DB-000122'
+  tag gid: 'V-233588'
+  tag rid: 'SV-233588r617333_rule'
+  tag stig_id: 'CD12-00-008500'
+  tag fix_id: 'F-36747r606988_fix'
+  tag cci: ["CCI-001082"]
+  tag nist: ["SC-2"]
+
+pg_owner = input('pg_owner')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_superusers = input('pg_superusers')
 
 	privileges = %w(rolcreatedb rolcreaterole rolsuper)
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))

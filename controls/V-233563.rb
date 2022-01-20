@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233563' do
 	title	"PostgreSQL must generate audit records when unsuccessful attempts to modify categorized 
 	information (e.g., classification levels/security levels) occur."
@@ -56,13 +46,23 @@ Next, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000498-DB-000347'
+  tag gid: 'V-233563'
+  tag rid: 'SV-233563r617333_rule'
+  tag stig_id: 'CD12-00-005600'
+  tag fix_id: 'F-36722r606913_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

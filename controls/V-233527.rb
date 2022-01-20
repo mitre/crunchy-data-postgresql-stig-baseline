@@ -32,13 +32,13 @@ execution with strongly typed parameters, this is a finding."
 	be satisfied by static execution with strongly typed parameters, modify the code to do so."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000251-DB-000391'
+  tag gid: 'V-233527'
+  tag rid: 'SV-233527r617333_rule'
+  tag stig_id: 'CD12-00-001900'
+  tag fix_id: 'F-36686r606805_fix'
+  tag cci: ["CCI-001310"]
+  tag nist: ["SI-10"]
 
 	describe "Review PostgreSQL source code and application source code, to identify cases of dynamic code execution." do
 		skip "If dynamic code execution is employed where an objective can satisfied by static execution with strongly typed parameters, this is a finding."

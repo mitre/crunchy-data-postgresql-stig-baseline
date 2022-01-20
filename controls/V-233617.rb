@@ -1,11 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_group = input('pg_group')
-
-pg_data_dir = input('pg_data_dir')
-
 control	'V-233617' do
 	title	"Access to database files must be limited to relevant processes and to authorized, administrative users."
 	desc	"Applications, including PostgreSQL, must prevent unauthorized and unintended information transfer 
@@ -42,13 +36,19 @@ Any files (for example: extra configuration files) created in ${PGDATA?} must be
 with only owner permissions to read, write, and execute."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000243-DB-000374'
+  tag gid: 'V-233617'
+  tag rid: 'SV-233617r617333_rule'
+  tag stig_id: 'CD12-00-012000'
+  tag fix_id: 'F-36776r607075_fix'
+  tag cci: ["CCI-001090"]
+  tag nist: ["SC-4"]
+
+pg_owner = input('pg_owner')
+
+pg_group = input('pg_group')
+
+pg_data_dir = input('pg_data_dir')
 
 	describe command("find pg_data_dir ! -user pg_owner ! -group pg_group -type f -readable -writable | wc -l") do
 		its('stdout.strip') { should eq '0' }

@@ -25,13 +25,13 @@ access to the account has been granted, this is a finding."
 	software installation account."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000133-DB-000198'
+  tag gid: 'V-233540'
+  tag rid: 'SV-233540r617333_rule'
+  tag stig_id: 'CD12-00-003200'
+  tag fix_id: 'F-36699r606844_fix'
+  tag cci: ["CCI-001499"]
+  tag nist: ["CM-5 (6)"]
 
 	describe "Review procedures for controlling, granting access to, and tracking use of the PostgreSQL software installation account(s)." do
 		skip "If account(s) are not restricted to the minimum personnel required or if unauthorized access to the account has been granted, this is a finding"

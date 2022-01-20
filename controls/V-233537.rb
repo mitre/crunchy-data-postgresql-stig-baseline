@@ -33,13 +33,13 @@ have not been updated to compensate, this is a finding."
 when a specific percentage of log storage capacity is reached."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000109-DB-000049'
+  tag gid: 'V-233537'
+  tag rid: 'SV-233537r617333_rule'
+  tag stig_id: 'CD12-00-002900'
+  tag fix_id: 'F-36696r606835_fix'
+  tag cci: ["CCI-000140"]
+  tag nist: ["AU-5 b"]
 
 	describe "Check that PostgreSQL will shutdown upon audit failure." do
 		skip "If PostgreSQL does not shut down upon audit failure or is not configurable to, this is a finding."

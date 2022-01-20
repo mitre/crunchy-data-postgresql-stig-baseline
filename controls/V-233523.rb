@@ -1,21 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_group = input('pg_group')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_superusers = input('pg_superusers')
-
 control	'V-233523' do
 	title	"The role(s)/group(s) used to modify database structure (including but not necessarily limited to 
 	tables, indexes, storage, etc.) and logic modules (functions, trigger procedures, links to software external to 
@@ -57,13 +41,31 @@ ALTER ROLE bob NOINHERIT;
 REVOKE SELECT ON some_function FROM bob;"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000133-DB-000362'
+  tag gid: 'V-233523'
+  tag rid: 'SV-233523r617333_rule'
+  tag stig_id: 'CD12-00-001300'
+  tag fix_id: 'F-36682r606793_fix'
+  tag cci: ["CCI-001499"]
+  tag nist: ["CM-5 (6)"]
+
+
+
+pg_owner = input('pg_owner')
+
+pg_group = input('pg_group')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_superusers = input('pg_superusers')
 
 	if !input('windows_runner')
 		sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))

@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233608' do
 	title	"PostgreSQL must produce audit records containing time stamps to establish when the events occurred."
 	desc	"Information system auditing capability is critical for accurate forensic analysis. Without establishing 
@@ -55,13 +45,23 @@ Now, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000096-DB-000040'
+  tag gid: 'V-233608'
+  tag rid: 'SV-233608r617333_rule'
+  tag stig_id: 'CD12-00-011100'
+  tag fix_id: 'F-36767r607048_fix'
+  tag cci: ["CCI-000131"]
+  tag nist: ["AU-3"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

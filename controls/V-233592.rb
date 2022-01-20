@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_conf_file= input('pg_conf_file')
-
-pg_host = input('pg_host')
-
-login_user = input('login_user')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-approved_ext = input('approved_ext')
-
 control	'V-233592' do
 	title	"Unused database components, PostgreSQL software, and database objects must be removed."
 	desc	"Information systems are capable of providing a wide variety of functions and services. Some of the 
@@ -39,13 +25,27 @@ $ psql -c \"DROP EXTENSION <extension_name>\"
 Note: It is recommended that plpgsql not be removed."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000141-DB-000091'
+  tag gid: 'V-233592'
+  tag rid: 'SV-233592r617333_rule'
+  tag stig_id: 'CD12-00-008900'
+  tag fix_id: 'F-36751r607000_fix'
+  tag cci: ["CCI-000381"]
+  tag nist: ["CM-7 a"]
+
+pg_conf_file= input('pg_conf_file')
+
+pg_host = input('pg_host')
+
+login_user = input('login_user')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+approved_ext = input('approved_ext')
 
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

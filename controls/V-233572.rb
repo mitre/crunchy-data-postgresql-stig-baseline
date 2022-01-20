@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233572' do
 	title	"PostgreSQL must generate audit records when unsuccessful attempts to execute privileged activities or 
 	other system-level access occur."
@@ -73,13 +59,27 @@ All denials are logged by default if logging is enabled. To ensure that logging 
 content APPENDIX-C for instructions on enabling logging."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000504-DB-000355'
+  tag gid: 'V-233572'
+  tag rid: 'SV-233572r617333_rule'
+  tag stig_id: 'CD12-00-006500'
+  tag fix_id: 'F-36731r606940_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
 	if file(pg_audit_log_dir).exist?
 		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"CREATE ROLE fooaudit; SET ROLE fooaudit; CREATE ROLE fooauditbad SUPERUSER;\"") do

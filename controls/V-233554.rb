@@ -1,19 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233554' do
 	title	"PostgreSQL must generate audit records showing starting and ending time for user access to the 
 	database(s)."
@@ -73,13 +59,27 @@ Now, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000505-DB-000352'
+  tag gid: 'V-233554'
+  tag rid: 'SV-233554r617333_rule'
+  tag stig_id: 'CD12-00-004700'
+  tag fix_id: 'F-36713r606886_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
 	if file(pg_audit_log_dir).exist?
 		describe command("grep -r \"connection authorized\" #{pg_audit_log_dir}") do

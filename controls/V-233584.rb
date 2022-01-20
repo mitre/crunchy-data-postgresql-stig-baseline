@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233584' do
 	title	"PostgreSQL must use NSA-approved cryptography to protect classified information in accordance with the 
 	data owner’s requirements."
@@ -59,13 +49,23 @@ For more information on configuring PostgreSQL to use SSL, see supplementary con
 Deploy NSA-approved encrypting devices to protect the server on the network."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000416-DB-000380'
+  tag gid: 'V-233584'
+  tag rid: 'SV-233584r617333_rule'
+  tag stig_id: 'CD12-00-008100'
+  tag fix_id: 'F-36743r606976_fix'
+  tag cci: ["CCI-002450"]
+  tag nist: ["SC-13"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

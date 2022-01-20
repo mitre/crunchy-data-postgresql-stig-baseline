@@ -40,13 +40,13 @@ finding."
 	existing records if necessary."
 	impact 0.3
 	tag severity: 'low'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000109-DB-000321'
+  tag gid: 'V-233536'
+  tag rid: 'SV-233536r617333_rule'
+  tag stig_id: 'CD12-00-002800'
+  tag fix_id: 'F-36695r606832_fix'
+  tag cci: ["CCI-000140"]
+  tag nist: ["AU-5 b"]
 
 	describe "Check that audit logs are overwritten in a FIFO manner." do
 		skip "If audit logs are not overwritten in a FIFO manner, this is a finding."

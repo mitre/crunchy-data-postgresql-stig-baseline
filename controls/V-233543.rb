@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233543' do
 	title	"Execution of software modules (to include functions and trigger procedures) with elevated privileges 
 	must be restricted to necessary cases only."
@@ -53,13 +45,21 @@ $ sudo su - postgres
 $ psql -c \"ALTER FUNCTION <function_name> SECURITY INVOKER\""
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000342-DB-000302'
+  tag gid: 'V-233543'
+  tag rid: 'SV-233543r617333_rule'
+  tag stig_id: 'CD12-00-003600'
+  tag fix_id: 'F-36702r606853_fix'
+  tag cci: ["CCI-002233"]
+  tag nist: ["AC-6 (8)"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

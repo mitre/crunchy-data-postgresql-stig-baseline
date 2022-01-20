@@ -48,13 +48,13 @@ If dynamic code execution is employed without protective measures against code i
 	injection (IE: prepared statements)."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000251-DB-000392'
+  tag gid: 'V-233528'
+  tag rid: 'SV-233528r617333_rule'
+  tag stig_id: 'CD12-00-002000'
+  tag fix_id: 'F-36687r606808_fix'
+  tag cci: ["CCI-001310"]
+  tag nist: ["SI-10"]
 
 	describe "Review PostgreSQL source code and application source code to identify cases of dynamic code execution" do
 		skip "If dynamic code execution is deployed without protective measures against code injection, this is a finding."

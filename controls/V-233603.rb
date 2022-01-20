@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233603' do
 	title	"PostgreSQL must only accept end entity certificates issued by DoD PKI or DoD-approved PKI 
 	Certification Authorities (CAs) for the establishment of all encrypted sessions."
@@ -38,13 +30,21 @@ http://www.postgresql.org/docs/current/static/ssl-tcp.html
 For more information on configuring PostgreSQL to use SSL, see supplementary content APPENDIX-G."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000427-DB-000385'
+  tag gid: 'V-233603'
+  tag rid: 'SV-233603r617340_rule'
+  tag stig_id: 'CD12-00-010300'
+  tag fix_id: 'F-36762r607033_fix'
+  tag cci: ["CCI-002470"]
+  tag nist: ["SC-23 (5)"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

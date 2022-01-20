@@ -26,13 +26,13 @@ fails to remove any copies of production data from unprotected locations, this i
 	locations."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000243-DB-000128'
+  tag gid: 'V-233616'
+  tag rid: 'SV-233616r617333_rule'
+  tag stig_id: 'CD12-00-011900'
+  tag fix_id: 'F-36775r607072_fix'
+  tag cci: ["CCI-001090"]
+  tag nist: ["SC-4"]
 
 	describe "Review the procedures for the refreshing of development/test data from production." do
 		skip "If code for data movement does not comply with the organization-defined data transfer policy and/or fails to remove any copies of production data from unprotected locations, this is a finding."

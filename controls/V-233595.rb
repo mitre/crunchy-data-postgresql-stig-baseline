@@ -38,13 +38,13 @@ RLS policies can be very different depending on their use case. For one example 
 	see supplementary content APPENDIX-D."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000313-DB-000309'
+  tag gid: 'V-233595'
+  tag rid: 'SV-233595r617333_rule'
+  tag stig_id: 'CD12-00-009400'
+  tag fix_id: 'F-36754r607009_fix'
+  tag cci: ["CCI-002263"]
+  tag nist: ["AC-16 a"]
 
 	describe "Check security labeling requirements" do
 		skip "If security labeling is not implemented or does not reliably maintain labels on information in process, this is a finding."

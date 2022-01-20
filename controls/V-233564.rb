@@ -1,17 +1,5 @@
 # encoding: UTF-8
 
-pg_conf_file= input('pg_conf_file')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
 control	'V-233564' do
 	title	"PostgreSQL must generate audit records when unsuccessful accesses to objects occur."
   desc	"Without tracking all or selected types of access to all or selected objects (tables, views, procedures, 
@@ -73,13 +61,25 @@ All errors and denials are logged if logging is enabled. To ensure that logging 
 content APPENDIX-C for instructions on enabling logging."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000507-DB-000357'
+  tag gid: 'V-233564'
+  tag rid: 'SV-233564r617333_rule'
+  tag stig_id: 'CD12-00-005700'
+  tag fix_id: 'F-36723r606916_fix'
+  tag cci: ["CCI-000172"]
+  tag nist: ["AU-12 c"]
+
+pg_conf_file= input('pg_conf_file')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
 
     sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

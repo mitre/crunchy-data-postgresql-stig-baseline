@@ -41,13 +41,13 @@ RLS policies can be very different depending on their use case. For one example 
 	see supplementary content APPENDIX-D."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000314-DB-000310'
+  tag gid: 'V-233521'
+  tag rid: 'SV-233521r617333_rule'
+  tag stig_id: 'CD12-00-001100'
+  tag fix_id: 'F-36680r606787_fix'
+  tag cci: ["CCI-002264"]
+  tag nist: ["AC-16 a"]
 
 	describe "Check security labeling is implemented according to the system documentation" do
 		skip "If security labeling is required if a policy is not attached to the table, this is a finding."

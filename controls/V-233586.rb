@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233586' do
 	title	"PostgreSQL must protect the confidentiality and integrity of all information at rest."
 	desc	"This control is intended to address the confidentiality and integrity of information at rest in 
@@ -51,13 +43,21 @@ With pgcrypto installed, it is possible to insert encrypted data into the databa
 INSERT INTO accounts(username, password) VALUES ('bob', crypt('a_secure_password', gen_salt('xdes')));"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000231-DB-000154'
+  tag gid: 'V-233586'
+  tag rid: 'SV-233586r617333_rule'
+  tag stig_id: 'CD12-00-008300'
+  tag fix_id: 'F-36745r606982_fix'
+  tag cci: ["CCI-001199"]
+  tag nist: ["SC-28"]
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

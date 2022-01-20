@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233604' do
 	title	"PostgreSQL must produce audit records containing sufficient information to establish what type of 
 	events occurred."
@@ -88,13 +78,23 @@ Now, as the system administrator, reload the server with the new configuration:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000095-DB-000039'
+  tag gid: 'V-233604'
+  tag rid: 'SV-233604r617333_rule'
+  tag stig_id: 'CD12-00-010400'
+  tag fix_id: 'F-36763r607036_fix'
+  tag cci: ["CCI-000130"]
+  tag nist: ["AU-3"]
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 

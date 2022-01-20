@@ -38,13 +38,13 @@ documentation on installing pgaudit.
 To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging."
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000101-DB-000044'
+  tag gid: 'V-233542'
+  tag rid: 'SV-233542r617333_rule'
+  tag stig_id: 'CD12-00-003500'
+  tag fix_id: 'F-36701r606850_fix'
+  tag cci: ["CCI-000135"]
+  tag nist: ["AU-3 (1)"]
 
 	describe "Check PostgreSQL settings and existing audit records to verify that all organization-defined information is in the audit" do
 		skip "If any additional information is defined and is not contained in the audit records, this is a finding"

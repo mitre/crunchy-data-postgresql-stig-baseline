@@ -50,13 +50,13 @@ To make all users re-authenticate, the following must be present:
 SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE user LIKE '%'"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000389-DB-000372'
+  tag gid: 'V-233601'
+  tag rid: 'SV-233601r617333_rule'
+  tag stig_id: 'CD12-00-010100'
+  tag fix_id: 'F-36760r607027_fix'
+  tag cci: ["CCI-002038"]
+  tag nist: ["IA-11"]
 
 	describe "Determine all situations where a user must re-authenticate" do
 		skip "If the provided SQL queries do not force re-authentication, this is a finding."

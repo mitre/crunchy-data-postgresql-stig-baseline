@@ -1,29 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_group = input('pg_owner')
-
-pg_ver = input('pg_version')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-pg_ident_conf_file = input('pg_ident_conf_file')
-
-pg_user_defined_conf_file = input('pg_user_defined_conf')
-
-pg_shared_dirs = input('pg_shared_dirs')
-
 control	'V-233609' do
 	title	"PostgreSQL must protect its audit features from unauthorized removal."
 	desc	"Protecting audit data also includes identifying and protecting the tools used to view and manipulate 
@@ -67,13 +43,37 @@ As the system administrator, change the permissions of pgsql:
 $ sudo chown -R root:root /usr/pgsql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000123-DB-000204'
+  tag gid: 'V-233609'
+  tag rid: 'SV-233609r617333_rule'
+  tag stig_id: 'CD12-00-011200'
+  tag fix_id: 'F-36768r607051_fix'
+  tag cci: ["CCI-001495"]
+  tag nist: ["AU-9"]
+
+pg_owner = input('pg_owner')
+
+pg_group = input('pg_owner')
+
+pg_ver = input('pg_version')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_hba_conf_file = input('pg_hba_conf_file')
+
+pg_ident_conf_file = input('pg_ident_conf_file')
+
+pg_user_defined_conf_file = input('pg_user_defined_conf')
+
+pg_shared_dirs = input('pg_shared_dirs')
 
 	describe file(pg_hba_conf_file) do
 		it { should be_owned_by pg_owner }

@@ -1,21 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_conf_file = input('pg_conf_file')
-
 control	'V-233533' do
 	title	"PostgreSQL must reveal detailed error messages only to the ISSO, ISSM, SA, and DBA."
   desc	"If PostgreSQL provides too much information in error logs and administrative messages to the screen, this 
@@ -91,15 +75,32 @@ $ vi ${PGDATA?}/postgresql.conf
 client_min_messages = error"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000267-DB-000163'
+  tag gid: 'V-233533'
+  tag rid: 'SV-233533r617333_rule'
+  tag stig_id: 'CD12-00-002500'
+  tag fix_id: 'F-36692r606823_fix'
+  tag cci: ["CCI-001314"]
+  tag nist: ["SI-11 b"]
 
 # @todo determine how to handle stderr errors?
+
+
+pg_owner = input('pg_owner')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_conf_file = input('pg_conf_file')
 
 describe directory(pg_log_dir) do
     it { should be_directory }
