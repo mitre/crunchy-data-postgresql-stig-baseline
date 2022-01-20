@@ -1,8 +1,5 @@
 # encoding: UTF-8
 
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-approved_auth_methods = input('approved_auth_methods')
 
 control	'V-233515' do
 	title	"PostgreSQL must integrate with an organization-level authentication/access mechanism providing account 
@@ -63,13 +60,17 @@ For each PostgreSQL-managed account that is not documented and approved, either 
 external mechanism, or document the need for it and obtain approval, as appropriate."
 	impact 0.8
 	tag severity: 'high'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000023-DB-000001'
+  tag gid: 'V-233515'
+  tag rid: 'SV-233515r617333_rule'
+  tag stig_id: 'CD12-00-000500'
+  tag fix_id: 'F-36674r606769_fix'
+  tag cci: ["CCI-000015"]
+  tag nist: ["AC-2 (1)"]
+
+pg_hba_conf_file = input('pg_hba_conf_file')
+
+approved_auth_methods = input('approved_auth_methods')
 
 	describe postgres_hba_conf(pg_hba_conf_file).where { type == 'local' } do
 		its('auth_method.uniq') { should be_in approved_auth_methods }

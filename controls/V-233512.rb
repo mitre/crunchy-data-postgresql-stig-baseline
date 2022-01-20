@@ -1,15 +1,5 @@
 # encoding: UTF-8
 
-pg_conf_file= input('pg_conf_file')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 control	'V-233512' do
   title	"PostgreSQL must produce audit records containing sufficient information to establish the outcome (success or 
   failure) of the events."
@@ -97,13 +87,25 @@ Last, as the system administrator, restart PostgreSQL:
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000099-DB-000043'
+  tag gid: 'V-233512'
+  tag rid: 'SV-233512r617333_rule'
+  tag stig_id: 'CD12-00-000200'
+  tag fix_id: 'F-36671r606760_fix'
+  tag cci: ["CCI-000134"]
+  tag nist: ["AU-3"]
+
+
+
+pg_conf_file= input('pg_conf_file')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))    
 

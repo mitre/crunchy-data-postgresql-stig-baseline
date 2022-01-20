@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_conf_file = input('pg_conf_file')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-pg_ident_conf_file = input('pg_ident_conf_file')
-
 control	'V-233518' do
 	title	"PostgreSQL must limit privileges to change functions and triggers, and links to software external to 
 	PostgreSQL."
@@ -57,13 +49,22 @@ $ sudo su - postgres
 $ psql -c \"ALTER ROLE rolename WITH NOSUPERUSER\""
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000133-DB-000179'
+  tag gid: 'V-233518'
+  tag rid: 'SV-233518r617333_rule'
+  tag stig_id: 'CD12-00-000710'
+  tag fix_id: 'F-36677r606778_fix'
+  tag cci: ["CCI-001499"]
+  tag nist: ["CM-5 (6)"]
+
+
+pg_owner = input('pg_owner')
+
+pg_conf_file = input('pg_conf_file')
+
+pg_hba_conf_file = input('pg_hba_conf_file')
+
+pg_ident_conf_file = input('pg_ident_conf_file')
 
 	describe file(pg_conf_file) do
 		it { should be_owned_by pg_owner }

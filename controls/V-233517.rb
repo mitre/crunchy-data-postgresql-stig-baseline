@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-pg_owner = input('pg_owner')
-
-pg_ver = input('pg_version')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_shared_dirs = input('pg_shared_dirs')
-
 control	'V-233517' do
 	title	"Privileges to change PostgreSQL software modules must be limited."
 	desc	"If the system were to allow any user to make changes to software libraries, those changes might be 
@@ -63,13 +55,22 @@ $ sudo chown root:root /usr/pgsql-${PGVER?}/bin/*
 $ sudo chmod 0755 /usr/pgsql-${PGVER?}/bin/*"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000133-DB-000179'
+  tag gid: 'V-233517'
+  tag rid: 'SV-233517r617333_rule'
+  tag stig_id: 'CD12-00-000700'
+  tag fix_id: 'F-36676r606775_fix'
+  tag cci: ["CCI-001499"]
+  tag nist: ["CM-5 (6)"]
+
+
+pg_owner = input('pg_owner')
+
+pg_ver = input('pg_version')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_shared_dirs = input('pg_shared_dirs')
 
 	describe file(pg_data_dir) do
 		it { should be_directory }

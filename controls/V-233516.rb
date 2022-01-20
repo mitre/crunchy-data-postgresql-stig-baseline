@@ -1,21 +1,5 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_conf_file = input('pg_conf_file')
-
-pg_user_defined_conf = input('pg_user_defined_conf')
-
 control	'V-233516' do
 	title	"PostgreSQL must provide non-privileged users with error messages that provide information necessary for 
 	corrective actions without revealing information that could be exploited by adversaries."
@@ -56,13 +40,30 @@ Reload the server with the new configuration (this just reloads settings current
 $ sudo systemctl reload postgresql-${PGVER?}"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000266-DB-000162'
+  tag gid: 'V-233516'
+  tag rid: 'SV-233516r617333_rule'
+  tag stig_id: 'CD12-00-000600'
+  tag fix_id: 'F-36675r606772_fix'
+  tag cci: ["CCI-001312"]
+  tag nist: ["SI-11 a"]
+
+
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_data_dir = input('pg_data_dir')
+
+pg_conf_file = input('pg_conf_file')
+
+pg_user_defined_conf = input('pg_user_defined_conf')
 
 	default = postgres_conf(pg_conf_file)
 	override = postgres_conf(pg_user_defined_conf)
