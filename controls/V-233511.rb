@@ -1,14 +1,6 @@
 # encoding: UTF-8
 
-pg_ver = input('pg_version')
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
 
 control	'V-233511' do
 	title	"PostgreSQL must be configured to prohibit or restrict the use of organization-defined functions, ports, 
@@ -59,14 +51,23 @@ $ psql -p 5432 -c \"SHOW port\"
 $ export PGPORT=5432"
 	impact 0.5
 	tag severity: 'medium'
-	tag gtitle: nil
-	tag gid: nil
-	tag rid: nil
-	tag stig_id: nil
-	tag fix_id: nil
-	tag cci: nil
-	tag nist: nil
+  tag gtitle: 'SRG-APP-000142-DB-000094'
+  tag gid: 'V-233511'
+  tag rid: 'SV-233511r617335_rule'
+  tag stig_id: 'CD12-00-000100'
+  tag fix_id: 'F-36670r617334_fix'
+  tag cci: ["CCI-000382"]
+  tag nist: ["CM-7 b"]
 
+pg_ver = input('pg_version')
+
+pg_dba = input('pg_dba')
+
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
 
 	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
   
