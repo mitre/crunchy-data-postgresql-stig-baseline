@@ -2,7 +2,7 @@
 
 InSpec profile to validate the secure configuration of Crunchy Data PostgreSQL against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Crunchy Data PostgreSQL STIG Version 1 Release 1.
 
-#### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of PostgreSQL, based on reference container: (docker pull registry1.dso.mil/ironbank/opensource/postgres/postgresql96:9.6.23)
+#### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of PostgreSQL
 
 ## Getting Started
 
