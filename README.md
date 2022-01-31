@@ -1,6 +1,6 @@
 # crunchy-data-postgresql-stig-baseline
 
-InSpec profile to validate the secure configuration of Crunchy Data PostgreSQL against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Crunchy Data PostgreSQL STIG Version 1 Release 1.
+InSpec profile to validate the secure configuration of Crunchy Data PostgreSQL against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Crunchy Data PostgreSQL STIG Version 1 Release 1. (Applies to database versions 10, 11, 12 & 13)
 
 #### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of PostgreSQL
 
