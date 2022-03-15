@@ -98,17 +98,17 @@ pg_ident_conf_file: ''
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pg_shared_dirs: ['/usr/pgsql-12', '/usr/pgsql-12/bin', '/usr/pgsql-12/include', '/usr/pgsql-12/lib', '/usr/pgsql-12/share']
 
-# Description: 'The location of the postgres log files on the system'
+# Description: 'V-233514, V-233533, V-233607 use this input for the location of the postgres log files on the system'
 # e.g., Default for version 12: '/var/lib/pgsql/12/data/log'
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pg_log_dir: '/var/lib/pgsql/12/data/log'
 
-# Description: 'The location of the postgres audit log files on the system'
+# Description: 'V-233544, V-233547, V-233549, V-233552, V-233553, V-233554, V-233555, V-233556, V-233558, V-233559, V-233560, V-233561, V-233562, V-233564, V-233572, V-233575, V-233576 use this input for the location of the postgres audit log files on the system'
 # e.g., Default for version 12: '/var/lib/pgsql/12/data/log'
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pg_audit_log_dir: '/var/lib/pgsql/12/data/log'
 
-# Description: 'V-73039 uses this location of the pgaudit installation on the system'
+# Description: 'V-233607 uses this input for the location of the pgaudit installation directory on the system'
 # e.g., Default for version 12: '/usr/pgsql-12/share/contrib/pgaudit'
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pgaudit_installation: '/usr/pgsql-12/share/contrib/pgaudit'
