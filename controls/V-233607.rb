@@ -98,7 +98,7 @@ pg_superusers = input('pg_superusers')
 
 pgaudit_installation = input('pgaudit_installation')
 
-	describe directory(pg_log_dir) do
+	  describe directory(pg_log_dir) do
 		it { should be_owned_by pg_owner }
 		it { should be_grouped_into pg_group }
 	  end 
@@ -107,6 +107,11 @@ pgaudit_installation = input('pgaudit_installation')
 		it { should be_owned_by pg_owner }
 		it { should be_grouped_into pg_group }
 	  end 
+	
+	  describe directory(pgaudit_installation) do
+ 		it { should be_owned_by 'root' }
+   		it { should be_grouped_into 'root' }
+ 	  end 
 	
 	  sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 	
