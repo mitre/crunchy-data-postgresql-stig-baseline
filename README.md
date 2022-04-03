@@ -108,7 +108,7 @@ pg_log_dir: '/var/lib/pgsql/12/data/log'
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pg_audit_log_dir: '/var/lib/pgsql/12/data/log'
 
-# Description: 'V-73039 uses this location of the pgaudit installation on the system'
+# Description: 'V-233607 uses this location of the pgaudit installation on the system'
 # e.g., Default for version 12: '/usr/pgsql-12/share/contrib/pgaudit'
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pgaudit_installation: '/usr/pgsql-12/share/contrib/pgaudit'
