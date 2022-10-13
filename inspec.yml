@@ -282,3 +282,10 @@ inputs:
     type: string
     value: "/opt/pgsql/data/pg_log/"
     required: true
+
+  - name: org_name
+    desc: "Name of the organization running this profile"
+    type: Hash
+    value:
+      acronym: "DoD"
+      full_form: "Department of Defense"
