@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 control	'V-233580' do
-	title	"PostgreSQL must be configured to provide audit record generation for DoD-defined auditable events 
+	title	"PostgreSQL must be configured to provide audit record generation for #{input('org_name')[:acronym]}-defined auditable events 
 	within all DBMS/database components."
 	desc	"Without the capability to generate audit records, it would be difficult to establish, correlate, and 
 	investigate the events relating to an incident or identify those responsible for one. 
@@ -11,7 +11,7 @@ application functionalities may be audited as well. The list of audited events i
 are to be generated. This set of events is typically a subset of the list of all events for which the system is 
 capable of generating audit records.
 
-DoD has defined the list of events for which PostgreSQL will provide an audit record generation capability as the 
+#{input('org_name')[:acronym]} has defined the list of events for which PostgreSQL will provide an audit record generation capability as the 
 following: 
 
 (i) Successful and unsuccessful attempts to access, modify, or delete privileges, security objects, security levels, 
@@ -38,7 +38,7 @@ $ grep 'AUDIT:.*,CREATE TABLE.*example' ${PGLOG?}/<latest_log>
 $ psql -c 'DROP TABLE example;'
 
 If organization-defined auditable events are not being audited, this is a finding."
-	desc	'fix', "Configure PostgreSQL to generate audit records for at least the DoD minimum set of events.
+	desc	'fix', "Configure PostgreSQL to generate audit records for at least the #{input('org_name')[:acronym]} minimum set of events.
 
 Using \"pgaudit\", PostgreSQL can be configured to audit these requests. See supplementary content APPENDIX-B for 
 documentation on installing pgaudit.

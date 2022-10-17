@@ -2,7 +2,7 @@
 
 control	'V-233602' do
 	title	"PostgreSQL must enforce authorized access to all PKI private keys stored/utilized by PostgreSQL."
-	desc	"The DoD standard for authentication is DoD-approved PKI certificates. PKI certificate-based 
+	desc	"The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates. PKI certificate-based 
 	authentication is performed by requiring the certificate holder to cryptographically prove possession of the 
 	corresponding private key.
 
