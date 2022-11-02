@@ -249,16 +249,16 @@ inputs:
   # V-233555, V-233556, V-233558, V-233559, V-233560, V-233561, 
   # V-233562, V-233564, V-233572, V-233575, V-233576
   - name: pg_audit_log_dir
-    description: "The location of the postgres audit log files on the system"
+    description: "The location of the postgres audit log files on the system. e.g., Default for version 12: '/var/lib/pgsql/12/data/log'"
     type: string
-    value: "/opt/pgsql/data/pg_log/"
+    value: "/var/lib/pgsql/12/data/log"
     required: true
 
   # V-233607
   - name: pgaudit_installation
-    description: "V-233607 uses this location of the pgaudit installation on the system (e.g., /usr/pgsql-10/share/contrib/pgaudit)"
+    description: "V-233607 uses this location of the pgaudit installation on the system (e.g., /usr/pgsql-12/share/contrib/pgaudit)"
     type: string
-    value: "/usr/pgsql-10/share/contrib/pgaudit"
+    value: "/usr/pgsql-12/share/contrib/pgaudit"
     required: true
 
   # V-233517, V-233541, V-233609
@@ -266,58 +266,58 @@ inputs:
     description: "The location of the Postgres system libraries"
     type: array
     value:
-      - "/usr/pgsql-10"
-      - "/usr/pgsql-10/bin"
-      - "/usr/pgsql-10/lib"
-      - "/usr/pgsql-10/share"
+      - "/usr/pgsql-12"
+      - "/usr/pgsql-12/bin"
+      - "/usr/pgsql-12/lib"
+      - "/usr/pgsql-12/share"
     required: true
 
   # V-233513, V-233541, V-233550
   - name: pg_version
-    description: "The version of the Postgres software"
+    description: "The version of the Postgres software. Change '12.x' to your version (This STIG applies to versions 10.x, 11.x, 12.x, and 13.x)"
     type: string
-    value: "10.0"
+    value: "12.9"
     required: true
 
   # V-233577, V-233602, V-233609
   - name: pg_data_dir
-    description: "The postgres data directory"
+    description: "The postgres data directory. e.g., Default for version 12: '/var/lib/pgsql/12/data'"
     type: string
-    value: "/opt/pgsql/data/"
+    value: "/var/lib/pgsql/12/data"
     required: true
 
   - name: pg_conf_file
-    description: "The postgres configuration file"
+    description: "The postgres configuration file. e.g., Default for version 12: '/var/lib/pgsql/12/data/postgresql.conf'"
     type: string
-    value: "/opt/pgsql/data/postgresql.conf"
+    value: "/var/lib/pgsql/12/data/postgresql.conf"
     required: true
 
   # V-233516, V-233609
   - name: pg_user_defined_conf
-    description: "An additional postgres configuration file used to override default values"
+    description: "An additional postgres configuration file used to override default values. e.g., Default for version 12: '/var/lib/pgsql/12/data/stig-postgresql.conf'"
     type: string
-    value: "/opt/pgsql/data/stig-postgresql.conf"
+    value: "/var/lib/pgsql/12/data/stig-postgresql.conf"
     required: true
 
   # V-233515, V-233518, V-233519, V-233520, V-233577, V-233609, V-233612
   - name: pg_hba_conf_file
-    description: "The postgres hba configuration file"
+    description: "The postgres hba configuration file. e.g., Default for version 12: '/var/lib/pgsql/12/data/pg_hba.conf'"
     type: string
-    value: "/opt/pgsql/data/pg_hba.conf"
+    value: "/var/lib/pgsql/12/data/pg_hba.conf"
     required: true
 
   # V-233518, V-233609, V-233615
   - name: pg_ident_conf_file
-    description: "The location of the `pg_ident_conf` file on the system"
+    description: "The location of the `pg_ident_conf` file on the system. e.g., Default for version 12: '/var/lib/pgsql/12/data/pg_ident.conf'"
     type: string
-    value: "/opt/pgsql/data/pg_ident.conf"
+    value: "/var/lib/pgsql/12/data/pg_ident.conf"
     required: true
 
   # V-233514, V-233531, V-233533, V-233607
   - name: pg_log_dir
-    description: "The location of the postgres log files on the system"
+    description: "The location of the postgres log files on the system. e.g., Default for version 12: '/var/lib/pgsql/12/data/log'"
     type: string
-    value: "/opt/pgsql/data/pg_log/"
+    value: "/var/lib/pgsql/12/data/log"
     required: true
 
   - name: org_name
