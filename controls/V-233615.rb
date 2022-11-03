@@ -2,7 +2,7 @@
 
 control	'V-233615' do
 	title	"PostgreSQL must map the PKI-authenticated identity to an associated user account."
-	desc	"The DoD standard for authentication is DoD-approved PKI certificates. Once a PKI certificate has been 
+	desc	"The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates. Once a PKI certificate has been 
 	validated, it must be mapped to PostgreSQL user account for the authenticated identity to be meaningful to 
 	PostgreSQL and useful for authorization decisions."
 	desc	'rationale', ''

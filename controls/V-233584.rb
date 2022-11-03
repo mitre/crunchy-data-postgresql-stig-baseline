@@ -73,4 +73,3 @@ pg_host = input('pg_host')
 	  its('output') { should match /on|true/i }
 	end
   end
-

@@ -3,7 +3,7 @@
 control	'V-233577' do
 	title	"PostgreSQL, when utilizing PKI-based authentication, must validate certificates by performing RFC 
 	5280-compliant certification path validation."
-	desc	"The DoD standard for authentication is DoD-approved PKI certificates.
+	desc	"The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates.
 
 A certificate's certification path is the path from the end entity certificate to a trusted root certification 
 authority (CA). Certification path validation is necessary for a relying party to make an informed decision 

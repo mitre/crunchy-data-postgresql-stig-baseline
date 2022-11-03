@@ -3,8 +3,8 @@
 control	'V-233601' do
 	title	"PostgreSQL must require users to reauthenticate when organization-defined circumstances or situations 
 	require reauthentication."
-	desc	"The DoD standard for authentication of an interactive user is the presentation of a Common Access 
-	Card (CAC) or other physical token bearing a valid, current, DoD-issued Public Key Infrastructure (PKI) 
+	desc	"The #{input('org_name')[:acronym]} standard for authentication of an interactive user is the presentation of a Common Access 
+	Card (CAC) or other physical token bearing a valid, current, #{input('org_name')[:acronym]}-issued Public Key Infrastructure (PKI) 
 	certificate, coupled with a Personal Identification Number (PIN) to be entered by the user at the beginning of 
 	each session and whenever reauthentication is required.
 
@@ -24,7 +24,7 @@ circumstances:
 (v) After a fixed period of time; or
 (vi) Periodically.
 
-Within the DoD, the minimum circumstances requiring reauthentication are privilege escalation and role changes."
+Within the #{input('org_name')[:acronym]}, the minimum circumstances requiring reauthentication are privilege escalation and role changes."
 	desc	'rationale', ''
 	desc	'check', "Determine all situations where a user must re-authenticate. Check if the mechanisms that 
 	handle such situations use the following SQL:

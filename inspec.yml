@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 1, Release: 1 Benchmark Date: 20 Nov 2020"
-version: 1.1.0
+version: 1.1.1
 inspec_version: ">= 4.0"
 
 inputs:
@@ -23,6 +23,7 @@ inputs:
     required: true
     sensitive: true
 
+  # not used in controls
   - name: pg_owner_password
     description: "The postgres database owner password"
     type: string
@@ -44,6 +45,7 @@ inputs:
     required: true
     sensitive: true
 
+  # V-233612
   - name: pg_user
     description: "The postgres database system user"
     type: string
@@ -51,6 +53,7 @@ inputs:
     required: true
     sensitive: true
 
+  # not used in controls
   - name: pg_user_password
     description: "The postgres database system user password"
     type: string
@@ -72,6 +75,7 @@ inputs:
     required: true
     sensitive: true
 
+  # V-233592, V-233593, V-233594
   - name: login_user
     description: "The host login account that can login to the postgres host"
     type: string
@@ -79,6 +83,7 @@ inputs:
     required: true
     sensitive: true
 
+  # not used in controls
   - name: login_host
     description: "The host ip address that can access the postgres host"
     type: string
@@ -86,6 +91,7 @@ inputs:
     required: true
     sensitive: true
 
+  # not used in controls
   - name: pg_syslog_owner
     description: "The syslog process owner that the progress logs should use"
     type: string
@@ -93,6 +99,7 @@ inputs:
     required: true
     sensitive: true
 
+    # not used in controls
   - name: pg_syslog_facility
     description: "The syslog facility that postgres should be set to use for logging"
     type: array
@@ -105,24 +112,28 @@ inputs:
     value: "stig"
     required: true
 
+  # referenced in V-233520
   - name: pg_table
     description: "The database table used for testing stig configuration tests"
     type: string
     value: "stig"
     required: true
 
+  # V-233546
   - name: pg_object_granted_privileges
     description: "Privileges that should be granted to a role for a database object"
     type: string
     value: "arwdDxt"
     required: true
 
+  # V-233546
   - name: pg_object_public_privileges
     description: "Privileges that should be granted to public for a database object"
     type: string
     value: "rw"
     required: true
 
+  # V-233546
   - name: pg_object_exceptions
     description: "List of database objects that should be returned from tests"
     type: array
@@ -130,24 +141,28 @@ inputs:
       - "pg_settings"
     required: true
 
+  # not used in controls
   - name: pg_conf_mode
     description: "The desired `mode` of the Postgres `potgres.conf` file."
     type: string
     value: "0600"
     required: true
 
+  # not used in controls
   - name: pg_ssl
     description: "The desired value to have postgres use ssl or not (on|off)"
     type: string
     value: "on"
     required: true
 
+  # not used in controls
   - name: pg_log_dest
     description: "The logging system that postgres should ship logs to (syslog)"
     type: string
     value: "syslog"
     required: true
 
+  # not used in controls
   - name: pgaudit_log_items
     description: "The expected item types that postgres should log to the logging system"
     type: array
@@ -160,6 +175,7 @@ inputs:
       - 'misc'
       - 'misc_set'
 
+  # not used in controls
   - name: pgaudit_log_line_items
     description: "The expected configuration of the items that progress is logging"
     type: array
@@ -168,69 +184,84 @@ inputs:
       - "%u"
       - "%c"
 
+  # V-233520, V-233523, # V-233524, V-233530, V-233534, V-233539, V-233588, V-233593,
+  # V-233597, V-233607
   - name: pg_superusers
     description: "Authorized superuser accounts"
     type: array
     value:
       - "postgres"
 
+  # V-233612
   - name: pg_users
     description: "authorized postgres user accounts"
     type: array
     value:
       - ""
 
+  # V-233520, V-233612
   - name: pg_replicas
     description: "List of postgres replicas in CIDR notation"
     type: array
     value:
       - ""
 
+  # V-233522
   - name: pg_max_connections
     description: "The maximum allowed number of connections to the postgres instance at any one time."
     type: numeric
     value: 100
 
+  # V-233532
   - name: pg_timezone
     description: "The timezone of the postgres server"
     type: string
     value: "UTC"
 
+  # V-233515, V-233520, V-233612
   - name: approved_auth_methods
     description: "V-233515, V-233520, V-233612 uses this list of approved authentication methods (e.g., per STIG, these are only: gss, sspi, or ldap)"
     type: array
     value: ['gss', 'sspi', 'ldap']
     required: true
     
+  # V-233594
   - name: approved_packages
     description: "V-233594 uses this list of approved postgres-related packages (e.g., postgresql-server.x86_64, postgresql-odbc.x86_64)"
     type: array
     value: []
     required: true
-    
+
+  # V-233592, V-233593
   - name: approved_ext
     description: "V-233592, V-233593 uses this list of approved database extensions"
     type: array
     value: []
     required: true
-    
+
+  # V-233520, V-233523
   - name: windows_runner
     description: "Define if the runner is the runner is window or linux"
     type: Boolean
     value: false
-  
+
+  # V-233544, V-233547, V-233549, V-233552, V-233553, V-233554, 
+  # V-233555, V-233556, V-233558, V-233559, V-233560, V-233561, 
+  # V-233562, V-233564, V-233572, V-233575, V-233576
   - name: pg_audit_log_dir
     description: "The location of the postgres audit log files on the system. e.g., Default for version 12: '/var/lib/pgsql/12/data/log'"
     type: string
     value: "/var/lib/pgsql/12/data/log"
     required: true
 
+  # V-233607
   - name: pgaudit_installation
     description: "V-233607 uses this location of the pgaudit installation on the system (e.g., /usr/pgsql-12/share/contrib/pgaudit)"
     type: string
     value: "/usr/pgsql-12/share/contrib/pgaudit"
     required: true
 
+  # V-233517, V-233541, V-233609
   - name: pg_shared_dirs
     description: "The location of the Postgres system libraries"
     type: array
@@ -241,12 +272,14 @@ inputs:
       - "/usr/pgsql-12/share"
     required: true
 
+  # V-233513, V-233541, V-233550
   - name: pg_version
     description: "The version of the Postgres software. Change '12.x' to your version (This STIG applies to versions 10.x, 11.x, 12.x, and 13.x)"
     type: string
     value: "12.9"
     required: true
 
+  # V-233577, V-233602, V-233609
   - name: pg_data_dir
     description: "The postgres data directory. e.g., Default for version 12: '/var/lib/pgsql/12/data'"
     type: string
@@ -259,26 +292,37 @@ inputs:
     value: "/var/lib/pgsql/12/data/postgresql.conf"
     required: true
 
+  # V-233516, V-233609
   - name: pg_user_defined_conf
     description: "An additional postgres configuration file used to override default values. e.g., Default for version 12: '/var/lib/pgsql/12/data/stig-postgresql.conf'"
     type: string
     value: "/var/lib/pgsql/12/data/stig-postgresql.conf"
     required: true
 
+  # V-233515, V-233518, V-233519, V-233520, V-233577, V-233609, V-233612
   - name: pg_hba_conf_file
     description: "The postgres hba configuration file. e.g., Default for version 12: '/var/lib/pgsql/12/data/pg_hba.conf'"
     type: string
     value: "/var/lib/pgsql/12/data/pg_hba.conf"
     required: true
 
+  # V-233518, V-233609, V-233615
   - name: pg_ident_conf_file
     description: "The location of the `pg_ident_conf` file on the system. e.g., Default for version 12: '/var/lib/pgsql/12/data/pg_ident.conf'"
     type: string
     value: "/var/lib/pgsql/12/data/pg_ident.conf"
     required: true
 
+  # V-233514, V-233531, V-233533, V-233607
   - name: pg_log_dir
     description: "The location of the postgres log files on the system. e.g., Default for version 12: '/var/lib/pgsql/12/data/log'"
     type: string
     value: "/var/lib/pgsql/12/data/log"
     required: true
+
+  - name: org_name
+    desc: "Name of the organization running this profile"
+    type: Hash
+    value:
+      acronym: "DoD"
+      full_form: "Department of Defense"

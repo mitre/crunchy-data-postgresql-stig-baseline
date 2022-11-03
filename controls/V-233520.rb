@@ -3,9 +3,9 @@
 control	'V-233520' do
 	title	"PostgreSQL must enforce approved authorizations for logical access to information and system resources 
 	in accordance with applicable access control policies."
-	desc	"Authentication with a DoD-approved PKI certificate does not necessarily imply authorization to access 
+	desc	"Authentication with a #{input('org_name')[:acronym]}-approved PKI certificate does not necessarily imply authorization to access 
 	PostgreSQL. To mitigate the risk of unauthorized access to sensitive information by entities that have been 
-	issued certificates by DoD-approved PKIs, all DoD systems, including databases, must be properly configured to 
+	issued certificates by #{input('org_name')[:acronym]}-approved PKIs, all #{input('org_name')[:acronym]} systems, including databases, must be properly configured to 
 	implement access control policies.
 
 Successful authentication must not automatically give an entity access to an asset or security boundary. 
