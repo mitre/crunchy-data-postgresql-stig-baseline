@@ -91,6 +91,25 @@ inputs:
     required: true
     sensitive: true
 
+  # V-233520, V-233523, # V-233524, V-233530, V-233534, V-233539, V-233588, V-233593,
+  # V-233597, V-233607
+  - name: pg_superusers
+    description: "Authorized superuser accounts"
+    type: array
+    value:
+      - "postgres"
+    required: true
+    sensitive: true
+
+  # V-233612
+  - name: pg_users
+    description: "authorized postgres user accounts"
+    type: array
+    value:
+      - ""
+    required: true
+    sensitive: true
+
   # not used in controls
   - name: pg_syslog_owner
     description: "The syslog process owner that the progress logs should use"
@@ -183,21 +202,6 @@ inputs:
       - "%m"
       - "%u"
       - "%c"
-
-  # V-233520, V-233523, # V-233524, V-233530, V-233534, V-233539, V-233588, V-233593,
-  # V-233597, V-233607
-  - name: pg_superusers
-    description: "Authorized superuser accounts"
-    type: array
-    value:
-      - "postgres"
-
-  # V-233612
-  - name: pg_users
-    description: "authorized postgres user accounts"
-    type: array
-    value:
-      - ""
 
   # V-233520, V-233612
   - name: pg_replicas
