@@ -48,7 +48,7 @@ pg_data_dir = input('pg_data_dir')
 pg_hba_conf_file = input('pg_hba_conf_file')
 
 	describe postgres_hba_conf(pg_hba_conf_file) do
-		its('auth_method') { should_not include %r{password|md5}i 
+		its('auth_method') { should_not include %r{password|md5}i }
 	  end
 	end
 
