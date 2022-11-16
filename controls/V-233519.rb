@@ -32,8 +32,8 @@ entries of \"password\" to \"scram-sha-256\":
 $ sudo su - postgres
 $ vi ${PGDATA?}/pg_hba.conf
 host all all .example.com scram-sha-256"
-	impact 0.5
-	tag severity: 'medium'
+  impact 0.5
+  tag severity: 'medium'
   tag gtitle: 'SRG-APP-000172-DB-000075'
   tag gid: 'V-233519'
   tag rid: 'SV-233519r617333_rule'
@@ -42,13 +42,7 @@ host all all .example.com scram-sha-256"
   tag cci: ["CCI-000197"]
   tag nist: ["IA-5 (1) (c)"]
 
-
-pg_data_dir = input('pg_data_dir')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-	describe postgres_hba_conf(pg_hba_conf_file) do
-		its('auth_method') { should_not include %r{password|md5}i }
+	describe postgres_hba_conf("#{input('pg_hba_conf_file')}") do
+		its('auth_method') { should_not include(/password|md5/i) }
 	  end
 	end
-
