@@ -101,6 +101,10 @@ pg_audit_log_dir = input('pg_audit_log_dir')
 		 describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
 		   skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
 		 end 
+
+		 describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
+			its('output') { should include 'pgaudit' }
+		  end
 	   end
 	   
 	   end
