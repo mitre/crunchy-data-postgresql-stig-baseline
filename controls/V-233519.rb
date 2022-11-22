@@ -41,6 +41,7 @@ control	'V-233519' do
 	tag nist: ['IA-5 (1) (c)']
   
 	describe postgres_hba_conf("#{input('pg_hba_conf_file')}") do
-	  its('auth_method') { should_not include(/password|md5/i) }
-	end
+		its('auth_method') { should_not include 'password' }
+		its('auth_method') { should_not include 'md5' }
+	  end
   end
