@@ -107,7 +107,9 @@ pg_log_dir = input('pg_log_dir')
 
 pg_audit_log_dir = input('pg_audit_log_dir')
 
-	describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"SHOW log_file_mode\"") do
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
+	describe sql.query('SHOW log_file_mode;', [pg_db]) do
 		its('stdout') { should match /0600/ }
 	   end
 	 
