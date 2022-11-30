@@ -23,7 +23,6 @@ inputs:
     required: true
     sensitive: true
 
-  # not used in controls
   - name: pg_owner_password
     description: "The postgres database owner password"
     type: string
