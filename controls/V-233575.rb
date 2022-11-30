@@ -61,8 +61,10 @@ pg_log_dir = input('pg_log_dir')
 
 pg_audit_log_dir = input('pg_audit_log_dir')
 
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
 	if file(pg_audit_log_dir).exist?
-		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"CREATE ROLE fooaudit; CREATE TABLE fooaudittest (id int); SET ROLE fooaudit; GRANT ALL PRIVILEGES ON fooaudittest TO fooaudit; DROP TABLE IF EXISTS fooaudittest;\"") do
+		describe sql.query('CREATE ROLE fooaudit; CREATE TABLE fooaudittest (id int); SET ROLE fooaudit; GRANT ALL PRIVILEGES ON fooaudittest TO fooaudit; DROP TABLE IF EXISTS fooaudittest;', [pg_db]) do
 		  its('stdout') { should match // }
 		end
 	  

@@ -95,7 +95,7 @@ describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
 	its('output') { should include 'pgaudit' }
 
 	if file(pg_audit_log_dir).exist?
-		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"\\du\"") do
+		describe sql.query('\\du;', [pg_db]) do
 		  its('stdout') { should match // }
 		end
 	   

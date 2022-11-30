@@ -95,7 +95,7 @@ approved_ext = input('approved_ext')
 	  end
 	end
 	
-	describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"select * from pg_shadow where usename <> 'postgres' and usesuper = 't';") do
+	describe sql.query('select * from pg_shadow where usename <> 'postgres' and usesuper = 't';', [pg_db]) do
 	  its('stdout.strip') { should match '' }
 	end
   
@@ -103,14 +103,11 @@ approved_ext = input('approved_ext')
   
 	describe.one do
 	  approved_ext.each do |extension|
-		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"SELECT * FROM pg_available_extensions WHERE installed_version IS NOT NULL\"") do
+		describe sql.query('SELECT * FROM pg_available_extensions WHERE installed_version IS NOT NULL;', [pg_db]) do
 		  its('stdout.strip') { should match extension }
 		end
 	  end
 	end
   end  
-  #describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"SELECT * FROM pg_available_extensions WHERE installed_version IS NOT NULL\"") do
-  #    its('stdout.strip') { should match 'error' }
-  #  end
-  #end
+  
 
