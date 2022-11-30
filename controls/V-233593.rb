@@ -95,7 +95,7 @@ approved_ext = input('approved_ext')
 	  end
 	end
 	
-	describe sql.query('select * from pg_shadow where usename <> 'postgres' and usesuper = 't';', [pg_db]) do
+	describe sql.query("select * from pg_shadow where usename <> 'postgres' and usesuper = 't';", [pg_db]) do
 	  its('stdout.strip') { should match '' }
 	end
   
