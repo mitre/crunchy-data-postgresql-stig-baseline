@@ -93,7 +93,7 @@ sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 
 describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
 	its('output') { should include 'pgaudit' }
-
+ end 
 	if file(pg_audit_log_dir).exist?
 		describe sql.query('\\du;', [pg_db]) do
 		  its('stdout') { should match // }
@@ -102,9 +102,9 @@ describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
 		describe command("grep -r \"AUDIT\" #{pg_audit_log_dir}") do
 		  its('stdout') { should match /^.*pg_catalog.pg_roles.*$/ }
 		 end 
-	   else
+	else
 		 describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
 		   skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
 		 end
-	   end
-
+	end
+end
