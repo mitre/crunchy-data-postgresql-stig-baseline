@@ -64,20 +64,11 @@ If PostgreSQL is not at the latest version and the evaluated version has CVEs (I
   tag cci: ["CCI-002605"]
   tag nist: ["SI-2 c"]
 
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 pg_version = input('pg_version')
 
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-	describe sql.query('SHOW server_version;', [pg_db]) do
+	describe sql.query('SHOW server_version;', [input('pg_db')]) do
 	  its('output') { should cmp pg_version}
 	end
   

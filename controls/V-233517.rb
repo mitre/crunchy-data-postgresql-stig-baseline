@@ -68,17 +68,13 @@ pg_owner = input('pg_owner')
 
 pg_ver = input('pg_version')
 
-pg_data_dir = input('pg_data_dir')
-
-pg_shared_dirs = input('pg_shared_dirs')
-
-	describe file(pg_data_dir) do
+	describe file(input('pg_data_dir')) do
 		it { should be_directory }
 		it { should be_owned_by pg_owner }
 		its('mode') { should cmp '0700' }
 	  end
   
-	  pg_shared_dirs.each do |dirs|
+	  input('pg_shared_dirs').each do |dirs|
 		describe file(dirs) do
 		  it { should be_directory }
 		  it { should be_owned_by 'root' }
