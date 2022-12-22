@@ -85,50 +85,35 @@ client_min_messages = error"
 
 # @todo determine how to handle stderr errors?
 
-
 pg_owner = input('pg_owner')
 
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_conf_file = input('pg_conf_file')
-
-describe directory(pg_log_dir) do
+describe directory(input('pg_log_dir')) do
     it { should be_directory }
     it { should be_owned_by pg_owner }
     it { should be_grouped_into pg_owner }
     its('mode') { should  cmp '0700' }
   end
 
-  describe directory(pg_audit_log_dir) do
+  describe directory(input('pg_audit_log_dir')) do
     it { should be_directory }
     it { should be_owned_by pg_owner }
     it { should be_grouped_into pg_owner }
     its('mode') { should  cmp '0700' }
   end
 
-  sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-  describe sql.query("SELECT current_setting('client_min_messages')", [pg_db]) do
+  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  describe sql.query("SELECT current_setting('client_min_messages')", [input('pg_db')]) do
     its('output') { should_not match %r{log|debug|LOG|DEBUG} }
    its('output') { should match /^error$/i }
   end
 
-  describe postgres_conf(pg_conf_file) do
+  describe postgres_conf(input('pg_conf_file')) do
     its('log_directory') { should eq 'pg_log' }
     its('log_file_mode') { should eq '0600' }
     its('client_min_messages') { should match /^error$/i }
   end
 
-  describe command("find #{pg_audit_log_dir} -type f ! -perm 0600 | wc -l") do
+  describe command("find #{input('pg_audit_log_dir')} -type f ! -perm 0600 | wc -l") do
     its('stdout.strip') { should eq '0' }
   end
 end

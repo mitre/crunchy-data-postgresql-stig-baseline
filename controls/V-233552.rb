@@ -183,37 +183,29 @@ APPENDIX-C for instructions on enabling logging."
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
+pg_log_dir = input('pg_log_dir') #not in use
 
 pg_audit_log_dir = input('pg_audit_log_dir')
 
 	if file(pg_audit_log_dir).exist?
-		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);\"") do
+		describe command("PGPASSWORD='#{input('pg_dba_password')}' psql -U #{input('pg_dba')} -d #{input('pg_db')} -h #{input('pg_host')} -A -t -c \"CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);\"") do
 		 its('stdout') { should match // }
 		end
 	  
 		#Find the most recently modified log file in the pg_audit_log_dir, grep for the syntax error statement, and then
 		#test to validate the output matches the regex.
 	  
-		describe command("grep -r \"permission denied for schema\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"permission denied for schema\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*permission denied for schema permdeniedschema..*$/ }
 		end 
-		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;\"") do
+		describe command("PGPASSWORD='#{input('pg_dba_password')}' psql -U #{input('pg_dba')} -d #{input('pg_db')} -h #{input('pg_host')} -A -t -c \"SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;\"") do
 		 its('stdout') { should match // }
 		end
 	  else
-		describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
-		  skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
+		describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
+		  skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
 		end
 	  end
 	  

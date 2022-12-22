@@ -59,34 +59,26 @@ content APPENDIX-C for instructions on enabling logging."
   tag cci: ["CCI-001814"]
   tag nist: ["CM-5 (1)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version')  #not in use
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
+pg_log_dir = input('pg_log_dir')  #not in use
 
 pg_audit_log_dir = input('pg_audit_log_dir')
 
   #Execute an incorrectly-formed SQL statement with bad syntax, to prompt log ouput
   if file(pg_audit_log_dir).exist?
-	describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; SET pgaudit.role='test'; SET ROLE postgres; DROP ROLE IF EXISTS pgauditrolefailuretest;\"") do
+	describe command("PGPASSWORD='#{input('pg_dba_password')}' psql -U #{input('pg_dba')} -d #{input('pg_db')} -h #{input('pg_host')} -A -t -c \"CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; SET pgaudit.role='test'; SET ROLE postgres; DROP ROLE IF EXISTS pgauditrolefailuretest;\"") do
 	  its('stdout') { should match // }
 	end
   
 	#Find the most recently modified log file in the pg_audit_log_dir, grep for the syntax error statement, and then
 	#test to validate the output matches the regex.
   
-	describe command("grep -r \"permission denied to set parameter\" #{pg_audit_log_dir}") do
+	describe command("grep -r \"permission denied to set parameter\" #{input('pg_audit_log_dir')}") do
 	  its('stdout') { should match /^.*permission denied to set parameter ..pgaudit.role..*$/ }
 	end 
   else
-	describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
+	describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
 	  skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
 	end
   end

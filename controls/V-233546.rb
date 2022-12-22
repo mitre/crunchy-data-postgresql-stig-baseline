@@ -63,27 +63,11 @@ database administrator account(s) must not be granted to anyone without official
   tag cci: ["CCI-001084"]
   tag nist: ["SC-3"]
 
-pg_owner = input('pg_owner')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_object_granted_privileges = input('pg_object_granted_privileges')
-
-pg_object_public_privileges = input('pg_object_public_privileges')
-
-pg_object_exceptions = input('pg_object_exceptions')
-
-	exceptions = "#{pg_object_exceptions.map { |e| "'#{e}'" }.join(',')}"
-	object_acl = "^(((#{pg_owner}=[#{pg_object_granted_privileges}]+|"\
-	  "=[#{pg_object_public_privileges}]+)\\/\\w+,?)+|)$"
+	exceptions = "#{input('pg_object_exceptions').map { |e| "'#{e}'" }.join(',')}"
+	object_acl = "^(((#{input('pg_owner')}=[#{input('pg_object_granted_privileges')}]+|"\
+	  "=[#{input('pg_object_public_privileges')}]+)\\/\\w+,?)+|)$"
 	schemas = ['pg_catalog', 'information_schema']
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
   
 	schemas.each do |schema|
 	  objects_sql = "SELECT n.nspname, c.relname, c.relkind, "\
@@ -94,7 +78,7 @@ pg_object_exceptions = input('pg_object_exceptions')
 		"AND pg_catalog.array_to_string(c.relacl, E',') !~ '#{object_acl}' "\
 		"AND c.relname NOT IN (#{exceptions});"
   
-	  describe sql.query(objects_sql, [pg_db]) do
+	  describe sql.query(objects_sql, [input('pg_db')]) do
 		its('output') { should eq '' }
 	  end
   
@@ -103,9 +87,9 @@ pg_object_exceptions = input('pg_object_exceptions')
 		"FROM pg_catalog.pg_proc p "\
 		"LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace "\
 		"WHERE n.nspname ~ '^(#{schema})$' "\
-		"AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}';"
+		"AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
   
-	  describe sql.query(functions_sql, [pg_db]) do
+	  describe sql.query(functions_sql, [input('pg_db')]) do
 		its('output') { should eq '' }
 	  end
 	end

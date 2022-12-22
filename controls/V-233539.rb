@@ -49,25 +49,13 @@ $ psql -c \"ALTER SCHEMA test OWNER TO bob\""
   tag cci: ["CCI-001499"]
   tag nist: ["CM-5 (6)"]
 
-pg_owner = input('pg_owner')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	authorized_owners = pg_superusers
+	authorized_owners = input('pg_superusers')
   
   
-	databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{pg_db}';"
-	databases_query = sql.query(databases_sql, [pg_db])
+	databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{input('pg_db')}';"
+	databases_query = sql.query(databases_sql, [input('pg_db')])
 	databases = databases_query.lines
 	types = %w(t s v) # tables, sequences views
   
@@ -78,12 +66,12 @@ pg_superusers = input('pg_superusers')
 	  if database == 'postgres'
 		schemas_sql = "SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) "\
 		  "FROM pg_catalog.pg_namespace n "\
-		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}';"
+		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
 		functions_sql = "SELECT n.nspname, p.proname, "\
 		  "pg_catalog.pg_get_userbyid(n.nspowner) "\
 		  "FROM pg_catalog.pg_proc p "\
 		  "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace "\
-		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}';"
+		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
 	  else
 		schemas_sql = "SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) "\
 		  "FROM pg_catalog.pg_namespace n "\
@@ -135,7 +123,7 @@ pg_superusers = input('pg_superusers')
 			"pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c "\
 			"LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace "\
 			"WHERE c.relkind IN ('#{type}','s','') "\
-			"AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}' "
+			"AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}' "
 			"AND n.nspname !~ '^pg_toast';"
 		else
 		  objects_sql = "SELECT n.nspname, c.relname, c.relkind, "\

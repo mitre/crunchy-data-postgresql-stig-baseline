@@ -49,24 +49,16 @@ All errors and denials are logged if logging is enabled."
   tag cci: ["CCI-002754"]
   tag nist: ["SI-10 (3)"]
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password',)
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 pg_audit_log_dir = input('pg_audit_log_dir')
 
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	if file(pg_audit_log_dir).exist?  
-	  describe sql.query('CREAT TABLE incorrect_syntax2(id INT);', [pg_db]) do
+	  describe sql.query('CREAT TABLE incorrect_syntax2(id INT);', [input('pg_db')]) do
 		its('output') { should match // }     
 	  end
 	
-	  #Find the most recently modified log file in the pg_audit_log_dir, grep for the syntax error statement, and then
+	  #Find the most recently modified log file in the input('pg_audit_log_dir'), grep for the syntax error statement, and then
 	  #test to validate the output matches the regex.
 	  describe command("grep -r \"syntax error at or near\" #{pg_audit_log_dir}/") do
 	    its('stdout') { should match /^.*syntax error at or near ..CREAT..*$/ }
