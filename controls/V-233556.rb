@@ -88,7 +88,7 @@ sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 
 	if file(pg_audit_log_dir).exist?
 		describe sql.query('CREATE ROLE fooaudit; GRANT CONNECT ON DATABASE postgres TO fooaudit; REVOKE CONNECT ON DATABASE postgres FROM fooaudit;', [pg_db]) do
-		  its('stdout') { should match // }
+		  its('output') { should match // }
 		end
 	  
 		describe command("grep -r \"GRANT CONNECT ON DATABASE postgres TO\" #{pg_audit_log_dir}") do

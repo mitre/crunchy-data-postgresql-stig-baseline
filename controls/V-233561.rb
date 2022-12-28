@@ -63,7 +63,7 @@ sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 
 	if file(pg_audit_log_dir).exist?
 		describe sql.query('CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; DROP ROLE postgres; SET ROLE postgres; DROP ROLE pgauditrolefailuretest;', [pg_db]) do
-		  its('stdout') { should match // }
+		  its('output') { should match // }
 		end
 	  
 	   describe command("grep -r \"permission denied to drop role\" #{pg_audit_log_dir}") do

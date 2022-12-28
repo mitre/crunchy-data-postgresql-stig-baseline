@@ -110,7 +110,7 @@ pg_audit_log_dir = input('pg_audit_log_dir')
 sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 
 	describe sql.query('SHOW log_file_mode;', [pg_db]) do
-		its('stdout') { should match /0600/ }
+		its('output') { should match /0600/ }
 	   end
 	 
 	   command("find #{pg_audit_log_dir} -type f").stdout.split.each do |logfile|

@@ -201,7 +201,7 @@ sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 
 	if file(pg_audit_log_dir).exist?
 		describe sql.query('CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);', [pg_db]) do
-		 its('stdout') { should match // }
+		 its('output') { should match // }
 		end
 	  
 		#Find the most recently modified log file in the pg_audit_log_dir, grep for the syntax error statement, and then
