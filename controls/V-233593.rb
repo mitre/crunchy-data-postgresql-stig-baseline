@@ -96,7 +96,7 @@ approved_ext = input('approved_ext')
 	end
 	
 	describe sql.query("select * from pg_shadow where usename <> 'postgres' and usesuper = 't';", [pg_db]) do
-	  its('stdout.strip') { should match '' }
+	  its('output') { should match '' }
 	end
   
   # @todo how do I check to see if any extensions are installed that are not approved?  fix stdout value?
@@ -104,7 +104,7 @@ approved_ext = input('approved_ext')
 	describe.one do
 	  approved_ext.each do |extension|
 		describe sql.query('SELECT * FROM pg_available_extensions WHERE installed_version IS NOT NULL;', [pg_db]) do
-		  its('stdout.strip') { should match extension }
+		  its('output') { should match extension }
 		end
 	  end
 	end

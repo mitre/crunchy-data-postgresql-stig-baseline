@@ -93,7 +93,7 @@ sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 		end 
 	  
 		describe sql.query('CREATE ROLE fooauditbad CREATEDB; CREATE ROLE fooauditbad CREATEROLE;', [pg_db]) do
-		  its('stdout') { should match // }
+		  its('output') { should match // }
 		end
 	  
 		describe command("grep -r \"permission denied to create role\" #{pg_audit_log_dir}") do

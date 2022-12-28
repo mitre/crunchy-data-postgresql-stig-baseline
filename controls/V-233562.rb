@@ -97,7 +97,7 @@ end
 
 	if file(pg_audit_log_dir).exist?
 		describe sql.query('\\du;', [pg_db]) do
-		  its('stdout') { should match // }
+		  its('output') { should match // }
 		end
 	   
 		describe command("grep -r \"AUDIT\" #{pg_audit_log_dir}") do

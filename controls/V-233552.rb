@@ -211,7 +211,7 @@ sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 		  its('stdout') { should match /^.*permission denied for schema permdeniedschema..*$/ }
 		end 
 		describe sql.query('SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;', [pg_db]) do
-		 its('stdout') { should match // }
+		 its('output') { should match // }
 		end
 	  else
 		describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
