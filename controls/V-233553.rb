@@ -62,10 +62,12 @@ pg_ver = input('pg_version') #not in use
 
 pg_log_dir = input('pg_log_dir') #not in use 
 
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
 
 	if file(pg_audit_log_dir).exist?
-		describe command("PGPASSWORD='#{input('pg_dba_password')}' psql -U #{input('pg_dba')} -d #{input('pg_db')} -h #{input('pg_host')} -A -t -c \"SET ROLE pgauditrolefailuretest;\"") do
-		  its('stdout') { should match // }
+
+		describe sql.query('SET ROLE pgauditrolefailuretest;', [pg_db]) do
+		  its('output') { should match // }
 		end
 	  
 		describe command("grep -r \"does not exist\" #{input('pg_audit_log_dir')}") do

@@ -66,9 +66,21 @@ pg_ver = input('pg_version') #not in use
 
 pg_log_dir = input('pg_log_dir') #not in use 
 
-	if file(input('pg_audit_log_dir')).exist?
-		describe command("PGPASSWORD='#{input('pg_dba_password')}' psql -U #{input('pg_dba')} -d #{input('pg_db')} -h #{input('pg_host')} -A -t -c \"SHOW log_connections\"") do
-		  its('stdout') { should match /on/ }
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
+
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
+	if file(pg_audit_log_dir).exist?
+		describe sql.query('SHOW log_connections;', [pg_db]) do
+		  its('output') { should match /on/ }
 		end
 	   
 		 describe command("grep -r \"connection authorized\" #{input('pg_audit_log_dir')}") do

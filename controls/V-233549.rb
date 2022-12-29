@@ -97,9 +97,21 @@ pg_ver = input('pg_version') #not in use
 
 pg_log_dir = input('pg_log_dir')  #not in use
 
-	describe command("PGPASSWORD='#{input('pg_dba_password')}' psql -U #{input('pg_dba')} -d #{input('pg_db')} -h #{input('pg_host')} -A -t -c \"SHOW log_file_mode\"") do
-		its('stdout') { should match /0600/ }
-	   end
+pg_dba_password = input('pg_dba_password')
+
+pg_db = input('pg_db')
+
+pg_host = input('pg_host')
+
+pg_log_dir = input('pg_log_dir')
+
+pg_audit_log_dir = input('pg_audit_log_dir')
+
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
+	describe sql.query('SHOW log_file_mode;', [pg_db]) do
+		its('output') { should match /0600/ }
+	end
 	 
 	   command("find #{input('pg_audit_log_dir')} -type f").stdout.split.each do |logfile|
 	   describe file(logfile) do
