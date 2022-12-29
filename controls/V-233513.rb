@@ -64,7 +64,7 @@ If PostgreSQL is not at the latest version and the evaluated version has CVEs (I
   tag cci: ["CCI-002605"]
   tag nist: ["SI-2 c"]
 
-pg_version = input('pg_version')
+pg_version = input('pg_version') 
 
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

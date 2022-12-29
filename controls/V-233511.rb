@@ -61,7 +61,6 @@ $ export PGPORT=5432"
 
 pg_ver = input('pg_version') # not used
 
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
   
 	describe sql.query('SHOW port;', [input('pg_db')]) do

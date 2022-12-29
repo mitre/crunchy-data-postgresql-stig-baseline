@@ -74,18 +74,10 @@ pg_ver = input('pg_version') #not in use
 
 pg_log_dir = input('pg_log_dir') #not in use
 
-pg_db = input('pg_db')
+sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	if file(pg_audit_log_dir).exist?
-		describe sql.query('CREATE ROLE fooaudit; GRANT CONNECT ON DATABASE postgres TO fooaudit; REVOKE CONNECT ON DATABASE postgres FROM fooaudit;', [pg_db]) do
+	if file(input('pg_audit_log_dir')).exist?
+		describe sql.query('CREATE ROLE fooaudit; GRANT CONNECT ON DATABASE postgres TO fooaudit; REVOKE CONNECT ON DATABASE postgres FROM fooaudit;', [input('pg_db')]) do
 		  its('output') { should match // }
 		end
 	  

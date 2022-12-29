@@ -211,7 +211,7 @@ approved_auth_methods = input('approved_auth_methods')
 		  end
 		end
 	
-		authorized_owners = input('pg_superusers') 
+		authorized_owners = input('pg_superusers') #not in use
 	
 		object_granted_privileges = 'arwdDxtU'
 		object_public_privileges = 'r'

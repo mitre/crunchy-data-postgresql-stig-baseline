@@ -187,29 +187,27 @@ pg_ver = input('pg_version') #not in use
 
 pg_log_dir = input('pg_log_dir') #not in use
 
-pg_audit_log_dir = input('pg_audit_log_dir')
+sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	if file(pg_audit_log_dir).exist?
+	if file(input('pg_audit_log_dir')).exist?
   
-		describe sql.query('CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);', [pg_db]) do
+		describe sql.query('CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);', [input('pg_db')]) do
 		 its('output') { should match // }
 		end
 	  
-		#Find the most recently modified log file in the pg_audit_log_dir, grep for the syntax error statement, and then
+		#Find the most recently modified log file in the input('pg_audit_log_dir'), grep for the syntax error statement, and then
 		#test to validate the output matches the regex.
 	  
 		describe command("grep -r \"permission denied for schema\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*permission denied for schema permdeniedschema..*$/ }
 		end 
     
-		describe sql.query('SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;', [pg_db]) do
+		describe sql.query('SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;', [input('pg_db')]) do
 		 its('output') { should match // }
 		end
 	  else
-		describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
-		  skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
+		describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+		  skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
 		end
 	  end
 	  

@@ -69,7 +69,7 @@ $ psql -c \"ALTER ROLE <rolname> CONNECTION LIMIT 1\";"
   tag nist: ["AC-10"]
 
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
 pg_max_connections = input('pg_max_connections')
 
