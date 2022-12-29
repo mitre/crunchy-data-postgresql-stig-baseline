@@ -64,9 +64,11 @@ pg_log_dir = input('pg_log_dir')
 
 pg_audit_log_dir = input('pg_audit_log_dir')
 
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
 	if file(pg_audit_log_dir).exist?
-		describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"CREATE ROLE fooaudit; SET ROLE fooaudit; SELECT * FROM pg_authid; SET ROLE postgres; DROP ROLE fooaudit;\"") do
-		  its('stdout') { should match // }
+		describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; SELECT * FROM pg_authid; SET ROLE postgres; DROP ROLE fooaudit;', [pg_db]) do
+		  its('output') { should match // }
 		end
 	  
 	   describe command("grep -r \"permission denied for table\\|relation\" #{pg_audit_log_dir}") do

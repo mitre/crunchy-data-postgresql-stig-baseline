@@ -73,10 +73,12 @@ pg_log_dir = input('pg_log_dir')
 
 pg_audit_log_dir = input('pg_audit_log_dir')
 
+sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+
   #Execute an incorrectly-formed SQL statement with bad syntax, to prompt log ouput
   if file(pg_audit_log_dir).exist?
-	describe command("PGPASSWORD='#{pg_dba_password}' psql -U #{pg_dba} -d #{pg_db} -h #{pg_host} -A -t -c \"CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; SET pgaudit.role='test'; SET ROLE postgres; DROP ROLE IF EXISTS pgauditrolefailuretest;\"") do
-	  its('stdout') { should match // }
+	describe sql.query("CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; SET pgaudit.role='test'; SET ROLE postgres; DROP ROLE IF EXISTS pgauditrolefailuretest;", [pg_db]) do
+	  its('output') { should match // }
 	end
   
 	#Find the most recently modified log file in the pg_audit_log_dir, grep for the syntax error statement, and then
