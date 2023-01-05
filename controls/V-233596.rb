@@ -57,26 +57,19 @@ $ sudo systemctl restart postgresql-${PGVER?}"
   tag cci: ["CCI-000196"]
   tag nist: ["IA-5 (1) (c)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_dba = input('pg_dba')
 
-pg_dba_password = input('pg_dba_password')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW password_encryption;', [pg_db]) do
+	describe sql.query('SHOW password_encryption;', [input('pg_db')]) do
 	  its('output') { should match /on|true|scram-sha-256/i }
 	end
   
 	passwords_sql = "SELECT usename FROM pg_shadow "\
 	  "WHERE passwd !~ '^md5[0-9a-f]+$';"
   
-	describe sql.query(passwords_sql, [pg_db]) do
+	describe sql.query(passwords_sql, [input('pg_db')]) do
 	  its('output') { should eq '' }
 	end
   

@@ -51,19 +51,12 @@ INSERT INTO accounts(username, password) VALUES ('bob', crypt('a_secure_password
   tag cci: ["CCI-001199"]
   tag nist: ["SC-28"]
 
-pg_dba = input('pg_dba')
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	pgcrypto_sql = "SELECT * FROM pg_available_extensions where name='pgcrypto'"
   
-	describe sql.query(pgcrypto_sql, [pg_db]) do
+	describe sql.query(pgcrypto_sql, [input('pg_db')]) do
 	  its('output') { should_not eq '' }
 	end
   end

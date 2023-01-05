@@ -48,36 +48,26 @@ $ psql -c \"REVOKE ALL PRIVILEGES ON <table> FROM <role_name>\""
   tag cci: ["CCI-001813"]
   tag nist: ["CM-5 (1)"]
 
-pg_owner = input('pg_owner')
+pg_owner = input('pg_owner') #not in use 
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
-	roles_query = sql.query(roles_sql, [pg_db])
+	roles_query = sql.query(roles_sql, [input('pg_db')])
 	roles = roles_query.lines
   
 	roles.each do |role|
-	  unless pg_superusers.include?(role)
+	  unless input('pg_superusers').include?(role)
 		superuser_sql = "SELECT r.rolsuper FROM pg_catalog.pg_roles r "\
 		  "WHERE r.rolname = '#{role}';"
   
-		describe sql.query(superuser_sql, [pg_db]) do
+		describe sql.query(superuser_sql, [input('pg_db')]) do
 		  its('output') { should_not eq 't' }
 		end
 	  end
 	end
   
-	authorized_owners = pg_superusers
+	authorized_owners = input('pg_superusers')
 	owners = authorized_owners.join('|')
   
 	database_granted_privileges = 'CTc'
@@ -93,14 +83,14 @@ pg_superusers = input('pg_superusers')
 	schema_acl_regex = Regexp.new(schema_acl)
   
 	databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
-	databases_query = sql.query(databases_sql, [pg_db])
+	databases_query = sql.query(databases_sql, [input('pg_db')])
 	databases = databases_query.lines
   
 	databases.each do |database|
 	  datacl_sql = "SELECT pg_catalog.array_to_string(datacl, E','), datname "\
 		"FROM pg_catalog.pg_database WHERE datname = '#{database}';"
   
-	  describe sql.query(datacl_sql, [pg_db]) do
+	  describe sql.query(datacl_sql, [input('pg_db')]) do
 		its('output') { should match database_acl_regex }
 	  end
   

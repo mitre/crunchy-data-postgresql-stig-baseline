@@ -47,32 +47,23 @@ ALTER ROLE <username> NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS;"
   tag cci: ["CCI-001082"]
   tag nist: ["SC-2"]
 
-pg_owner = input('pg_owner')
+pg_owner = input('pg_owner') #not in use
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
 
 	privileges = %w(rolcreatedb rolcreaterole rolsuper)
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
   
 	roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
-	roles_query = sql.query(roles_sql, [pg_db])
+	roles_query = sql.query(roles_sql, [input('pg_db')])
 	roles = roles_query.lines
   
 	roles.each do |role|
-	  unless pg_superusers.include?(role)
+	  unless input('pg_superusers').include?(role)
 		privileges.each do |privilege|
 		  privilege_sql = "SELECT r.#{privilege} FROM pg_catalog.pg_roles r "\
 			"WHERE r.rolname = '#{role}';"
   
-		  describe sql.query(privilege_sql, [pg_db]) do
+		  describe sql.query(privilege_sql, [input('pg_db')]) do
 			its('output') { should_not eq 't' }
 		  end
 		end
