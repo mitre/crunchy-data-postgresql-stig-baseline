@@ -78,49 +78,34 @@ $ psql -c \"ALTER ROLE <role-name> WITH NOSUPERUSER\""
   tag cci: ["CCI-001493"]
   tag nist: ["AU-9"]
 
-pg_data_dir = input('pg_data_dir')
-
 pg_group = input('pg_group')
 
 pg_owner = input('pg_owner')
 
-pg_log_dir = input('pg_log_dir')
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
-pgaudit_installation = input('pgaudit_installation')
-
-	  describe directory(pg_log_dir) do
+	  describe directory(input('pg_log_dir')) do
 		it { should be_owned_by pg_owner }
 		it { should be_grouped_into pg_group }
 	  end 
 
-	  describe directory(pg_data_dir) do
+	  describe directory(input('pg_data_dir')) do
 		it { should be_owned_by pg_owner }
 		it { should be_grouped_into pg_group }
 	  end 
 	
-	  describe directory(pgaudit_installation) do
+	  describe directory(input('pgaudit_installation')) do
  		it { should be_owned_by 'root' }
    		it { should be_grouped_into 'root' }
  	  end 
 	
-	  sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	
 	  roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
 	  roles_query = sql.query(roles_sql, [pg_db])
 	  roles = roles_query.lines
 	
 	  roles.each do |role|
-		unless pg_superusers.include?(role)
+		unless input('pg_superusers').include?(role)
 		  superuser_sql = "SELECT r.rolsuper FROM pg_catalog.pg_roles r "\
 			"WHERE r.rolname = '#{role}';"
 	
