@@ -53,7 +53,7 @@ $ sudo chown -R root:root /usr/pgsql-${PGVER?}"
 
 pg_owner = input('pg_owner')
 
-pg_group = input('pg_owner') #should this be ('pg_group')
+pg_group = input('pg_group') 
 
 pg_ver = input('pg_version') #not in use
 
@@ -91,7 +91,7 @@ pg_user_defined_conf_file = input('pg_user_defined_conf') #not in use
 		its('stdout') { should cmp 0 }
 	  end
 	
-	  describe command("find #{input('pg_data_dir')} ! -group #{pg_group} | wc -l") do
+	  describe command("find #{input('pg_data_dir')} ! -group #{input('pg_group') } | wc -l") do
 		its('stdout') { should cmp 0 }
 	  end
 	
