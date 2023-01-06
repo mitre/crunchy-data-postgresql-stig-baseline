@@ -52,27 +52,19 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
+	describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do
 	  its('output') { should include 'pgaudit' }
 	end
   
-	describe sql.query('SHOW log_connections;', [pg_db]) do
+	describe sql.query('SHOW log_connections;', [input('pg_db')]) do
 	  its('output') { should match /on|true/i }
 	end
   
-	describe sql.query('SHOW log_disconnections;', [pg_db]) do
+	describe sql.query('SHOW log_disconnections;', [input('pg_db')]) do
 	  its('output') { should match /on|true/i }
 	end
   end
