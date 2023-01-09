@@ -211,8 +211,9 @@ approved_auth_methods = input('approved_auth_methods')
 		  end
 		end
 	
-		authorized_owners = input('pg_superusers') #not in use
-	
+		authorized_owners = input('pg_superusers') 
+		owners = authorized_owners.join('|')
+
 		object_granted_privileges = 'arwdDxtU'
 		object_public_privileges = 'r'
 		object_acl = "^((((#{owners})=[#{object_granted_privileges}]+|"\

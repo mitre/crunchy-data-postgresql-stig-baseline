@@ -101,7 +101,7 @@ pg_owner = input('pg_owner')
 	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	
 	  roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
-	  roles_query = sql.query(roles_sql, [pg_db])
+	  roles_query = sql.query(roles_sql, [input('pg_db')])
 	  roles = roles_query.lines
 	
 	  roles.each do |role|
@@ -109,7 +109,7 @@ pg_owner = input('pg_owner')
 		  superuser_sql = "SELECT r.rolsuper FROM pg_catalog.pg_roles r "\
 			"WHERE r.rolname = '#{role}';"
 	
-		  describe sql.query(superuser_sql, [pg_db]) do
+		  describe sql.query(superuser_sql, [input('pg_db')]) do
 			its('output') { should_not eq 't' }
 		  end
 		end

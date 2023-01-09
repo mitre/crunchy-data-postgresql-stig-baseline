@@ -69,7 +69,7 @@ sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host
   #Execute an incorrectly-formed SQL statement with bad syntax, to prompt log ouput
   if file(input('pg_audit_log_dir')).exist?
 
-	describe sql.query("CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; SET pgaudit.role='test'; SET ROLE postgres; DROP ROLE IF EXISTS pgauditrolefailuretest;", [pg_db]) do
+	describe sql.query("CREATE ROLE pgauditrolefailuretest; SET ROLE pgauditrolefailuretest; SET pgaudit.role='test'; SET ROLE postgres; DROP ROLE IF EXISTS pgauditrolefailuretest;", [input('pg_db')]) do
 	  its('output') { should match // }
 	end
   

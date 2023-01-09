@@ -103,11 +103,11 @@ pg_conf_file= input('pg_conf_file') #not in use
       its('output') { should match /ERROR:  permission denied for schema test_schema/ }
     end
 
-    describe sql.query('SET ROLE bob; INSERT INTO test_schema.test_table VALUES (0);', [pg_db]) do
+    describe sql.query('SET ROLE bob; INSERT INTO test_schema.test_table VALUES (0);', [input('pg_db')]) do
       its('output') { should match /ERROR:  permission denied for schema test_schema/ }
     end
 
-    describe sql.query('SET ROLE bob; UPDATE test_schema.test_table SET id = 1 WHERE id = 0;', [pg_db]) do
+    describe sql.query('SET ROLE bob; UPDATE test_schema.test_table SET id = 1 WHERE id = 0;', [input('pg_db')]) do
       its('output') { should match /ERROR:  permission denied for schema test_schema/ }
     end
 
