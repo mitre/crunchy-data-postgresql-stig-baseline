@@ -66,7 +66,7 @@ $ sudo chmod 0755 /usr/pgsql-${PGVER?}/bin/*"
 
 pg_owner = input('pg_owner')
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
 	describe file(input('pg_data_dir')) do
 		it { should be_directory }
