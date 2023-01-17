@@ -54,10 +54,6 @@ $ psql -c \"DROP EXTENSION extension_name\""
   tag cci: ["CCI-000381"]
   tag nist: ["CM-7 a"]
 
-pg_conf_file= input('pg_conf_file') #not in use 
-
-login_user = input('login_user') #not in use
-
 	dbs = nil
 	db = nil
   

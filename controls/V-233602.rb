@@ -63,11 +63,6 @@ content APPENDIX-G."
   tag cci: ["CCI-000186"]
   tag nist: ["IA-5 (2) (b)"]
 
-pg_ver = input('pg_version') #not in use 
-
-pg_owner = input('pg_owner')
-
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	settings = %w(ssl_cert_file ssl_key_file ssl_ca_file ssl_crl_file)

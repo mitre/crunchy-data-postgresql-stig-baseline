@@ -38,8 +38,6 @@ If other applications are located in the same directory as PostgreSQL, this is a
   tag cci: ["CCI-001499"]
   tag nist: ["CM-5 (6)"]
 
-pg_version = input('pg_version') #not in use 
-
 input('pg_shared_dirs').each do |dir|
 		describe directory(dir) do
 		  it { should be_directory }

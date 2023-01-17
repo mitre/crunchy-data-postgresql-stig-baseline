@@ -62,8 +62,6 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-001844"]
   tag nist: ["AU-3 (2)"]
 
-pg_ver = input('pg_version')  #not in use 
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW log_destination;', [input('pg_db')]) do

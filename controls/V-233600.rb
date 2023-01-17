@@ -111,8 +111,6 @@ For a specific audit role:
   tag cci: ["CCI-001914"]
   tag nist: ["AU-12 (3)"]
 
-pg_ver = input('pg_version') #not in use 
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do

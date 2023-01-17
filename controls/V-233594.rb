@@ -46,17 +46,7 @@ $ sudo apt-get remove <package_name>"
   tag fix_id: 'F-36753r607006_fix'
   tag cci: ["CCI-000381"]
   tag nist: ["CM-7 a"]
-
-pg_host = input('pg_host') #not in use
-
-login_user = input('login_user') #not in use
-
-pg_dba = input('pg_dba') #not in use
-
-pg_dba_password = input('pg_dba_password') #not in use 
-
-pg_db = input('pg_db') #not in use
-
+  
 approved_packages = input('approved_packages')
 
 	if os.debian?

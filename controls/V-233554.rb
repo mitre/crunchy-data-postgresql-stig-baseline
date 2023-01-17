@@ -67,18 +67,6 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_ver = input('pg_version') #not in use
-
-pg_dba = input('pg_dba') #not in use
-
-pg_dba_password = input('pg_dba_password') #not in use
-
-pg_db = input('pg_db') #not in use
-
-pg_host = input('pg_host') #not in use 
-
-pg_log_dir = input('pg_log_dir') #not in use 
-
 	if file(input('pg_audit_log_dir')).exist?
 		describe command("grep -r \"connection authorized\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*user=postgres.*$/ }

@@ -55,18 +55,6 @@ pg_owner = input('pg_owner')
 
 pg_group = input('pg_group') 
 
-pg_ver = input('pg_version') #not in use
-
-pg_dba = input('pg_dba') #not in use 
-
-pg_dba_password = input('pg_dba_password') #not in use
-
-pg_db = input('pg_db') #not in use 
-
-pg_host = input('pg_host') #not in use
-
-pg_user_defined_conf_file = input('pg_user_defined_conf') #not in use
-
 	describe file(input('pg_hba_conf_file')) do
 		it { should be_owned_by pg_owner }
 		its('mode') { should cmp '0600' }
