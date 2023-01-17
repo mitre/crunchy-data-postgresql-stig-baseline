@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 1, Release: 1 Benchmark Date: 20 Nov 2020"
-version: 1.1.7  
+version: 1.1.9  
 inspec_version: ">= 4.0"
 
 inputs:
@@ -23,7 +23,8 @@ inputs:
     required: true
     sensitive: true
 
-  - name: pg_owner_password
+# for possible future use
+  - name: pg_owner_password 
     description: "The postgres database owner password"
     type: string
     value: ""
@@ -52,8 +53,8 @@ inputs:
     required: true
     sensitive: true
 
-  # not used in controls
-  - name: pg_user_password
+  # for possible future use
+  - name: pg_user_password 
     description: "The postgres database system user password"
     type: string
     value: ""
@@ -82,8 +83,8 @@ inputs:
     required: true
     sensitive: true
 
-  # not used in controls
-  - name: login_host
+  # for possible future use
+  - name: login_host 
     description: "The host ip address that can access the postgres host"
     type: string
     value: "localhost"
@@ -109,7 +110,7 @@ inputs:
     required: true
     sensitive: true
 
-  # not used in controls
+  # for possible future use
   - name: pg_syslog_owner
     description: "The syslog process owner that the progress logs should use"
     type: string
@@ -117,7 +118,7 @@ inputs:
     required: true
     sensitive: true
 
-    # not used in controls
+    # for possible future use
   - name: pg_syslog_facility
     description: "The syslog facility that postgres should be set to use for logging"
     type: array
@@ -159,28 +160,28 @@ inputs:
       - "pg_settings"
     required: true
 
-  # not used in controls
+  # for possible future use
   - name: pg_conf_mode
     description: "The desired `mode` of the Postgres `potgres.conf` file."
     type: string
     value: "0600"
     required: true
 
-  # not used in controls
+  # for possible future use
   - name: pg_ssl
     description: "The desired value to have postgres use ssl or not (on|off)"
     type: string
     value: "on"
     required: true
 
-  # not used in controls
+  # for possible future use
   - name: pg_log_dest
     description: "The logging system that postgres should ship logs to (syslog)"
     type: string
     value: "syslog"
     required: true
 
-  # not used in controls
+  # for possible future use
   - name: pgaudit_log_items
     description: "The expected item types that postgres should log to the logging system"
     type: array
@@ -193,7 +194,7 @@ inputs:
       - 'misc'
       - 'misc_set'
 
-  # not used in controls
+  # for possible future use
   - name: pgaudit_log_line_items
     description: "The expected configuration of the items that progress is logging"
     type: array
