@@ -48,15 +48,8 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-001312"]
   tag nist: ["SI-11 a"]
 
-
-pg_ver = input('pg_version')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_user_defined_conf = input('pg_user_defined_conf')
-
 	default = postgres_conf(input('pg_conf_file'))
-	override = postgres_conf(pg_user_defined_conf)
+	override = postgres_conf(input('pg_user_defined_conf'))
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
   
 	describe sql.query('SHOW client_min_messages;', [input('pg_db')]) do

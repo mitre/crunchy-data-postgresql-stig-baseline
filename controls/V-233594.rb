@@ -46,8 +46,6 @@ $ sudo apt-get remove <package_name>"
   tag fix_id: 'F-36753r607006_fix'
   tag cci: ["CCI-000381"]
   tag nist: ["CM-7 a"]
-  
-approved_packages = input('approved_packages')
 
 	if os.debian?
 		dpkg_packages = command("dpkg --get-selections | grep \"postgres\"").stdout.tr('install','').split("\n")
@@ -61,7 +59,7 @@ approved_packages = input('approved_packages')
 		yum_packages = command("yum list installed | grep \"postgres\" | cut -d \" \" -f1").stdout.strip.tr(' ','').split("\n")
 		yum_packages.each do |packages|
 		  describe(packages) do
-			it { should be_in approved_packages }
+			it { should be_in input('approved_packages') }
 		  end
 		end
 	  end

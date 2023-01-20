@@ -49,24 +49,16 @@ REVOKE SELECT ON some_function FROM bob;"
   tag cci: ["CCI-001499"]
   tag nist: ["CM-5 (6)"]
 
-
-pg_owner = input('pg_owner')
-
-pg_group = input('pg_group')
-
 	if !input('windows_runner')
 		sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	
-		authorized_owners = input('pg_superusers')
-		owners = authorized_owners.join('|')
-	
 		object_granted_privileges = 'arwdDxtU'
 		object_public_privileges = 'r'
-		object_acl = "^((((#{owners})=[#{object_granted_privileges}]+|"\
+		object_acl = "^((((#{input('pg_superusers').join('|')})=[#{object_granted_privileges}]+|"\
 		  "=[#{object_public_privileges}]+)\/\\w+,?)+|)\\|"
 		object_acl_regex = Regexp.new(object_acl)
 	
-		pg_settings_acl = "^((((#{owners})=[#{object_granted_privileges}]+|"\
+		pg_settings_acl = "^((((#{input('pg_superusers').join('|')})=[#{object_granted_privileges}]+|"\
 		  "=rw)\/\\w+,?)+)\\|pg_catalog\\|pg_settings\\|v"
 		pg_settings_acl_regex = Regexp.new(pg_settings_acl)
 	
@@ -118,7 +110,7 @@ pg_group = input('pg_group')
 	
 		describe directory(input('pg_data_dir')) do
 		  it { should be_directory }
-		  it { should be_owned_by pg_owner }
+		  it { should be_owned_by input('pg_owner') }
 		  its('mode') { should cmp '0700' }
 		end
 	  else

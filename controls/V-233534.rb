@@ -58,7 +58,7 @@ $ chmod 600 ${PGDATA?}/postgresql.conf"
 
 	describe directory(input('pg_data_dir')) do
 		it { should be_directory }
-		it { should be_owned_by pg_owner }
+		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0700' }
 	  end
 	

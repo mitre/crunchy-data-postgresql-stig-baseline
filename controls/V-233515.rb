@@ -69,18 +69,16 @@ and obtain approval, as appropriate."
   tag cci: ["CCI-000015"]
   tag nist: ["AC-2 (1)"]
 
-approved_auth_methods = input('approved_auth_methods')
-
 	describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
-		its('auth_method.uniq') { should be_in approved_auth_methods }
+		its('auth_method.uniq') { should be_in input('approved_auth_methods') }
 	  end
 	
 	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { database == 'replication' } do
-		its('auth_method.uniq') { should be_in approved_auth_methods }
+		its('auth_method.uniq') { should be_in input('approved_auth_methods') }
 	  end
 	  
 	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
-		its('auth_method.uniq') { should be_in approved_auth_methods }
+		its('auth_method.uniq') { should be_in input('approved_auth_methods') }
 	  end
 	end
 

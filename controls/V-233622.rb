@@ -55,7 +55,7 @@ $ sudo systemctl reload postgresql-${PGVER?}"
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do
-	  its('output') { should include 'pgaudit' }
+	  its('output') { should include (input('pgaudit')) }
 	end
   
 	describe sql.query('SHOW log_connections;', [input('pg_db')]) do

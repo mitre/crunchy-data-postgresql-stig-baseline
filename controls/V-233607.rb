@@ -78,19 +78,15 @@ $ psql -c \"ALTER ROLE <role-name> WITH NOSUPERUSER\""
   tag cci: ["CCI-001493"]
   tag nist: ["AU-9"]
 
-pg_group = input('pg_group')
-
-pg_owner = input('pg_owner')
-
 
 	  describe directory(input('pg_log_dir')) do
-		it { should be_owned_by pg_owner }
-		it { should be_grouped_into pg_group }
+		it { should be_owned_by input('pg_owner') }
+		it { should be_grouped_into input('pg_group') }
 	  end 
 
 	  describe directory(input('pg_data_dir')) do
-		it { should be_owned_by pg_owner }
-		it { should be_grouped_into pg_group }
+		it { should be_owned_by input('pg_owner') }
+		it { should be_grouped_into input('pg_group') }
 	  end 
 	
 	  describe directory(input('pgaudit_installation')) do

@@ -47,8 +47,6 @@ ALTER ROLE <username> NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS;"
   tag cci: ["CCI-001082"]
   tag nist: ["SC-2"]
 
-pg_owner = input('pg_owner') #not in use
-
 
 	privileges = %w(rolcreatedb rolcreaterole rolsuper)
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))

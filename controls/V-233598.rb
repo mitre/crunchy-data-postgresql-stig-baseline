@@ -66,9 +66,6 @@ account, ensure it also captures the individual user identification and passes i
   tag cci: ["CCI-000166"]
   tag nist: ["AU-10"]
 
-pg_ver = input('pg_version') #not in use
-
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	log_line_prefix_escapes = %w(%m %u %d %p %r %a)
