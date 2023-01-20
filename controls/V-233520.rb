@@ -183,19 +183,7 @@ pg_ver = input('pg_version')
 
 pg_owner = input('pg_owner')
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_superusers = input('pg_superusers')
-
-pg_hba_conf_file = input('pg_hba_conf_file')
+pg_data_dir = input('pg_data_dir') 
 
 pg_replicas = input('pg_replicas')
 
@@ -206,26 +194,26 @@ approved_auth_methods = input('approved_auth_methods')
 		  skip 'Requires manual review at this time.'
 		end
 	  else
-		sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+		sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	
 		roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
-		roles_query = sql.query(roles_sql, [pg_db])
+		roles_query = sql.query(roles_sql, [input('pg_db')])
 		roles = roles_query.lines
 	
 		roles.each do |role|
-		  next if pg_superusers.include?(role)
+		  next if input('pg_superusers').include?(role)
 	
 		  superuser_sql = 'SELECT r.rolsuper FROM pg_catalog.pg_roles r '\
 			"WHERE r.rolname = '#{role}';"
 	
-		  describe sql.query(superuser_sql, [pg_db]) do
+		  describe sql.query(superuser_sql, [input('pg_db')]) do
 			its('output') { should_not eq 't' }
 		  end
 		end
 	
-		authorized_owners = pg_superusers
+		authorized_owners = input('pg_superusers') 
 		owners = authorized_owners.join('|')
-	
+
 		object_granted_privileges = 'arwdDxtU'
 		object_public_privileges = 'r'
 		object_acl = "^((((#{owners})=[#{object_granted_privileges}]+|"\
@@ -239,7 +227,7 @@ approved_auth_methods = input('approved_auth_methods')
 		  "AND n.nspname !~ '^pg_' AND pg_catalog.pg_table_is_visible(c.oid);"
 	
 		databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
-		databases_query = sql.query(databases_sql, [pg_db])
+		databases_query = sql.query(databases_sql, [input('pg_db')])
 		databases = databases_query.lines
 	
 		databases.each do |database|
@@ -267,19 +255,19 @@ approved_auth_methods = input('approved_auth_methods')
 		privileges exceed those documented, this is a finding."
 		end
 	
-		describe postgres_hba_conf(pg_hba_conf_file).where { type == 'local' } do
+		describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
 		  its('user.uniq') { should cmp pg_owner }
 		  its('auth_method.uniq') { should_not cmp 'trust' }
 		end
 	
-		describe postgres_hba_conf(pg_hba_conf_file).where { database == 'replication' } do
+		describe postgres_hba_conf(input('pg_hba_conf_file')).where { database == 'replication' } do
 		  its('type.uniq') { should cmp 'host' }
 		  its('address.uniq.sort') { should cmp pg_replicas.sort }
 		  its('user.uniq') { should cmp 'replication' }
 		  its('auth_method.uniq') { should be_in approved_auth_methods }
 		end
 	
-		describe postgres_hba_conf(pg_hba_conf_file).where { type == 'host' } do
+		describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
 		  its('auth_method.uniq') { should be_in approved_auth_methods }
 		end
 	  end

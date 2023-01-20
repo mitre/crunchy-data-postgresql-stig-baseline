@@ -47,23 +47,12 @@ https://www.postgresql.org/docs/current/static/sql-createrole.html"
   tag cci: ["CCI-000804"]
   tag nist: ["IA-8"]
 
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_superusers = input('pg_superusers')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	authorized_roles = pg_superusers
+	authorized_roles = input('pg_superusers')
   
 	roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r where r.rolsuper;'
-	describe sql.query(roles_sql, [pg_db]) do
+	describe sql.query(roles_sql, [input('pg_db')]) do
 	  its('lines.sort') { should cmp authorized_roles.sort }
 	end
   end

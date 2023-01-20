@@ -67,27 +67,25 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_dba = input('pg_dba')
+pg_dba = input('pg_dba') #not in use
 
-pg_dba_password = input('pg_dba_password')
+pg_dba_password = input('pg_dba_password') #not in use
 
-pg_db = input('pg_db')
+pg_db = input('pg_db') #not in use
 
-pg_host = input('pg_host')
+pg_host = input('pg_host') #not in use 
 
-pg_log_dir = input('pg_log_dir')
+pg_log_dir = input('pg_log_dir') #not in use 
 
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-	if file(pg_audit_log_dir).exist?
-		describe command("grep -r \"connection authorized\" #{pg_audit_log_dir}") do
+	if file(input('pg_audit_log_dir')).exist?
+		describe command("grep -r \"connection authorized\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*user=postgres.*$/ }
 		end 
 	  else
-		describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
-		  skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
+		describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
+		  skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
 		end
 	  end
 	  

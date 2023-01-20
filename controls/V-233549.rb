@@ -93,27 +93,17 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000162"]
   tag nist: ["AU-9"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_dba = input('pg_dba')
+pg_log_dir = input('pg_log_dir')  #not in use
 
-pg_dba_password = input('pg_dba_password')
+sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW log_file_mode;', [pg_db]) do
+	describe sql.query('SHOW log_file_mode;', [input('pg_db')]) do
 		its('output') { should match /0600/ }
-	   end
+	end
 	 
-	   command("find #{pg_audit_log_dir} -type f").stdout.split.each do |logfile|
+	   command("find #{input('pg_audit_log_dir')} -type f").stdout.split.each do |logfile|
 	   describe file(logfile) do
 		 its('mode') { should cmp '0600' }
 	   end

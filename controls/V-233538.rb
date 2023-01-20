@@ -43,17 +43,10 @@ To configure PostgreSQL to use SSL, see supplementary content APPENDIX-G for ins
   tag cci: ["CCI-002422"]
   tag nist: ["SC-8 (2)"]
 
-pg_dba = input('pg_dba')
 
-pg_dba_password = input('pg_dba_password')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW ssl;', [pg_db]) do
+	describe sql.query('SHOW ssl;', [input('pg_db')]) do
 	  its('output') { should_not match /off|false/i }
 	end
   end

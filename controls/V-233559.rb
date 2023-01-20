@@ -58,53 +58,43 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
+pg_log_dir = input('pg_log_dir') #not in use 
 
-pg_dba_password = input('pg_dba_password')
+sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	if file(pg_audit_log_dir).exist?
-		describe sql.query("CREATE TABLE stig_test(id INT); ALTER TABLE stig_test ENABLE ROW LEVEL SECURITY; CREATE POLICY lock_table ON stig_test USING ('postgres' = current_user); DROP POLICY lock_table ON stig_test; ALTER TABLE stig_test DISABLE ROW LEVEL SECURITY; DROP TABLE stig_test;", [pg_db]) do
+	if file(input('pg_audit_log_dir')).exist?
+		describe sql.query("CREATE TABLE stig_test(id INT); ALTER TABLE stig_test ENABLE ROW LEVEL SECURITY; CREATE POLICY lock_table ON stig_test USING ('postgres' = current_user); DROP POLICY lock_table ON stig_test; ALTER TABLE stig_test DISABLE ROW LEVEL SECURITY; DROP TABLE stig_test;", [input('pg_db')]) do
 		  its('output') { should match // }
 		end
 	  
-		describe command("grep -r \"AUDIT: SESSION\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"AUDIT: SESSION\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*CREATE TABLE,,,CREATE TABLE stig_test.*$/ }
 		end 
 	  
-		describe command("grep -r \"AUDIT: SESSION\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"AUDIT: SESSION\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*ALTER TABLE stig_test ENABLE ROW LEVEL SECURITY.*$/ }
 		end 
 	  
-		describe command("grep -r \"AUDIT: SESSION\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"AUDIT: SESSION\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*CREATE POLICY lock_table ON stig_test.*$/ }
 		end 
 	  
-		describe command("grep -r \"AUDIT: SESSION\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"AUDIT: SESSION\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*DROP POLICY lock_table ON stig_test.*$/ }
 		end 
 	  
-		describe command("grep -r \"AUDIT: SESSION\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"AUDIT: SESSION\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*ALTER TABLE stig_test DISABLE ROW LEVEL SECURITY.*$/ }
 		end
 	  
-		describe command("grep -r \"AUDIT: SESSION\" #{pg_audit_log_dir}") do
+		describe command("grep -r \"AUDIT: SESSION\" #{input('pg_audit_log_dir')}") do
 		  its('stdout') { should match /^.*DROP TABLE stig_test.*$/ }
 		end 
 	  else
-		describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
-		  skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
+		describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+		  skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
 		end 
 	  end
 	  

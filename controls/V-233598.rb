@@ -66,27 +66,20 @@ account, ensure it also captures the individual user identification and passes i
   tag cci: ["CCI-000166"]
   tag nist: ["AU-10"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_dba = input('pg_dba')
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	log_line_prefix_escapes = %w(%m %u %d %p %r %a)
   
 	log_line_prefix_escapes.each do |escape|
-	  describe sql.query('SHOW log_line_prefix;', [pg_db]) do
+	  describe sql.query('SHOW log_line_prefix;', [input('pg_db')]) do
 		its('output') { should include escape }
 	  end
 	end
   
-	describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
+	describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do
 	  its('output') { should include 'pgaudit' }
 	end
   end

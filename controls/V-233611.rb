@@ -50,19 +50,11 @@ https://www.postgresql.org/docs/current/static/ssl-tcp.html"
   tag cci: ["CCI-001188"]
   tag nist: ["SC-23 (3)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_dba = input('pg_dba')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW ssl;', [pg_db]) do
+	describe sql.query('SHOW ssl;', [input('pg_db')]) do
 	  its('output') { should match /on|true/i }
 	end
   end

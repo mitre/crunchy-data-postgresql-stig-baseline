@@ -50,33 +50,23 @@ APPENDIX-C for instructions on enabling logging."
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_dba = input('pg_dba')
+pg_log_dir = input('pg_log_dir') #not in use 
 
-pg_dba_password = input('pg_dba_password')
+sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_log_dir = input('pg_log_dir')
-
-pg_audit_log_dir = input('pg_audit_log_dir')
-
-sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	if file(pg_audit_log_dir).exist?
-		describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; SELECT * FROM pg_authid; SET ROLE postgres; DROP ROLE fooaudit;', [pg_db]) do
+	if file(input('pg_audit_log_dir')).exist?
+		describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; SELECT * FROM pg_authid; SET ROLE postgres; DROP ROLE fooaudit;', [input('pg_db')]) do
 		  its('output') { should match // }
 		end
 	  
-	   describe command("grep -r \"permission denied for table\\|relation\" #{pg_audit_log_dir}") do
+	   describe command("grep -r \"permission denied for table\\|relation\" #{input('pg_audit_log_dir')}") do
 		 its('stdout') { should match /^.*pg_authid.*$/ }
 		end 
 	  else
-		describe "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter." do
-		  skip "The #{pg_audit_log_dir} directory was not found. Check path for this postgres version/install to define the value for the 'pg_audit_log_dir' inspec input parameter."
+		describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+		  skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
 		end
 	  end
 	  

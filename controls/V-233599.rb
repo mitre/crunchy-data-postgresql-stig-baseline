@@ -53,7 +53,7 @@ Schedule this script in cron to run around the clock."
   tag cci: ["CCI-001855"]
   tag nist: ["AU-5 (1)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
 	describe "Check system configuration for storage alerts." do
 		skip "Review system configuration. If no script/tool is monitoring the partition for the PostgreSQL log directories, this is a finding."

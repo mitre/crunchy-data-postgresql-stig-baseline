@@ -63,27 +63,17 @@ content APPENDIX-G."
   tag cci: ["CCI-000186"]
   tag nist: ["IA-5 (2) (b)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
 pg_owner = input('pg_owner')
 
-pg_dba = input('pg_dba')
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	settings = %w(ssl_cert_file ssl_key_file ssl_ca_file ssl_crl_file)
   
 	settings.each do |setting|
-	  file_query = sql.query("SHOW #{setting};", [pg_db])
+	  file_query = sql.query("SHOW #{setting};", [input('pg_db')])
 	  file = file_query.output
   
 	  if file.empty?
@@ -105,9 +95,9 @@ pg_data_dir = input('pg_data_dir')
 		  ext = 'crl'
 		end
   
-		file = "#{pg_data_dir}/#{name}.#{ext}"
+		file = "#{input('pg_data_dir')}/#{name}.#{ext}"
 	  elsif File.dirname(file) == '.'
-		file = "#{pg_data_dir}/#{file}"
+		file = "#{input('pg_data_dir')}/#{file}"
 	  end
   
 	  describe file(file) do

@@ -111,19 +111,11 @@ For a specific audit role:
   tag cci: ["CCI-001914"]
   tag nist: ["AU-12 (3)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW shared_preload_libraries;', [pg_db]) do
+	describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do
 	  its('output') { should include 'pgaudit' }
 	end
   end

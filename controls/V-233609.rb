@@ -53,34 +53,26 @@ $ sudo chown -R root:root /usr/pgsql-${PGVER?}"
 
 pg_owner = input('pg_owner')
 
-pg_group = input('pg_owner')
+pg_group = input('pg_group') 
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use
 
-pg_data_dir = input('pg_data_dir')
+pg_dba = input('pg_dba') #not in use 
 
-pg_dba = input('pg_dba')
+pg_dba_password = input('pg_dba_password') #not in use
 
-pg_dba_password = input('pg_dba_password')
+pg_db = input('pg_db') #not in use 
 
-pg_db = input('pg_db')
+pg_host = input('pg_host') #not in use
 
-pg_host = input('pg_host')
+pg_user_defined_conf_file = input('pg_user_defined_conf') #not in use
 
-pg_hba_conf_file = input('pg_hba_conf_file')
-
-pg_ident_conf_file = input('pg_ident_conf_file')
-
-pg_user_defined_conf_file = input('pg_user_defined_conf')
-
-pg_shared_dirs = input('pg_shared_dirs')
-
-	describe file(pg_hba_conf_file) do
+	describe file(input('pg_hba_conf_file')) do
 		it { should be_owned_by pg_owner }
 		its('mode') { should cmp '0600' }
 	  end
 	
-	  describe file(pg_ident_conf_file) do
+	  describe file(input('pg_ident_conf_file')) do
 		it { should be_owned_by pg_owner }
 		its('mode') { should cmp '0600' }
 	  end  
@@ -90,16 +82,16 @@ pg_shared_dirs = input('pg_shared_dirs')
 		its('mode') { should cmp '0600' }
 	  end  
 	
-	  describe directory(pg_data_dir) do
+	  describe directory(input('pg_data_dir')) do
 		it { should be_owned_by pg_owner }
 		it { should be_grouped_into pg_group }
 	  end
 	
-	  describe command("find #{pg_data_dir} ! -user #{pg_owner} | wc -l") do
+	  describe command("find #{input('pg_data_dir')} ! -user #{input('pg_owner')} | wc -l") do
 		its('stdout') { should cmp 0 }
 	  end
 	
-	  describe command("find #{pg_data_dir} ! -group #{pg_group} | wc -l") do
+	  describe command("find #{input('pg_data_dir')} ! -group #{input('pg_group') } | wc -l") do
 		its('stdout') { should cmp 0 }
 	  end
 	
@@ -112,7 +104,7 @@ pg_shared_dirs = input('pg_shared_dirs')
 		its('stdout.strip') { should cmp "0" }
 	  end
 	
-	  pg_shared_dirs.each do |dir|
+	  input('pg_shared_dirs').each do |dir|
 		next unless directory(dir).exist?
 		describe directory(dir) do
 		  it { should be_owned_by 'root' }

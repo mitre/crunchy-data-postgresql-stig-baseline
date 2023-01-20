@@ -93,37 +93,26 @@ $ chmod 0600 <log directory name>/*.log"
   tag cci: ["CCI-000163"]
   tag nist: ["AU-9"]
 
-
-pg_log_dir = input('pg_log_dir')
-
 pg_owner = input('pg_owner')
 
-pg_dba = input('pg_dba')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW log_file_mode;', [pg_db]) do
+	describe sql.query('SHOW log_file_mode;', [input('pg_db')]) do
 	  its('output') { should cmp '0600'}
 	end
 	
-	describe sql.query('SHOW logging_collector;', [pg_db]) do
+	describe sql.query('SHOW logging_collector;', [input('pg_db')]) do
 	  its('output') { should_not match /off|false/i }
 	end
    
-	describe directory(pg_log_dir) do
+	describe directory(input('pg_log_dir')) do
 	  it { should be_directory }
 	  it { should be_owned_by pg_owner }
 	  it { should be_grouped_into pg_owner }
 	  its('mode') { should  cmp '0700' }
 	end
   
-	describe command("find #{pg_log_dir} -type f -perm 600 ! -perm 600 | wc -l") do
+	describe command("find #{input('pg_log_dir')} -type f -perm 600 ! -perm 600 | wc -l") do
 	  its('stdout.strip') { should eq '0' }
 	end
   end

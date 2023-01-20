@@ -88,17 +88,12 @@ pg_dba = input('pg_dba')
 
 pg_dba_password = input('pg_dba_password')
 
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
 pg_data_dir = input('pg_data_dir')
 
-pg_hba_conf_file = input('pg_hba_conf_file')
 
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-	ssl_crl_file_query = sql.query('SHOW ssl_crl_file;', [pg_db])
+	ssl_crl_file_query = sql.query('SHOW ssl_crl_file;', [input('pg_db')])
   
 	describe ssl_crl_file_query do
 	  its('output') { should match /^#{pg_data_dir}root\.crl$/ }
@@ -107,9 +102,9 @@ pg_hba_conf_file = input('pg_hba_conf_file')
 	ssl_crl_file = ssl_crl_file_query.output
   
 	if ssl_crl_file.empty?
-	  ssl_crl_file = "#{pg_data_dir}/root.crl"
+	  ssl_crl_file = "#{input('pg_data_dir')}/root.crl"
 	elsif File.dirname(ssl_crl_file) == '.'
-	  ssl_crl_file = "#{pg_data_dir}/#{ssl_crl_file}"
+	  ssl_crl_file = "#{input('pg_data_dir')}/#{ssl_crl_file}"
 	end
   
 	describe file(ssl_crl_file) do
@@ -117,10 +112,10 @@ pg_hba_conf_file = input('pg_hba_conf_file')
 	end
   
 	describe.one do
-	  describe postgres_hba_conf(pg_hba_conf_file).where { type == 'hostssl' } do
+	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'hostssl' } do
 		its('auth_method') { should include 'cert' }
 	  end
-	  describe postgres_hba_conf(pg_hba_conf_file).where { type == 'hostssl' } do
+	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'hostssl' } do
 		its('auth_params') { should match [/clientcert=1.*/] }
 	  end
 	end

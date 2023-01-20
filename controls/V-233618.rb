@@ -60,30 +60,20 @@ $ chmod 0600 ${PGDATA?}/*.conf"
   tag cci: ["CCI-001494"]
   tag nist: ["AU-9"]
 
-pg_dba = input('pg_dba')
+pg_data_dir = input('pg_data_dir') #not in use
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_conf_file = input('pg_conf_file')
-
-	describe file(pg_conf_file) do
+	describe file(input('pg_conf_file')) do
 		it { should be_file }
 		its('mode') { should cmp '0600' }
 	  end
 	
-	  sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	
-	  log_destination_query = sql.query('SHOW log_destination;', [pg_db])
+	  log_destination_query = sql.query('SHOW log_destination;', [input('pg_db')])
 	  log_destination = log_destination_query.output
 	
 	  if log_destination =~ /stderr/i
-		describe sql.query('SHOW log_file_mode;', [pg_db]) do
+		describe sql.query('SHOW log_file_mode;', [input('pg_db')]) do
 		  its('output') { should cmp '0600' }
 		end
 	  end

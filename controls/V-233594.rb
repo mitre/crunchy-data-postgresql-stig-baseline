@@ -47,15 +47,15 @@ $ sudo apt-get remove <package_name>"
   tag cci: ["CCI-000381"]
   tag nist: ["CM-7 a"]
 
-pg_host = input('pg_host')
+pg_host = input('pg_host') #not in use
 
-login_user = input('login_user')
+login_user = input('login_user') #not in use
 
-pg_dba = input('pg_dba')
+pg_dba = input('pg_dba') #not in use
 
-pg_dba_password = input('pg_dba_password')
+pg_dba_password = input('pg_dba_password') #not in use 
 
-pg_db = input('pg_db')
+pg_db = input('pg_db') #not in use
 
 approved_packages = input('approved_packages')
 

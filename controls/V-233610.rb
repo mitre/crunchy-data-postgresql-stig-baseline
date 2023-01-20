@@ -64,25 +64,20 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-001851"]
   tag nist: ["AU-4 (1)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not  in use
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
 
 pg_host = input('pg_host')
 
-    sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  describe sql.query('SHOW log_destination;', [pg_db]) do
+  describe sql.query('SHOW log_destination;', [input('pg_db')]) do
     its('output') { should cmp 'csvlog,syslog'}
   end
 
   
   #Change comparison value based on organizational syslog defintions
-  describe sql.query('SHOW syslog_facility;', [pg_db]) do
+  describe sql.query('SHOW syslog_facility;', [input('pg_db')]) do
     its('output') { should cmp 'local0'}
   end  
 

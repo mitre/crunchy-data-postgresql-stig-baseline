@@ -96,36 +96,25 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag nist: ["AU-3"]
 
 
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))    
 
-pg_conf_file= input('pg_conf_file')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))    
-
-    describe sql.query('DROP TABLE IF EXISTS stig_test;', [pg_db]) do
+    describe sql.query('DROP TABLE IF EXISTS stig_test;', [input('pg_db')]) do
       its('output') { should eq 'DROP TABLE' }
     end
 
-    describe sql.query('CREATE TABLE stig_test(id INT);', [pg_db]) do
+    describe sql.query('CREATE TABLE stig_test(id INT);', [input('pg_db')]) do
       its('output') { should eq 'CREATE TABLE' }
     end
 
-    describe sql.query('INSERT INTO stig_test(id) VALUES (0);', [pg_db]) do
+    describe sql.query('INSERT INTO stig_test(id) VALUES (0);', [input('pg_db')]) do
       its('output') { should eq 'INSERT 0 1' }
     end
 
-    describe sql.query('ALTER TABLE stig_test ADD COLUMN name text;', [pg_db]) do
+    describe sql.query('ALTER TABLE stig_test ADD COLUMN name text;', [input('pg_db')]) do
       its('output') { should eq 'ALTER TABLE' }
     end
 
-    describe sql.query('UPDATE stig_test SET id = 1 WHERE id = 0;', [pg_db]) do
+    describe sql.query('UPDATE stig_test SET id = 1 WHERE id = 0;', [input('pg_db')]) do
       its('output') { should eq 'UPDATE 1' }
     end
 
@@ -153,19 +142,19 @@ pg_host = input('pg_host')
       its('output') { should eq 'CREATE ROLE' }
     end
 
-    describe sql.query('SET ROLE foostigtest; INSERT INTO stig_test(id) VALUES (1);', [pg_db]) do
+    describe sql.query('SET ROLE foostigtest; INSERT INTO stig_test(id) VALUES (1);', [input('pg_db')]) do
       its('output') { should match /\n(\[sudo\] password for .*: |)ERROR:  permission denied for (relation|table) stig_test/ }
     end
 
-    describe sql.query('SET ROLE foostigtest; ALTER TABLE stig_test DROP COLUMN name;', [pg_db]) do
+    describe sql.query('SET ROLE foostigtest; ALTER TABLE stig_test DROP COLUMN name;', [input('pg_db')]) do
       its('output') { should match /\n(\[sudo\] password for .*: |)ERROR:  must be owner of (relation|table) stig_test/ }
     end
     
-    describe sql.query('SET ROLE foostigtest; UPDATE stig_test SET id = 0 WHERE id = 1;', [pg_db]) do
+    describe sql.query('SET ROLE foostigtest; UPDATE stig_test SET id = 0 WHERE id = 1;', [input('pg_db')]) do
       its('output') { should match /\n(\[sudo\] password for .*: |)ERROR:  permission denied for (relation|table) stig_test/ }
     end
 
-   describe sql.query('DROP TABLE stig_test;', [pg_db]) do
+   describe sql.query('DROP TABLE stig_test;', [input('pg_db')]) do
       its('output') { should eq 'DROP TABLE' }
    end
   
@@ -173,7 +162,7 @@ pg_host = input('pg_host')
       its('output') { should eq 'DROP ROLE' }
   end   
 
-    describe postgres_conf(pg_conf_file) do
+    describe postgres_conf(input('pg_conf_file')) do
       its('log_error_verbosity') { should eq 'default' }
       its('log_duration') { should eq 'on'}
     end

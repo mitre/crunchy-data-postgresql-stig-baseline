@@ -49,27 +49,15 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag nist: ["SI-11 a"]
 
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
+pg_data_dir = input('pg_data_dir') #not in use 
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_conf_file = input('pg_conf_file')
-
-pg_user_defined_conf = input('pg_user_defined_conf')
-
-	default = postgres_conf(pg_conf_file)
-	override = postgres_conf(pg_user_defined_conf)
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	default = postgres_conf(input('pg_conf_file'))
+	override = postgres_conf(input('pg_user_defined_conf'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
   
-	describe sql.query('SHOW client_min_messages;', [pg_db]) do
+	describe sql.query('SHOW client_min_messages;', [input('pg_db')]) do
 	 its('output') { should match /^error$/i }
 	end
   

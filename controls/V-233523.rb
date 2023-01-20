@@ -50,27 +50,14 @@ REVOKE SELECT ON some_function FROM bob;"
   tag nist: ["CM-5 (6)"]
 
 
-
 pg_owner = input('pg_owner')
 
 pg_group = input('pg_group')
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-pg_data_dir = input('pg_data_dir')
-
-pg_superusers = input('pg_superusers')
-
 	if !input('windows_runner')
-		sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+		sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	
-		authorized_owners = pg_superusers
+		authorized_owners = input('pg_superusers')
 		owners = authorized_owners.join('|')
 	
 		object_granted_privileges = 'arwdDxtU'
@@ -90,7 +77,7 @@ pg_superusers = input('pg_superusers')
 		  "WHERE c.relkind IN ('r', 'v', 'm', 'S', 'f');"
 	
 		databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
-		databases_query = sql.query(databases_sql, [pg_db])
+		databases_query = sql.query(databases_sql, [input('pg_db')])
 		databases = databases_query.lines
 	
 		databases.each do |database|
@@ -129,7 +116,7 @@ pg_superusers = input('pg_superusers')
 		  If any roles' privileges exceed those documented, this is a finding."
 		end
 	
-		describe directory(pg_data_dir) do
+		describe directory(input('pg_data_dir')) do
 		  it { should be_directory }
 		  it { should be_owned_by pg_owner }
 		  its('mode') { should cmp '0700' }

@@ -57,31 +57,23 @@ $ sudo systemctl restart postgresql-${PGVER?}"
   tag cci: ["CCI-001185"]
   tag nist: ["SC-23 (1)"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
-
-	describe sql.query('SHOW tcp_keepalives_idle;', [pg_db]) do
+	describe sql.query('SHOW tcp_keepalives_idle;', [input('pg_db')]) do
 	  its('output') { should_not cmp 0 }
 	end
   
-	describe sql.query('SHOW tcp_keepalives_interval;', [pg_db]) do
+	describe sql.query('SHOW tcp_keepalives_interval;', [input('pg_db')]) do
 	  its('output') { should_not cmp 0 }
 	end
   
-	describe sql.query('SHOW tcp_keepalives_count;', [pg_db]) do
+	describe sql.query('SHOW tcp_keepalives_count;', [input('pg_db')]) do
 	  its('output') { should_not cmp 0 }
 	end
   
-	describe sql.query('SHOW statement_timeout;', [pg_db]) do
+	describe sql.query('SHOW statement_timeout;', [input('pg_db')]) do
 	  its('output') { should_not cmp 0 }
 	end
   end

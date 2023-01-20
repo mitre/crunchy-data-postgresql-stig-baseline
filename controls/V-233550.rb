@@ -40,7 +40,7 @@ pg_version = input('pg_version')
 			it { should match pg_version }
 		  end
 		end
-	
+crunchy-data-postgresql-stig-baseline/controls/V-233552.rb	
 	  elsif os.linux? || os.redhat?
 		rpm_packages = command("rpm -qa | grep \"postgres\"").stdout.split("\n")
 	

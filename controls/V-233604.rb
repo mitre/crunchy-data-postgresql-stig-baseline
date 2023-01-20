@@ -86,30 +86,22 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000130"]
   tag nist: ["AU-3"]
 
-pg_ver = input('pg_version')
+pg_ver = input('pg_version') #not in use 
 
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_db = input('pg_db')
-
-pg_host = input('pg_host')
-
-	sql = postgres_session(pg_dba, pg_dba_password, pg_host, input('pg_port'))
+	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	log_line_prefix_escapes = %w(%m %u %d %s)
 	log_line_prefix_escapes.each do |escape|
-	  describe sql.query('SHOW log_line_prefix;', [pg_db]) do
+	  describe sql.query('SHOW log_line_prefix;', [input('pg_db')]) do
 		its('output') { should include escape }
 	  end
 	end
   
-	describe sql.query('SHOW log_connections;', [pg_db]) do
+	describe sql.query('SHOW log_connections;', [input('pg_db')]) do
 	  its('output') { should_not match /off|false/i }
 	end
   
-	describe sql.query('SHOW log_disconnections;', [pg_db]) do
+	describe sql.query('SHOW log_disconnections;', [input('pg_db')]) do
 	  its('output') { should_not match /off|false/i }
 	end
   end
