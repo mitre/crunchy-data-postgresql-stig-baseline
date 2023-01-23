@@ -47,7 +47,7 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag fix_id: 'F-36675r606772_fix'
   tag cci: ["CCI-001312"]
   tag nist: ["SI-11 a"]
-
+  
 	default = postgres_conf(input('pg_conf_file'))
 	override = postgres_conf(input('pg_user_defined_conf'))
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))

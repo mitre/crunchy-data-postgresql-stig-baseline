@@ -44,13 +44,8 @@ with only owner permissions to read, write, and execute."
   tag cci: ["CCI-001090"]
   tag nist: ["SC-4"]
 
-pg_owner = input('pg_owner')
 
-pg_group = input('pg_group')
-
-pg_data_dir = input('pg_data_dir')
-
-	describe command("find input('pg_data_dir') ! -user input('pg_owner') ! -group input('pg_group') -type f -readable -writable | wc -l") do
+	describe command("find #{input('pg_data_dir')} ! -user #{input('pg_owner')} ! -group #{input('pg_group')} -type f -readable -writable | wc -l") do
 		its('stdout.strip') { should eq '0' }
 	  end
 	end
