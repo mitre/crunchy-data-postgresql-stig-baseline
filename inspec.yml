@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 1, Release: 1 Benchmark Date: 20 Nov 2020"
-version: 1.1.9  
+version: 1.1.8  
 inspec_version: ">= 4.0"
 
 inputs:
@@ -24,12 +24,12 @@ inputs:
     sensitive: true
 
 # for possible future use
-  - name: pg_owner_password 
-    description: "The postgres database owner password"
-    type: string
-    value: ""
-    required: true
-    sensitive: true
+  # - name: pg_owner_password 
+  #   description: "The postgres database owner password"
+  #   type: string
+  #   value: ""
+  #   required: true
+  #   sensitive: true
 
   - name: pg_dba
     description: "The postgres DBA user to access the test database"
@@ -53,13 +53,13 @@ inputs:
     required: true
     sensitive: true
 
-  # for possible future use
-  - name: pg_user_password 
-    description: "The postgres database system user password"
-    type: string
-    value: ""
-    required: true
-    sensitive: true
+  #  for possible future use
+  # - name: pg_user_password 
+  #   description: "The postgres database system user password"
+  #   type: string
+  #   value: ""
+  #   required: true
+  #   sensitive: true
 
   - name: pg_host
     description: "The hostname or IP address used to connect to the database"
@@ -83,13 +83,13 @@ inputs:
     required: true
     sensitive: true
 
-  # for possible future use
-  - name: login_host 
-    description: "The host ip address that can access the postgres host"
-    type: string
-    value: "localhost"
-    required: true
-    sensitive: true
+  #  for possible future use
+  # - name: login_host 
+  #   description: "The host ip address that can access the postgres host"
+  #   type: string
+  #   value: "localhost"
+  #   required: true
+  #   sensitive: true
 
   # V-233520, V-233523, # V-233524, V-233530, V-233534, V-233539, V-233588, V-233593,
   # V-233597, V-233607
@@ -111,19 +111,19 @@ inputs:
     sensitive: true
 
   # for possible future use
-  - name: pg_syslog_owner
-    description: "The syslog process owner that the progress logs should use"
-    type: string
-    value: "postgres" 
-    required: true
-    sensitive: true
+  # - name: pg_syslog_owner
+  #   description: "The syslog process owner that the progress logs should use"
+  #   type: string
+  #   value: "postgres" 
+  #   required: true
+  #   sensitive: true
 
     # for possible future use
-  - name: pg_syslog_facility
-    description: "The syslog facility that postgres should be set to use for logging"
-    type: array
-    value:
-      - local0
+  # - name: pg_syslog_facility
+  #   description: "The syslog facility that postgres should be set to use for logging"
+  #   type: array
+  #   value:
+  #     - local0
 
   - name: pg_db
     description: "The database used for stig configuration tests"
@@ -161,47 +161,47 @@ inputs:
     required: true
 
   # for possible future use
-  - name: pg_conf_mode
-    description: "The desired `mode` of the Postgres `potgres.conf` file."
-    type: string
-    value: "0600"
-    required: true
+  # - name: pg_conf_mode
+  #   description: "The desired `mode` of the Postgres `potgres.conf` file."
+  #   type: string
+  #   value: "0600"
+  #   required: true
 
   # for possible future use
-  - name: pg_ssl
-    description: "The desired value to have postgres use ssl or not (on|off)"
-    type: string
-    value: "on"
-    required: true
+  # - name: pg_ssl
+  #   description: "The desired value to have postgres use ssl or not (on|off)"
+  #   type: string
+  #   value: "on"
+  #   required: true
 
   # for possible future use
-  - name: pg_log_dest
-    description: "The logging system that postgres should ship logs to (syslog)"
-    type: string
-    value: "syslog"
-    required: true
+  # - name: pg_log_dest
+  #   description: "The logging system that postgres should ship logs to (syslog)"
+  #   type: string
+  #   value: "syslog"
+  #   required: true
 
   # for possible future use
-  - name: pgaudit_log_items
-    description: "The expected item types that postgres should log to the logging system"
-    type: array
-    value:
-      - 'ddl'
-      - 'role'
-      - 'read'
-      - 'write'
-      - 'function'
-      - 'misc'
-      - 'misc_set'
+  # - name: pgaudit_log_items
+  #   description: "The expected item types that postgres should log to the logging system"
+  #   type: array
+  #   value:
+  #     - 'ddl'
+  #     - 'role'
+  #     - 'read'
+  #     - 'write'
+  #     - 'function'
+  #     - 'misc'
+  #     - 'misc_set'
 
   # for possible future use
-  - name: pgaudit_log_line_items
-    description: "The expected configuration of the items that progress is logging"
-    type: array
-    value:
-      - "%m"
-      - "%u"
-      - "%c"
+  # - name: pgaudit_log_line_items
+  #   description: "The expected configuration of the items that progress is logging"
+  #   type: array
+  #   value:
+  #     - "%m"
+  #     - "%u"
+  #     - "%c"
 
   # V-233520, V-233612
   - name: pg_replicas
