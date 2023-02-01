@@ -49,9 +49,11 @@ All errors and denials are logged if logging is enabled."
   tag cci: ["CCI-002754"]
   tag nist: ["SI-10 (3)"]
 
+    pg_audit_log_dir = input('pg_audit_log_dir')
+
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-	if file(input('pg_audit_log_dir')).exist?  
+	if file(pg_audit_log_dir).exist?  
 	  describe sql.query('CREAT TABLE incorrect_syntax2(id INT);', [input('pg_db')]) do
 		its('output') { should match // }     
 	  end

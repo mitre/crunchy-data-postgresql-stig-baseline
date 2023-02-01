@@ -203,7 +203,8 @@ pg_replicas = input('pg_replicas')
 			its('output') { should_not eq 't' }
 		  end
 		end
-	
+		
+		authorized_owners = input('pg_superusers')
 		owners = authorized_owners.join('|')
 
 		object_granted_privileges = 'arwdDxtU'

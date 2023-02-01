@@ -61,7 +61,7 @@ $ sudo chown -R root:root /usr/pgsql-${PGVER?}"
 		its('mode') { should cmp '0600' }
 	  end  
 	
-	  describe file(pg_user_defined_conf_file) do
+	  describe file(input('pg_user_defined_conf')) do
 		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0600' }
 	  end  
