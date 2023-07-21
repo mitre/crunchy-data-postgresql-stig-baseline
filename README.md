@@ -44,30 +44,14 @@ pg_db: 'postgres'
 pg_port: '5432'
 
 
-
 # Description: 'Postgres OS user (e.g., 'postgres').'
 pg_owner: 'postgres'
 
 # Description: 'Postgres OS group (e.g., 'postgres').'
 pg_group: 'postgres'
 
-# Description: 'Postgres OS user password'
-pg_owner_password: ''
-
-# Description: 'Postgres normal user'
-pg_user: ''
-
-# Description: 'Postgres normal user password'
-pg_user_password: ''
-
 # Description: 'Postgres database table name'
 pg_table: ''
-
-# Description: 'User on remote database server'
-login_user: ''
-
-# Description: 'Database host ip'
-login_host: ''
 
 # Description: 'Database version'
 # Change "12.x" to your version (This STIG applies to versions 10.x, 11.x, 12.x, and 13.x)
@@ -113,27 +97,6 @@ pg_audit_log_dir: '/var/lib/pgsql/12/data/log'
 # Change "12" to your version (This STIG applies to versions 10, 11, 12, and 13)
 pgaudit_installation: '/usr/pgsql-12/share/contrib/pgaudit'
 
-# Description: 'Database configuration mode (e.g., 0600)'
-pg_conf_mode: '0600'
-
-# Description: 'Postgres ssl setting (e.g., 'on').'
-pg_ssl: 'on'
-
-# Description: 'Postgres log destination (e.g., 'syslog').'
-pg_log_dest: 'syslog'
-
-# Description: 'Postgres syslog facility (e.g., ['local0']).'
-pg_syslog_facility: ['local0']
-
-# Description: 'Postgres syslog owner (e.g., 'postgres').'
-pg_syslog_owner: 'postgres'
-
-# Description: 'Postgres audit log items (e.g., ['ddl','role','read','write']).'
-pgaudit_log_items: ['ddl','role','read','write']
-
-# Description: 'Postgres audit log line items (e.g. ['%m','%u','%c']).'
-pgaudit_log_line_items: ['%m','%u','%c']
-
 # Description: 'Postgres super users (e.g., ['postgres']).'
 pg_superusers: ['postgres']
 
@@ -157,6 +120,15 @@ approved_packages: []
 
 # Description: 'V-233592, V-233593 use this list of approved database extensions (e.g., ['plpgsql']).'
 approved_ext: []
+
+# Description: 'Privileges that should be granted to a role for a database object (e.g., arwdDxt).'
+pg_object_granted_privileges:
+
+# Description: 'Privileges that should be granted to public for a database object (e.g. 'rw')'
+pg_object_public_privileges: 
+
+# Description: 'List of database objects that should be returned from tests'
+pg_object_exceptions: ['pg_setting']
 
 ```
 
