@@ -1,25 +1,25 @@
 ---
 windows_runner: false
-pg_owner: 'heimdall'
+pg_owner: ''
 pg_group: ''
-pg_dba: 'ecrodriguez'
+pg_dba: ''
 pg_dba_password: ''
 pg_host: '127.0.0.1'
 pg_port: '5432'
-pg_db: 'heimdall-server-development'
-pg_version: '13.11'
-pg_data_dir: "/usr/local/var/postgresql@13/"
-pg_log_dir: "/usr/local/var/postgresql@13/"
-pg_audit_log_dir: "/usr/local/var/log/"
-pg_conf_file: "/usr/local/var/postgresql@13/postgresql.conf"
-pg_user_defined_conf: ""
-pg_hba_conf_file: "/usr/local/var/postgresql@13/pg_hba.conf"
-pg_ident_conf_file: "/usr/local/var/postgresql@13/pg_ident.conf"
+pg_db: 'test_db'
+pg_version: '12.5'
+pg_data_dir: "/opt/pgsql/data/"
+pg_log_dir: "/opt/pgsql/data/"
+pg_audit_log_dir: "/opt/pgsql/data/pg_log/"
+pg_conf_file: "/opt/pgsql/data/postgresql.conf"
+pg_user_defined_conf: "/opt/pgsql/data/stig-postgresql.conf"
+pg_hba_conf_file: "/opt/pgsql/data/pg_hba.conf"
+pg_ident_conf_file: "/opt/pgsql/data/pg_ident.conf"
 pg_shared_dirs:
-  - "/usr/local/opt/postgresql@13"
-  - "/usr/local/opt/postgresql@13/bin"
-  - "/usr/local/opt/postgresql@13/lib"
-  - "/usr/local/opt/postgresql@13/share"
+  - "/usr/pgsql-12"
+  - "/usr/pgsql-12/bin"
+  - "/usr/pgsql-12/lib"
+  - "/usr/pgsql-12/share"
 pg_superusers:
   - 'postgres'
 pg_users:
