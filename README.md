@@ -50,9 +50,6 @@ pg_owner: 'postgres'
 # Description: 'Postgres OS group (e.g., 'postgres').'
 pg_group: 'postgres'
 
-# Description: 'Postgres database table name'
-pg_table: ''
-
 # Description: 'Database version'
 # Change "12.x" to your version (This STIG applies to versions 10.x, 11.x, 12.x, and 13.x)
 pg_version: '12.9'

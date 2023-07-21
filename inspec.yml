@@ -76,13 +76,6 @@ inputs:
     value: "stig"
     required: true
 
-  # referenced in V-233520
-  # - name: pg_table
-  #   description: "The database table used for testing stig configuration tests"
-  #   type: string
-  #   value: "stig"
-  #   required: true
-
   # V-233546
   - name: pg_object_granted_privileges
     description: "Privileges that should be granted to a role for a database object"

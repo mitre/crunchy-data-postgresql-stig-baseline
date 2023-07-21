@@ -74,7 +74,7 @@ $ psql -c \"ALTER SCHEMA test OWNER TO bob\""
 		schemas_sql = "SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) "\
 		  "FROM pg_catalog.pg_namespace n "\
 		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) "\
-		  "NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) "\
+		  "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
 		  "AND n.nspname !~ '^pg_' AND n.nspname <> 'information_schema';"
 		functions_sql = "SELECT n.nspname, p.proname, "\
 		  "pg_catalog.pg_get_userbyid(n.nspowner) "\
