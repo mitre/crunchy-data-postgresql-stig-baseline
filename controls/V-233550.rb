@@ -30,14 +30,11 @@ If multiple versions of postgres are installed but are unused, this is a finding
   tag cci: ["CCI-002617"]
   tag nist: ["SI-2 (6)"]
 
-
-pg_version = input('pg_version')
-
 	if os.debian?
 		dpkg_packages = command("apt list --installed | grep \"postgres\"").stdout.split("\n")
 		dpkg_packages.each do |packages|
 		  describe(packages) do
-			it { should match pg_version }
+			it { should match input('pg_version') }
 		  end
 		end
 crunchy-data-postgresql-stig-baseline/controls/V-233552.rb	
@@ -46,7 +43,7 @@ crunchy-data-postgresql-stig-baseline/controls/V-233552.rb
 	
 		rpm_packages.each do |packages|
 		  describe(packages) do
-			it { should match pg_version }
+			it { should match input('pg_version') }
 		  end
 		end
 	  end

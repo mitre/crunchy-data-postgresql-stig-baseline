@@ -48,8 +48,6 @@ $ psql -c \"REVOKE ALL PRIVILEGES ON <table> FROM <role_name>\""
   tag cci: ["CCI-001813"]
   tag nist: ["CM-5 (1)"]
 
-pg_owner = input('pg_owner') #not in use 
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'

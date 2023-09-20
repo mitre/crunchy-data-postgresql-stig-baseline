@@ -63,10 +63,7 @@ content APPENDIX-G."
   tag cci: ["CCI-000186"]
   tag nist: ["IA-5 (2) (b)"]
 
-pg_ver = input('pg_version') #not in use 
-
-pg_owner = input('pg_owner')
-
+  pg_owner = input('pg_owner')
 
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

@@ -56,11 +56,9 @@ $ chmod 600 ${PGDATA?}/postgresql.conf"
   tag cci: ["CCI-000171"]
   tag nist: ["AU-12 b"]
 
-pg_owner = input('pg_owner')  #not in use 
-
 	describe directory(input('pg_data_dir')) do
 		it { should be_directory }
-		it { should be_owned_by pg_owner }
+		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0700' }
 	  end
 	

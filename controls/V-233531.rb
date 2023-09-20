@@ -93,10 +93,6 @@ $ chmod 0600 <log directory name>/*.log"
   tag cci: ["CCI-000164"]
   tag nist: ["AU-9"]
 
-pg_owner = input('pg_owner')
-
-pg_conf_file = input('pg_conf_file') #not used
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
    
 	describe sql.query('show logging_collector;', [input('pg_db')]) do
@@ -109,8 +105,8 @@ pg_conf_file = input('pg_conf_file') #not used
   
 	describe directory(input('pg_log_dir')) do
 	  it { should be_directory }
-	  it { should be_owned_by pg_owner }
-	  it { should be_grouped_into pg_owner }
+	  it { should be_owned_by input('pg_owner') }
+	  it { should be_grouped_into input('pg_owner') }
 	  its('mode') { should  cmp '0700' }
 	end
   

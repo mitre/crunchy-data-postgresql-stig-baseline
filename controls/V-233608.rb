@@ -53,8 +53,6 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000131"]
   tag nist: ["AU-3"]
 
-pg_ver = input('pg_version') #not in use
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	log_line_prefix_escapes = ['%m']

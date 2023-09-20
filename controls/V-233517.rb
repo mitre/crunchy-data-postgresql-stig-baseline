@@ -63,14 +63,9 @@ $ sudo chmod 0755 /usr/pgsql-${PGVER?}/bin/*"
   tag cci: ["CCI-001499"]
   tag nist: ["CM-5 (6)"]
 
-
-pg_owner = input('pg_owner')
-
-pg_ver = input('pg_version') #not in use 
-
 	describe file(input('pg_data_dir')) do
 		it { should be_directory }
-		it { should be_owned_by pg_owner }
+		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0700' }
 	  end
   

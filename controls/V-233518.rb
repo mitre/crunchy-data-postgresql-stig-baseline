@@ -57,20 +57,18 @@ $ psql -c \"ALTER ROLE rolename WITH NOSUPERUSER\""
   tag cci: ["CCI-001499"]
   tag nist: ["CM-5 (6)"]
 
-pg_owner = input('pg_owner')
-
 	describe file(input('pg_conf_file')) do
-		it { should be_owned_by pg_owner }
+		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0600' }
 	  end
 	
 	  describe file(input('pg_hba_conf_file')) do
-		it { should be_owned_by pg_owner }
+		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0600' }
 	  end
 	
 	  describe file(input('pg_ident_conf_file')) do
-		it { should be_owned_by pg_owner }
+		it { should be_owned_by input('pg_owner') }
 		its('mode') { should cmp '0600' }
 	  end  
 	end

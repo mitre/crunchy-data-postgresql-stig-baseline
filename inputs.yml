@@ -2,17 +2,11 @@
 windows_runner: false
 pg_owner: ''
 pg_group: ''
-pg_owner_password: ''
 pg_dba: ''
 pg_dba_password: ''
-pg_user: ''
-pg_user_password: ''
 pg_host: '127.0.0.1'
 pg_port: '5432'
 pg_db: 'test_db'
-pg_table: 'test_table'
-login_user: ''
-login_host: ''
 pg_version: '12.5'
 pg_data_dir: "/opt/pgsql/data/"
 pg_log_dir: "/opt/pgsql/data/"
@@ -26,7 +20,6 @@ pg_shared_dirs:
   - "/usr/pgsql-12/bin"
   - "/usr/pgsql-12/lib"
   - "/usr/pgsql-12/share"
-pg_conf_mode: '0600'
 pg_superusers:
   - 'postgres'
 pg_users:
@@ -46,24 +39,9 @@ approved_auth_methods:
   - 'sspi'
   - 'ldap'
   - 'cert clientcert=verify-full'
-pg_ssl: 'on'
-pg_log_dest: 'syslog'
-pg_syslog_facility:
-  - 'local0'
-pg_syslog_owner: 'postgres'
 pgaudit_installation: ''
-pgaudit_log_items:
-  - 'ddl'
-  - 'role'
-  - 'read'
-  - 'write'
-pgaudit_log_line_items:
-  - '%m'
-  - '%u'
-  - '%c'
 pg_max_connections: 100
 pg_timezone: 'UTC'
-pgaudit_installation: ''
 pg_object_granted_privileges: 'arwdDxt'
 pg_object_public_privileges: 'rw'
 approved_packages:

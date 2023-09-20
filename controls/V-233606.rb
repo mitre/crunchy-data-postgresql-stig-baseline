@@ -57,8 +57,6 @@ $ sudo systemctl restart postgresql-${PGVER?}"
   tag cci: ["CCI-001185"]
   tag nist: ["SC-23 (1)"]
 
-pg_ver = input('pg_version') #not in use 
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW tcp_keepalives_idle;', [input('pg_db')]) do

@@ -68,15 +68,10 @@ $ psql -c \"ALTER ROLE <rolname> CONNECTION LIMIT 1\";"
   tag cci: ["CCI-000054"]
   tag nist: ["AC-10"]
 
-
-pg_ver = input('pg_version') #not in use
-
-pg_max_connections = input('pg_max_connections')
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password',), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW max_connections;', [input('pg_db')]) do
-	  its('output.to_i') { should be <= pg_max_connections }
+	  its('output.to_i') { should be <= input('pg_max_connections') }
 	end
   
 	describe sql.query('SELECT rolname, rolconnlimit from pg_authid WHERE rolcanlogin = True EXCEPT SELECT rolname, rolconnlimit from pg_authid where rolname = \'pg_signal_backend\';', [input('pg_db')]) do

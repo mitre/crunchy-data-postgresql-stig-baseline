@@ -85,19 +85,17 @@ client_min_messages = error"
 
 # @todo determine how to handle stderr errors?
 
-pg_owner = input('pg_owner')
-
 describe directory(input('pg_log_dir')) do
     it { should be_directory }
-    it { should be_owned_by pg_owner }
-    it { should be_grouped_into pg_owner }
+    it { should be_owned_by input('pg_owner') }
+    it { should be_grouped_into input('pg_owner') }
     its('mode') { should  cmp '0700' }
   end
 
   describe directory(input('pg_audit_log_dir')) do
     it { should be_directory }
-    it { should be_owned_by pg_owner }
-    it { should be_grouped_into pg_owner }
+    it { should be_owned_by input('pg_owner') }
+    it { should be_grouped_into input('pg_owner') }
     its('mode') { should  cmp '0700' }
   end
 

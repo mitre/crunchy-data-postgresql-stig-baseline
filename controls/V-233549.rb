@@ -93,10 +93,6 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000162"]
   tag nist: ["AU-9"]
 
-pg_ver = input('pg_version') #not in use
-
-pg_log_dir = input('pg_log_dir')  #not in use
-
 sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW log_file_mode;', [input('pg_db')]) do

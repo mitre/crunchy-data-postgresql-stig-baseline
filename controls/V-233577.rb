@@ -82,21 +82,13 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-000185"]
   tag nist: ["IA-5 (2) (a)"]
 
-pg_ver = input('pg_version')
-
-pg_dba = input('pg_dba')
-
-pg_dba_password = input('pg_dba_password')
-
-pg_data_dir = input('pg_data_dir')
-
 
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	ssl_crl_file_query = sql.query('SHOW ssl_crl_file;', [input('pg_db')])
   
 	describe ssl_crl_file_query do
-	  its('output') { should match /^#{pg_data_dir}root\.crl$/ }
+	  its('output') { should match /^#{input('pg_data_dir')}root\.crl$/ }
 	end
   
 	ssl_crl_file = ssl_crl_file_query.output

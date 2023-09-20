@@ -179,15 +179,8 @@ $ sudo systemctl reload postgresql-${PGVER?}"
 
 # frozen_string_literal: true
 
-pg_ver = input('pg_version')
-
-pg_owner = input('pg_owner')
-
-pg_data_dir = input('pg_data_dir') 
-
 pg_replicas = input('pg_replicas')
 
-approved_auth_methods = input('approved_auth_methods')
 
 	if input('windows_runner')
 		describe 'Requires manual review at this time.' do
@@ -210,8 +203,8 @@ approved_auth_methods = input('approved_auth_methods')
 			its('output') { should_not eq 't' }
 		  end
 		end
-	
-		authorized_owners = input('pg_superusers') 
+		
+		authorized_owners = input('pg_superusers')
 		owners = authorized_owners.join('|')
 
 		object_granted_privileges = 'arwdDxtU'
@@ -256,7 +249,7 @@ approved_auth_methods = input('approved_auth_methods')
 		end
 	
 		describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
-		  its('user.uniq') { should cmp pg_owner }
+		  its('user.uniq') { should cmp input('pg_owner') }
 		  its('auth_method.uniq') { should_not cmp 'trust' }
 		end
 	
@@ -264,11 +257,11 @@ approved_auth_methods = input('approved_auth_methods')
 		  its('type.uniq') { should cmp 'host' }
 		  its('address.uniq.sort') { should cmp pg_replicas.sort }
 		  its('user.uniq') { should cmp 'replication' }
-		  its('auth_method.uniq') { should be_in approved_auth_methods }
+		  its('auth_method.uniq') { should be_in input('approved_auth_methods') }
 		end
 	
 		describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
-		  its('auth_method.uniq') { should be_in approved_auth_methods }
+		  its('auth_method.uniq') { should be_in input('approved_auth_methods') }
 		end
 	  end
 	end

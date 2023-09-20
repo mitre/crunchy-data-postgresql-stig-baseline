@@ -47,14 +47,10 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ["CCI-001890"]
   tag nist: ["AU-8 b"]
 
-pg_ver = input('pg_version')  #not in use
-
-pg_timezone = input('pg_timezone')
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW log_timezone;', [input('pg_db')]) do
-	  its('output') { should eq pg_timezone }
+	  its('output') { should eq input('pg_timezone') }
 	end
   end
 

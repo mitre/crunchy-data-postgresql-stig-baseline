@@ -60,8 +60,6 @@ $ chmod 0600 ${PGDATA?}/*.conf"
   tag cci: ["CCI-001494"]
   tag nist: ["AU-9"]
 
-pg_data_dir = input('pg_data_dir') #not in use
-
 	describe file(input('pg_conf_file')) do
 		it { should be_file }
 		its('mode') { should cmp '0600' }

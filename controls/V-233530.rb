@@ -73,7 +73,6 @@ $ psql -c \"REVOKE CREATE ON SCHEMA test FROM bob\""
 
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-	authorized_owners = input('pg_superusers')
   
 	databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{input('pg_db')}';"
 	databases_query = sql.query(databases_sql, [input('pg_db')])
@@ -97,14 +96,14 @@ $ psql -c \"REVOKE CREATE ON SCHEMA test FROM bob\""
 		schemas_sql = "SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) "\
 		  "FROM pg_catalog.pg_namespace n "\
 		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) "\
-		  "NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) "\
+		  "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
 		  "AND n.nspname !~ '^pg_' AND n.nspname <> 'information_schema';"
 		functions_sql = "SELECT n.nspname, p.proname, "\
 		  "pg_catalog.pg_get_userbyid(n.nspowner) "\
 		  "FROM pg_catalog.pg_proc p "\
 		  "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace "\
 		  "WHERE pg_catalog.pg_get_userbyid(n.nspowner) "\
-		  "NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) "\
+		  "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
 		  "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema';"
 	  end
   
@@ -152,7 +151,7 @@ $ psql -c \"REVOKE CREATE ON SCHEMA test FROM bob\""
 			"LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace "\
 			"WHERE c.relkind IN ('#{type}','s','') "\
 			"AND pg_catalog.pg_get_userbyid(n.nspowner) "\
-			"NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) "\
+			"NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
 			"AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema'"\
 			" AND n.nspname !~ '^pg_toast';"
 		end

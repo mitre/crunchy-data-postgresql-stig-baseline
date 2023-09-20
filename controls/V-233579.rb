@@ -60,8 +60,6 @@ For more information on configuring PostgreSQL to use SSL, see supplementary con
   tag cci: ["CCI-002420"]
   tag nist: ["SC-8 (2)"]
 
-pg_ver = input('pg_version') #not in use 
-
 	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
 	describe sql.query('SHOW ssl;', [input('pg_db')]) do

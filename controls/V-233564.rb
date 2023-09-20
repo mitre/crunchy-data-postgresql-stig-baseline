@@ -69,8 +69,6 @@ content APPENDIX-C for instructions on enabling logging."
   tag cci: ["CCI-000172"]
   tag nist: ["AU-12 c"]
 
-pg_conf_file= input('pg_conf_file') #not in use
-
     sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
   if file(input('pg_audit_log_dir')).exist?
