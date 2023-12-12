@@ -22,10 +22,9 @@ If you are using a *Windows* based inspec installation, please set the `windows_
 
 ### Example Inputs You Can Use
 
-```
+```yaml
 # Changes checks depending on if using a Windows or Linux-based InSpec Runner (default value = false)
 windows_runner: false
-
 
 # These five inputs are used by any tests needing to query the database:
 # Description: 'Postgres database admin user (e.g., 'postgres').'
@@ -42,7 +41,6 @@ pg_db: 'postgres'
 
 # Description: 'Postgres database port (e.g., '5432')
 pg_port: '5432'
-
 
 # Description: 'Postgres OS user (e.g., 'postgres').'
 pg_owner: 'postgres'
