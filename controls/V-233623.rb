@@ -11,7 +11,7 @@ If PostgreSQL is not installed on an OS found in the CMVP
 (https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules), this is a finding.
 
 If FIPS encryption is not enabled, this is a finding."
-  desc 'fix' "Install PostgreSQL with FIPS-compliant cryptography enabled on an OS found in
+  desc 'fix', "Install PostgreSQL with FIPS-compliant cryptography enabled on an OS found in
 the CMVP
 (https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules)
 or by other means, ensure that FIPS 140-2-certified OpenSSL libraries are used
