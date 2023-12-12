@@ -1,35 +1,33 @@
-# encoding: UTF-8
-
 control	'V-233600' do
-	title	"PostgreSQL must provide the means for individuals in authorized roles to change the auditing to be 
-	performed on all application components, based on all selectable event criteria within organization-defined 
+  title	"PostgreSQL must provide the means for individuals in authorized roles to change the auditing to be
+	performed on all application components, based on all selectable event criteria within organization-defined
 	time thresholds."
-	desc	"If authorized individuals do not have the ability to modify auditing parameters in response to a 
-	changing threat environment, the organization may not be able to effectively respond, and important forensic 
+  desc	"If authorized individuals do not have the ability to modify auditing parameters in response to a
+	changing threat environment, the organization may not be able to effectively respond, and important forensic
 	information may be lost.
 
-This requirement enables organizations to extend or limit auditing as necessary to meet organizational requirements. 
-Auditing that is limited to conserve information system resources may be extended to address certain threat 
-situations. In addition, auditing may be limited to a specific set of events to facilitate audit reduction, analysis, 
-and reporting. Organizations can establish time thresholds in which audit actions are changed, for example, near real 
+This requirement enables organizations to extend or limit auditing as necessary to meet organizational requirements.
+Auditing that is limited to conserve information system resources may be extended to address certain threat
+situations. In addition, auditing may be limited to a specific set of events to facilitate audit reduction, analysis,
+and reporting. Organizations can establish time thresholds in which audit actions are changed, for example, near real
 time, within minutes, or within hours."
-	desc	'rationale', ''
-	desc	'check', "First, as the database administrator, check if pgaudit is present in shared_preload_libraries:
+  desc	'rationale', ''
+  desc	'check', "First, as the database administrator, check if pgaudit is present in shared_preload_libraries:
 
 $ sudo su - postgres
 $ psql -c \"SHOW shared_preload_libraries\"
 
 If pgaudit is not present in the result from the query, this is a finding."
-	desc	'fix', "Note: The following instructions use the PGDATA, PGLOG, and PGVER environment variables. See 
-	supplementary content APPENDIX-F for instructions on configuring PGDATA, APPENDIX-H for PGVER, and APPENDIX-I 
+  desc	'fix', "Note: The following instructions use the PGDATA, PGLOG, and PGVER environment variables. See
+	supplementary content APPENDIX-F for instructions on configuring PGDATA, APPENDIX-H for PGVER, and APPENDIX-I
 	for PGLOG.
 
 To ensure logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
 
-For audit logging using pgaudit is recommended. For instructions on how to setup pgaudit, see supplementary content 
+For audit logging using pgaudit is recommended. For instructions on how to setup pgaudit, see supplementary content
 APPENDIX-B.
 
-As a superuser (postgres), any pgaudit parameter can be changed in postgresql.conf. Configurations can only be 
+As a superuser (postgres), any pgaudit parameter can be changed in postgresql.conf. Configurations can only be
 changed by a superuser.
 
 ### Example: Change Auditing To Log Any ROLE Statements
@@ -71,7 +69,7 @@ pgaudit.role = 'auditor'
 
 Now, as the system administrator, reload the server with the new configuration:
 
-$ sudo systemctl reload postgresql-${PGVER?} 
+$ sudo systemctl reload postgresql-${PGVER?}
 
 Next in PostgreSQL create a new role:
 
@@ -90,7 +88,7 @@ SELECT password FROM stig_audit_example;,<none>
 
 ## Change Configurations During A Specific Timeframe
 
-Deploy PostgreSQL that allows audit configuration changes to take effect within the timeframe required by the 
+Deploy PostgreSQL that allows audit configuration changes to take effect within the timeframe required by the
 application owner and without involving actions or events that the application owner rules unacceptable.
 
 Crontab can be used to do this.
@@ -101,20 +99,19 @@ For a specific audit role:
 0 5 * * * postgres /usr/bin/psql -c \"GRANT select(password) ON public.stig_audit_example TO auditor;\"
 # Revoke specific audit privileges to an auditing role at 5 PM every day of the week, month, year at the 0 minute mark.
 0 17 * * * postgres /usr/bin/psql -c \"REVOKE select(password) ON public.stig_audit_example FROM auditor;\""
-	impact 0.5
-	tag severity: 'medium'
+  impact 0.5
+  tag severity: 'medium'
   tag gtitle: 'SRG-APP-000516-DB-000363'
   tag gid: 'V-233600'
   tag rid: 'SV-233600r617339_rule'
   tag stig_id: 'CD12-00-010000'
   tag fix_id: 'F-36759r617338_fix'
-  tag cci: ["CCI-001914"]
-  tag nist: ["AU-12 (3)"]
+  tag cci: ['CCI-001914']
+  tag nist: ['AU-12 (3)']
 
-	sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-	describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do
-	  its('output') { should include 'pgaudit' }
-	end
+  describe sql.query('SHOW shared_preload_libraries;', [input('pg_db')]) do
+    its('output') { should include 'pgaudit' }
   end
-
+end
