@@ -64,7 +64,7 @@ database administrator account(s) must not be granted to anyone without official
   exceptions = "#{input('pg_object_exceptions').map { |e| "'#{e}'" }.join(',')}"
   object_acl = "^(((#{input('pg_owner')}=[#{input('pg_object_granted_privileges')}]+|"\
     "=[#{input('pg_object_public_privileges')}]+)\\/\\w+,?)+|)$"
-  schemas = ['pg_catalog', 'information_schema']
+  schemas = %w(pg_catalog information_schema)
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
   schemas.each do |schema|
