@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 1, Release: 1 Benchmark Date: 20 Nov 2020"
-version: 1.1.7  
+version: 1.1.8  
 inspec_version: ">= 4.0"
 
 inputs:
@@ -23,13 +23,6 @@ inputs:
     required: true
     sensitive: true
 
-  - name: pg_owner_password
-    description: "The postgres database owner password"
-    type: string
-    value: ""
-    required: true
-    sensitive: true
-
   - name: pg_dba
     description: "The postgres DBA user to access the test database"
     type: string
@@ -39,22 +32,6 @@ inputs:
 
   - name: pg_dba_password
     description: "The password for the postgres DBA user"
-    type: string
-    value: ""
-    required: true
-    sensitive: true
-
-  # V-233612
-  - name: pg_user
-    description: "The postgres database system user"
-    type: string
-    value: ""
-    required: true
-    sensitive: true
-
-  # not used in controls
-  - name: pg_user_password
-    description: "The postgres database system user password"
     type: string
     value: ""
     required: true
@@ -71,22 +48,6 @@ inputs:
     description: "The port used to connect to the database"
     type: numeric
     value: 5432
-    required: true
-    sensitive: true
-
-  # V-233592, V-233593, V-233594
-  - name: login_user
-    description: "The host login account that can login to the postgres host"
-    type: string
-    value: "postgres"
-    required: true
-    sensitive: true
-
-  # not used in controls
-  - name: login_host
-    description: "The host ip address that can access the postgres host"
-    type: string
-    value: "localhost"
     required: true
     sensitive: true
 
@@ -109,30 +70,8 @@ inputs:
     required: true
     sensitive: true
 
-  # not used in controls
-  - name: pg_syslog_owner
-    description: "The syslog process owner that the progress logs should use"
-    type: string
-    value: "postgres" 
-    required: true
-    sensitive: true
-
-    # not used in controls
-  - name: pg_syslog_facility
-    description: "The syslog facility that postgres should be set to use for logging"
-    type: array
-    value:
-      - local0
-
   - name: pg_db
     description: "The database used for stig configuration tests"
-    type: string
-    value: "stig"
-    required: true
-
-  # referenced in V-233520
-  - name: pg_table
-    description: "The database table used for testing stig configuration tests"
     type: string
     value: "stig"
     required: true
@@ -158,49 +97,6 @@ inputs:
     value:
       - "pg_settings"
     required: true
-
-  # not used in controls
-  - name: pg_conf_mode
-    description: "The desired `mode` of the Postgres `potgres.conf` file."
-    type: string
-    value: "0600"
-    required: true
-
-  # not used in controls
-  - name: pg_ssl
-    description: "The desired value to have postgres use ssl or not (on|off)"
-    type: string
-    value: "on"
-    required: true
-
-  # not used in controls
-  - name: pg_log_dest
-    description: "The logging system that postgres should ship logs to (syslog)"
-    type: string
-    value: "syslog"
-    required: true
-
-  # not used in controls
-  - name: pgaudit_log_items
-    description: "The expected item types that postgres should log to the logging system"
-    type: array
-    value:
-      - 'ddl'
-      - 'role'
-      - 'read'
-      - 'write'
-      - 'function'
-      - 'misc'
-      - 'misc_set'
-
-  # not used in controls
-  - name: pgaudit_log_line_items
-    description: "The expected configuration of the items that progress is logging"
-    type: array
-    value:
-      - "%m"
-      - "%u"
-      - "%c"
 
   # V-233520, V-233612
   - name: pg_replicas
