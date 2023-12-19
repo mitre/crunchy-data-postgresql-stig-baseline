@@ -1,7 +1,7 @@
-control	'V-233526' do
-  title	"PostgreSQL must check the validity of all data inputs except those specifically identified by the
-	organization."
-  desc	"Invalid user input occurs when a user inserts data or characters into an application's data entry
+control 'V-233526' do
+  title 'PostgreSQL must check the validity of all data inputs except those specifically identified by the
+	organization.'
+  desc "Invalid user input occurs when a user inserts data or characters into an application's data entry
 	fields and the application is unprepared to process that data. This results in unanticipated application
 	behavior, potentially leading to an application or information system compromise. Invalid user input is one
 	of the primary methods employed when attempting to compromise an application.
@@ -22,8 +22,7 @@ the application developers, and may have limited, if any, access to source code.
 type are so important to the secure operation of databases that they must not be ignored. At a minimum, the DBA must
 attempt to obtain assurances from the development organization that this issue has been addressed, and must document
 what has been discovered."
-  desc	'rationale', ''
-  desc	'check', "Review PostgreSQL code (trigger procedures, functions), application code, settings, column and
+  desc 'check', 'Review PostgreSQL code (trigger procedures, functions), application code, settings, column and
 	field definitions, and constraints to determine whether the database is protected against invalid input.
 
 If code exists that allows invalid data to be acted upon or input into the database, this is a finding.
@@ -39,8 +38,8 @@ Where a column/field is clearly identified by name, caption, or context as Notes
 the absence of these protections is not a finding.
 
 Check application code that interacts with PostgreSQL for the use of prepared statements. If prepared statements are
-not used, this is a finding."
-  desc	'fix', "Modify database code to properly validate data before it is put into the database or acted upon
+not used, this is a finding.'
+  desc 'fix', 'Modify database code to properly validate data before it is put into the database or acted upon
 	by the database.
 
 Modify the database to contain constraints and validity checking on database columns and tables that require them
@@ -48,12 +47,12 @@ for data integrity.
 
 Use prepared statements when taking user input.
 
-Do not allow general users direct console access to PostgreSQL."
+Do not allow general users direct console access to PostgreSQL.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000251-DB-000160'
   tag gid: 'V-233526'
-  tag rid: 'SV-233526r617333_rule'
+  tag rid: 'SV-233526r606803_rule'
   tag stig_id: 'CD12-00-001800'
   tag fix_id: 'F-36685r606802_fix'
   tag cci: ['CCI-001310']

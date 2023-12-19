@@ -1,8 +1,8 @@
-control	'V-233523' do
-  title	"The role(s)/group(s) used to modify database structure (including but not necessarily limited to
+control 'V-233523' do
+  title 'The role(s)/group(s) used to modify database structure (including but not necessarily limited to
 	tables, indexes, storage, etc.) and logic modules (functions, trigger procedures, links to software external to
-		PostgreSQL, etc.) must be restricted to authorized users."
-  desc	"If PostgreSQL were to allow any user to make changes to database structure or logic, those changes might
+		PostgreSQL, etc.) must be restricted to authorized users.'
+  desc 'If PostgreSQL were to allow any user to make changes to database structure or logic, those changes might
 	be implemented without undergoing the appropriate testing and approvals that are part of a robust change
 	management process.
 
@@ -10,38 +10,34 @@ Accordingly, only qualified and authorized individuals must be allowed to obtain
 components for purposes of initiating changes, including upgrades and modifications.
 
 Unmanaged changes that occur to the database software libraries or configuration can lead to unauthorized or
-compromised installations."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGDATA environment variable. See supplementary content
-	APPENDIX-F for instructions on configuring PGDATA.
+compromised installations.'
+  desc 'check', 'Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for instructions on configuring PGDATA.
 
-As the database administrator (shown here as \"postgres\"), list all users and their permissions by running the
-following SQL:
+As the database administrator (shown here as "postgres"), list all users and their permissions by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"\dp *.*\"
+$ psql -c "\dp *.*"
 
 Verify that all objects have the correct privileges. If they do not, this is a finding.
 
-Next, as the database administrator (shown here as \"postgres\"), verify the permissions of the database directory
-on the filesystem:
+Next, as the database administrator (shown here as "postgres"), verify the permissions of the database directory on the filesystem:
 
 $ ls -la ${PGDATA?}
 
-If permissions of the database directory are not limited to an authorized user account, this is a finding."
-  desc	'fix', "As the database administrator, revoke any permissions from a role that are deemed unnecessary
+If permissions of the database directory are not limited to an authorized user account, this is a finding.'
+  desc 'fix', 'As the database administrator, revoke any permissions from a role that are deemed unnecessary
 	by running the following SQL:
 
 ALTER ROLE bob NOCREATEDB;
 ALTER ROLE bob NOCREATEROLE;
 ALTER ROLE bob NOSUPERUSER;
 ALTER ROLE bob NOINHERIT;
-REVOKE SELECT ON some_function FROM bob;"
+REVOKE SELECT ON some_function FROM bob;'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000362'
   tag gid: 'V-233523'
-  tag rid: 'SV-233523r617333_rule'
+  tag rid: 'SV-233523r613833_rule'
   tag stig_id: 'CD12-00-001300'
   tag fix_id: 'F-36682r606793_fix'
   tag cci: ['CCI-001499']

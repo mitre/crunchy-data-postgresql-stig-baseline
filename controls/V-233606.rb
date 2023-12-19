@@ -1,6 +1,6 @@
-control	'V-233606' do
-  title	'PostgreSQL must invalidate session identifiers upon user logout or other session termination.'
-  desc	"Captured sessions can be reused in \"replay\" attacks. This requirement limits the ability of
+control 'V-233606' do
+  title 'PostgreSQL must invalidate session identifiers upon user logout or other session termination.'
+  desc %q(Captured sessions can be reused in "replay" attacks. This requirement limits the ability of
 	adversaries to capture and continue to employ previously valid session IDs.
 
 This requirement focuses on communications protection for PostgreSQL session rather than for the network packet.
@@ -16,21 +16,20 @@ identify or guess the session information related to pending application traffic
 hijacking the session or otherwise manipulating valid sessions.
 
 When a user logs out, or when any other session termination event occurs, PostgreSQL must terminate the user
-session(s) to minimize the potential for sessions to be hijacked."
-  desc	'rationale', ''
-  desc	'check', "As the database administrator (shown here as \"postgres\"), run the following SQL:
+session(s) to minimize the potential for sessions to be hijacked.)
+  desc 'check', 'As the database administrator (shown here as "postgres"), run the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW tcp_keepalives_idle\"
-$ psql -c \"SHOW tcp_keepalives_interval\"
-$ psql -c \"SHOW tcp_keepalives_count\"
-$ psql -c \"SHOW statement_timeout\"
+$ psql -c "SHOW tcp_keepalives_idle"
+$ psql -c "SHOW tcp_keepalives_interval"
+$ psql -c "SHOW tcp_keepalives_count"
+$ psql -c "SHOW statement_timeout"
 
-If these settings are not set to something other than zero, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If these settings are not set to something other than zero, this is a finding.'
+  desc 'fix', 'Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
-As the database administrator (shown here as \"postgres\"), edit postgresql.conf:
+As the database administrator (shown here as "postgres"), edit postgresql.conf:
 
 $ sudo su - postgres
 $ vi $PGDATA/postgresql.conf
@@ -44,12 +43,12 @@ tcp_keepalives_count = 10
 
 Now, as the system administrator, restart the server with the new configuration:
 
-$ sudo systemctl restart postgresql-${PGVER?}"
+$ sudo systemctl restart postgresql-${PGVER?}'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000220-DB-000149'
   tag gid: 'V-233606'
-  tag rid: 'SV-233606r617333_rule'
+  tag rid: 'SV-233606r607043_rule'
   tag stig_id: 'CD12-00-010600'
   tag fix_id: 'F-36765r607042_fix'
   tag cci: ['CCI-001185']

@@ -1,28 +1,27 @@
-control	'V-233574' do
-  title	"PostgreSQL must generate audit records when categories of information (e.g., classification
-	levels/security levels) is modified."
-  desc	"Changes in categories of information must be tracked. Without an audit trail, unauthorized access to
+control 'V-233574' do
+  title 'PostgreSQL must generate audit records when categories of information (e.g., classification
+	levels/security levels) is modified.'
+  desc 'Changes in categories of information must be tracked. Without an audit trail, unauthorized access to
 	protected data could go undetected.
 
 For detailed information on categorizing information, refer to FIPS Publication 199, Standards for Security
 Categorization of Federal Information and Information Systems, and FIPS Publication 200, Minimum Security
-Requirements for Federal Information and Information Systems."
-  desc	'rationale', ''
-  desc	'check', "If category tracking is not required in the database, this is not applicable.
+Requirements for Federal Information and Information Systems.'
+  desc 'check', 'If category tracking is not required in the database, this is not applicable.
 
 First, as the database administrator, verify pgaudit is enabled by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW shared_preload_libraries\"
+$ psql -c "SHOW shared_preload_libraries"
 
 If the output does not contain pgaudit, this is a finding.
 
 Next, verify that role, read, write, and ddl auditing are enabled:
 
-$ psql -c \"SHOW pgaudit.log\"
+$ psql -c "SHOW pgaudit.log"
 
-If the output does not contain role, read, write, and ddl, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If the output does not contain role, read, write, and ddl, this is a finding.'
+  desc 'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
@@ -46,7 +45,7 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000498-DB-000346'
   tag gid: 'V-233574'
-  tag rid: 'SV-233574r617333_rule'
+  tag rid: 'SV-233574r606947_rule'
   tag stig_id: 'CD12-00-006700'
   tag fix_id: 'F-36733r606946_fix'
   tag cci: ['CCI-000172']

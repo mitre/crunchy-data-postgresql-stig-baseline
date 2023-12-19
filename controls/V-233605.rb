@@ -1,7 +1,7 @@
-control	'V-233605' do
-  title	"PostgreSQL must implement cryptographic mechanisms preventing the unauthorized disclosure of
-	organization-defined information at rest on organization-defined information system components."
-  desc	"PostgreSQLs handling data requiring data-at-rest protections must employ cryptographic mechanisms to
+control 'V-233605' do
+  title 'PostgreSQL must implement cryptographic mechanisms preventing the unauthorized disclosure of
+	organization-defined information at rest on organization-defined information system components.'
+  desc 'PostgreSQLs handling data requiring data-at-rest protections must employ cryptographic mechanisms to
 	prevent unauthorized disclosure and modification of the information at rest. These cryptographic mechanisms may
 	be native to PostgreSQL or implemented via additional software or operating system/file system settings, as
 	appropriate to the situation.
@@ -12,19 +12,18 @@ Organizations have the flexibility to either encrypt all information on storage 
 or encrypt specific data structures (e.g., files, records, or fields).
 
 The decision whether and what to encrypt rests with the data owner and is also influenced by the physical measures
-taken to secure the equipment and media on which the information resides."
-  desc	'rationale', ''
-  desc	'check', "To check if pgcrypto is installed on PostgreSQL, as a database administrator (shown here as
-	\"postgres\"), run the following command:
+taken to secure the equipment and media on which the information resides.'
+  desc 'check', %q(To check if pgcrypto is installed on PostgreSQL, as a database administrator (shown here as
+	"postgres"), run the following command:
 
 $ sudo su - postgres
-$ psql -c \"SELECT * FROM pg_available_extensions where name='pgcrypto'\"
+$ psql -c "SELECT * FROM pg_available_extensions where name='pgcrypto'"
 
 If data in the database requires encryption and pgcrypto is not available, this is a finding.
 
 If a disk or filesystem requires encryption, ask the system owner, DBA, and SA to demonstrate the use of filesystem
-and/or disk-level encryption. If this is required and is not found, this is a finding."
-  desc	'fix', "Configure PostgreSQL, operating system/file system, and additional software as relevant, to
+and/or disk-level encryption. If this is required and is not found, this is a finding.)
+  desc 'fix', "Configure PostgreSQL, operating system/file system, and additional software as relevant, to
 	provide the required level of cryptographic protection for information requiring cryptographic protection
 	against disclosure.
 
@@ -40,7 +39,7 @@ INSERT INTO accounts(username, password) VALUES ('bob', crypt('mypass', gen_salt
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000429-DB-000387'
   tag gid: 'V-233605'
-  tag rid: 'SV-233605r617333_rule'
+  tag rid: 'SV-233605r607040_rule'
   tag stig_id: 'CD12-00-010500'
   tag fix_id: 'F-36764r607039_fix'
   tag cci: ['CCI-002476']

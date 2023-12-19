@@ -1,24 +1,23 @@
-control	'V-233622' do
-  title	'PostgreSQL must generate audit records for all direct access to the database(s).'
-  desc	"In this context, direct access is any query, command, or call to the DBMS that comes from any source
+control 'V-233622' do
+  title 'PostgreSQL must generate audit records for all direct access to the database(s).'
+  desc 'In this context, direct access is any query, command, or call to the DBMS that comes from any source
 	other than the application(s) that it supports. Examples would be the command line or a database management
-	utility program. The intent is to capture all activity from administrative and non-standard sources."
-  desc	'rationale', ''
-  desc	'check', "As the database administrator, verify pgaudit is enabled by running the following SQL:
+	utility program. The intent is to capture all activity from administrative and non-standard sources.'
+  desc 'check', 'As the database administrator, verify pgaudit is enabled by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW shared_preload_libraries\"
+$ psql -c "SHOW shared_preload_libraries"
 
-If the output does not contain \"pgaudit\", this is a finding.
+If the output does not contain "pgaudit", this is a finding.
 
 Verify that connections and disconnections are being logged by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW log_connections\"
-$ psql -c \"SHOW log_disconnections\"
+$ psql -c "SHOW log_connections"
+$ psql -c "SHOW log_disconnections"
 
-If the output does not contain \"on\", this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If the output does not contain "on", this is a finding.'
+  desc 'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 To ensure logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
@@ -44,7 +43,7 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000508-DB-000358'
   tag gid: 'V-233622'
-  tag rid: 'SV-233622r617333_rule'
+  tag rid: 'SV-233622r607091_rule'
   tag stig_id: 'CD12-00-012700'
   tag fix_id: 'F-36781r607090_fix'
   tag cci: ['CCI-000172']

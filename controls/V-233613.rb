@@ -1,7 +1,7 @@
-control	'V-233613' do
-  title	"PostgreSQL must automatically terminate a user session after organization-defined conditions or
-	trigger events requiring session disconnect."
-  desc	"This addresses the termination of user-initiated logical sessions in contrast to the termination of
+control 'V-233613' do
+  title 'PostgreSQL must automatically terminate a user session after organization-defined conditions or
+	trigger events requiring session disconnect.'
+  desc "This addresses the termination of user-initiated logical sessions in contrast to the termination of
 	network connections that are associated with communications sessions (i.e., network disconnect). A logical
 	session (for local, network, and remote access) is initiated whenever a user (or process acting on behalf of a
 		user) accesses an organizational information system. Such user sessions can be terminated (and thus terminate
@@ -16,14 +16,13 @@ information system use.
 
 This capability is typically reserved for specific cases where the system owner, data owner, or organization requires
 additional assurance."
-  desc	'rationale', ''
-  desc	'check', "Review system documentation to obtain the organization's definition of circumstances requiring
+  desc 'check', "Review system documentation to obtain the organization's definition of circumstances requiring
 	automatic session termination. If the documentation explicitly states that such termination is not required or
 	is prohibited, this is not a finding.
 
 If the documentation requires automatic session termination, but PostgreSQL is not configured accordingly, this is a
 finding."
-  desc	'fix', "Configure PostgreSQL to automatically terminate a user session after organization-defined
+  desc 'fix', "Configure PostgreSQL to automatically terminate a user session after organization-defined
 	conditions or trigger events requiring session termination.
 
 Examples follow.
@@ -50,7 +49,7 @@ This script would be added to a cron job:
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000295-DB-000305'
   tag gid: 'V-233613'
-  tag rid: 'SV-233613r617333_rule'
+  tag rid: 'SV-233613r607064_rule'
   tag stig_id: 'CD12-00-011600'
   tag fix_id: 'F-36772r607063_fix'
   tag cci: ['CCI-002361']

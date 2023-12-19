@@ -1,7 +1,7 @@
-control	'V-233614' do
-  title	"PostgreSQL must prevent non-privileged users from executing privileged functions, to include disabling,
-	circumventing, or altering implemented security safeguards/countermeasures."
-  desc	"Preventing non-privileged users from executing privileged functions mitigates the risk that unauthorized
+control 'V-233614' do
+  title 'PostgreSQL must prevent non-privileged users from executing privileged functions, to include disabling,
+	circumventing, or altering implemented security safeguards/countermeasures.'
+  desc 'Preventing non-privileged users from executing privileged functions mitigates the risk that unauthorized
 	individuals or processes may gain unnecessary access to information or privileges.
 
 System documentation should include a definition of the functionality considered privileged.
@@ -43,11 +43,10 @@ triggers, other mechanisms, or a combination of these.
 
 However, the use of procedural languages within PostgreSQL, such as pl/R and pl/Python, introduce security risk.
 Any user on the PostgreSQL who is granted access to pl/R or pl/Python is able to run UDFs to escalate privileges
-and perform unintended functions. Procedural languages such as pl/Perl and pl/Java have \"untrusted\" mode of
+and perform unintended functions. Procedural languages such as pl/Perl and pl/Java have "untrusted" mode of
 operation, which do not allow a non-privileged PostgreSQL user to escalate privileges or perform actions as a
-	database administrator."
-  desc	'rationale', ''
-  desc	'check', "Review the system documentation to obtain the definition of the PostgreSQL functionality
+	database administrator.'
+  desc 'check', 'Review the system documentation to obtain the definition of the PostgreSQL functionality
 	considered privileged in the context of the system in question.
 
 Review the PostgreSQL security configuration and/or other means used to protect privileged functionality from
@@ -56,8 +55,8 @@ unauthorized use.
 If the configuration does not protect all of the actions defined as privileged, this is a finding.
 
 If PostgreSQL instance uses procedural languages, such as pl/Python or pl/R, without Authorizing Official (AO)
-authorization, this is a finding."
-  desc	'fix', "Configure PostgreSQL security to protect all privileged functionality.
+authorization, this is a finding.'
+  desc 'fix', 'Configure PostgreSQL security to protect all privileged functionality.
 
 If pl/R and pl/Python are used, document their intended use, document users that have access to pl/R and pl/Python,
 as well as their business use case, such as data-analytics or data-mining. Because of the risks associated with
@@ -70,12 +69,12 @@ DROP EXTENSION <extension_name>
 To remove unwanted privileges from a role, use the REVOKE command.
 
 See the PostgreSQL documentation for more details:
-http://www.postgresql.org/docs/current/static/sql-revoke.html."
+http://www.postgresql.org/docs/current/static/sql-revoke.html.'
   impact 0.7
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000340-DB-000304'
   tag gid: 'V-233614'
-  tag rid: 'SV-233614r617333_rule'
+  tag rid: 'SV-233614r607067_rule'
   tag stig_id: 'CD12-00-011700'
   tag fix_id: 'F-36773r607066_fix'
   tag cci: ['CCI-002235']

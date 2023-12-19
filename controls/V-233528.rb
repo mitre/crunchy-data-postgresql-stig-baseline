@@ -1,7 +1,7 @@
-control	'V-233528' do
-  title	"PostgreSQL and associated applications, when making use of dynamic code execution, must scan input data
-	for invalid values that may indicate a code injection attack."
-  desc	"With respect to database management systems, one class of threat is known as SQL Injection, or more
+control 'V-233528' do
+  title 'PostgreSQL and associated applications, when making use of dynamic code execution, must scan input data
+	for invalid values that may indicate a code injection attack.'
+  desc "With respect to database management systems, one class of threat is known as SQL Injection, or more
 	generally, code injection. It takes advantage of the dynamic execution capabilities of various programming
 	languages, including dialects of SQL. In such cases, the attacker deduces the manner in which SQL statements are
 	being processed, either from inside knowledge or by observing system behavior in response to invalid inputs. When
@@ -37,18 +37,17 @@ developer.
 -- Bear in mind that all this applies not only to screen input, but also to the values in an incoming message to a
 web service or to a stored procedure called by a software component that has not itself been hardened in these ways.
 Not only can the caller be subject to such vulnerabilities; it may itself be the attacker."
-  desc	'rationale', ''
-  desc	'check', "Review PostgreSQL source code (trigger procedures, functions) and application source code to
+  desc 'check', 'Review PostgreSQL source code (trigger procedures, functions) and application source code to
 	identify cases of dynamic code execution.
 
-If dynamic code execution is employed without protective measures against code injection, this is a finding."
-  desc	'fix', "Where dynamic code execution is used, modify the code to implement protections against code
-	injection (IE: prepared statements)."
+If dynamic code execution is employed without protective measures against code injection, this is a finding.'
+  desc 'fix', 'Where dynamic code execution is used, modify the code to implement protections against code
+	injection (IE: prepared statements).'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000251-DB-000392'
   tag gid: 'V-233528'
-  tag rid: 'SV-233528r617333_rule'
+  tag rid: 'SV-233528r606809_rule'
   tag stig_id: 'CD12-00-002000'
   tag fix_id: 'F-36687r606808_fix'
   tag cci: ['CCI-001310']

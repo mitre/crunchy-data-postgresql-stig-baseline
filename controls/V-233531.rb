@@ -1,6 +1,6 @@
-control	'V-233531' do
-  title	'The audit information produced by PostgreSQL must be protected from unauthorized deletion.'
-  desc	"If audit data were to become compromised, then competent forensic analysis and discovery of the true
+control 'V-233531' do
+  title 'The audit information produced by PostgreSQL must be protected from unauthorized deletion.'
+  desc 'If audit data were to become compromised, then competent forensic analysis and discovery of the true
 	source of potentially malicious system activity is impossible to achieve.
 
 To ensure the veracity of audit data, the information system and/or the application must protect audit information
@@ -18,9 +18,8 @@ Audit information includes all information (e.g., audit records, audit settings,
 successfully audit information system activity.
 
 Deletion of database audit data could mask the theft of, or the unauthorized modification of, sensitive data stored
-in the database."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGLOG environment variable. See supplementary content
+in the database.'
+  desc 'check', 'Note: The following instructions use the PGLOG environment variable. See supplementary content
 	APPENDIX-I for instructions on configuring PGLOG.
 
 Review locations of audit logs, both internal to the database and database audit logs located at the operating
@@ -31,37 +30,37 @@ Verify there are appropriate controls and permissions to protect the audit infor
 #### stderr Logging
 
 If the PostgreSQL server is configured to use stderr for logging, the logs will be owned by the database
-administrator (shown here as \"postgres\") with a default permissions level of 0600. The permissions can be
+administrator (shown here as "postgres") with a default permissions level of 0600. The permissions can be
 configured in postgresql.conf.
 
-To check the permissions for log files, as the database administrator (shown here as \"postgres\"), run the
+To check the permissions for log files, as the database administrator (shown here as "postgres"), run the
 following command:
 
 $ sudo su - postgres
-$ psql -c \"show log_file_mode\"
+$ psql -c "show log_file_mode"
 
 If the permissions are not 0600, this is a finding.
 
-As the database administrator (shown here as \"postgres\"), list the permissions of the logs:
+As the database administrator (shown here as "postgres"), list the permissions of the logs:
 
 $ sudo su - postgres
 $ ls -la ${PGLOG?}
 
-If logs are not owned by the database administrator (shown here as \"postgres\") and are not the same permissions
+If logs are not owned by the database administrator (shown here as "postgres") and are not the same permissions
 as configured in postgresql.conf, this is a finding.
 
 #### syslog Logging
 
 If the PostgreSQL server is configured to use syslog for logging, consult organization syslog setting for permissions
-and ownership of logs."
-  desc	'fix', "To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
+and ownership of logs.'
+  desc 'fix', 'To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
 
 Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for
 instructions on configuring PGDATA and APPENDIX-I for instructions on configuring PGLOG.
 
 #### stderr Logging
 
-With stderr logging enabled, as the database owner (shown here as \"postgres\"), set the following parameter in
+With stderr logging enabled, as the database owner (shown here as "postgres"), set the following parameter in
 postgresql.conf:
 
 $ vi ${PGDATA?}/postgresql.conf
@@ -80,16 +79,16 @@ If PostgreSQL is configured to use syslog for logging, the log files must be con
 
 $ chown root:root <log directory name>/<log_filename>
 $ chmod 0700 <log directory name>
-$ chmod 0600 <log directory name>/*.log"
+$ chmod 0600 <log directory name>/*.log'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000120-DB-000061'
   tag gid: 'V-233531'
-  tag rid: 'SV-233531r617333_rule'
+  tag rid: 'SV-233531r606818_rule'
   tag stig_id: 'CD12-00-002300'
   tag fix_id: 'F-36690r606817_fix'
   tag cci: ['CCI-000164']
-  tag nist: ['AU-9']
+  tag nist: ['AU-9', 'AU-9 a']
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

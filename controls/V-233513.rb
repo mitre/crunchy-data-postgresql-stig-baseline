@@ -1,7 +1,7 @@
-control	'V-233513' do
-  title	"Security-relevant software updates to PostgreSQL must be installed within the time period directed by an
-	authoritative source (e.g., IAVM, CTOs, DTMs, and STIGs)."
-  desc	"Security flaws with software applications, including database management systems, are discovered daily.
+control 'V-233513' do
+  title 'Security-relevant software updates to PostgreSQL must be installed within the time period directed by an
+	authoritative source (e.g., IAVM, CTOs, DTMs, and STIGs).'
+  desc 'Security flaws with software applications, including database management systems, are discovered daily.
 	Vendors are constantly updating and patching their products to address newly discovered security vulnerabilities.
 	Organizations (including any contractor to the organization) are required to promptly install security-relevant
 	software updates (e.g., patches, service packs, and hot fixes). Flaws discovered during security assessments,
@@ -21,9 +21,8 @@ updates may be dependent upon the Information Assurance Vulnerability Management
 
 The application will be configured to check for and install security-relevant software updates within an identified
 time period from the availability of the update. The specific time period will be defined by an authoritative source
-(e.g., IAVM, CTOs, DTMs, and STIGs)."
-  desc	'rationale', ''
-  desc	'check', "If new packages are available for PostgreSQL, they can be reviewed in the package manager
+(e.g., IAVM, CTOs, DTMs, and STIGs).'
+  desc 'check', 'If new packages are available for PostgreSQL, they can be reviewed in the package manager
 	appropriate for the server operating system:
 
 To list the version of installed PostgreSQL using psql:
@@ -49,14 +48,14 @@ http://www.postgresql.org/support/security/
 
 If PostgreSQL is not at the latest version, this is a finding.
 
-If PostgreSQL is not at the latest version and the evaluated version has CVEs (IAVAs), then this is a CAT I finding."
-  desc	'fix', "Institute and adhere to policies and procedures to ensure that patches are consistently applied to
-	PostgreSQL within the time allowed."
+If PostgreSQL is not at the latest version and the evaluated version has CVEs (IAVAs), then this is a CAT I finding.'
+  desc 'fix', 'Institute and adhere to policies and procedures to ensure that patches are consistently applied to
+	PostgreSQL within the time allowed.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000456-DB-000390'
   tag gid: 'V-233513'
-  tag rid: 'SV-233513r617333_rule'
+  tag rid: 'SV-233513r606764_rule'
   tag stig_id: 'CD12-00-000300'
   tag fix_id: 'F-36672r606763_fix'
   tag cci: ['CCI-002605']

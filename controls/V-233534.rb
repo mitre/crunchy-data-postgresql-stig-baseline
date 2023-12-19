@@ -1,7 +1,7 @@
-control	'V-233534' do
-  title	"PostgreSQL must allow only the Information System Security Manager (ISSM), or individuals or roles
-	appointed by the ISSM, to select which auditable events are to be audited."
-  desc	"Without the capability to restrict which roles and individuals can select which events are audited,
+control 'V-233534' do
+  title 'PostgreSQL must allow only the Information System Security Manager (ISSM), or individuals or roles
+	appointed by the ISSM, to select which auditable events are to be audited.'
+  desc "Without the capability to restrict which roles and individuals can select which events are audited,
 	unauthorized personnel may be able to prevent or interfere with the auditing of critical events.
 
 Suppression of auditing could permit an adversary to evade detection.
@@ -9,14 +9,11 @@ Suppression of auditing could permit an adversary to evade detection.
 Misconfigured audits can degrade the system's performance by overwhelming the audit log. Misconfigured audits may
 also make it more difficult to establish, correlate, and investigate the events relating to an incident or identify
 those responsible for one."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGDATA environment variable. See supplementary
-	content APPENDIX-F for instructions on configuring PGDATA.
+  desc 'check', 'Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for instructions on configuring PGDATA.
 
-Check PostgreSQL settings and documentation to determine whether designated personnel are able to select which
-auditable events are being audited.
+Check PostgreSQL settings and documentation to determine whether designated personnel are able to select which auditable events are being audited.
 
-As the database administrator (shown here as \"postgres\"), verify the permissions for PGDATA:
+As the database administrator (shown here as "postgres"), verify the permissions for PGDATA:
 
 $ ls -la ${PGDATA?}
 
@@ -25,11 +22,10 @@ If anything in PGDATA is not owned by the database administrator, this is a find
 Next, as the database administrator, run the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"\du\"
+$ psql -c "\du"
 
-Review the role permissions, if any role is listed as superuser but should not have that access, this is a
-finding."
-  desc	'fix', "Configure PostgreSQL's settings to allow designated personnel to select which auditable events
+Review the role permissions, if any role is listed as superuser but should not have that access, this is a finding.'
+  desc 'fix', "Configure PostgreSQL's settings to allow designated personnel to select which auditable events
 	are audited.
 
 Using pgaudit allows administrators the flexibility to choose what they log. For an overview of the capabilities
@@ -48,7 +44,7 @@ $ chmod 600 ${PGDATA?}/postgresql.conf"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000090-DB-000065'
   tag gid: 'V-233534'
-  tag rid: 'SV-233534r617333_rule'
+  tag rid: 'SV-233534r606827_rule'
   tag stig_id: 'CD12-00-002600'
   tag fix_id: 'F-36693r606826_fix'
   tag cci: ['CCI-000171']
