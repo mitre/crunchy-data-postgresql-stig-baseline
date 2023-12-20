@@ -1,18 +1,17 @@
-control	'V-233512' do
-  title	"PostgreSQL must produce audit records containing sufficient information to establish the outcome (success or
-  failure) of the events."
-  desc	"Information system auditing capability is critical for accurate forensic analysis. Without information about
+control 'V-233512' do
+  title 'PostgreSQL must produce audit records containing sufficient information to establish the outcome (success or
+  failure) of the events.'
+  desc 'Information system auditing capability is critical for accurate forensic analysis. Without information about
   the outcome of events, security personnel cannot make an accurate assessment as to whether an attack was successful
   or if changes were made to the security state of the system.
 
 Event outcomes can include indicators of event success or failure and event-specific results (e.g., the security state
   of the information system after the event occurred). As such, they also provide a means to measure the impact of an
-  event and help authorized personnel to determine the appropriate response."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGLOG environment variables. See supplementary content
+  event and help authorized personnel to determine the appropriate response.'
+  desc 'check', 'Note: The following instructions use the PGLOG environment variables. See supplementary content
   APPENDIX-I for instructions on configuring them.
 
-As a database administrator (shown here as \"postgres\"), create a table, insert a value, alter the table and update
+As a database administrator (shown here as "postgres"), create a table, insert a value, alter the table and update
 the table by running the following SQL:
 
 CREATE TABLE stig_test(id INT);
@@ -52,8 +51,8 @@ $ cat ${PGLOG?}/<latest_logfile>
 < 2016-02-23 14:54:54.378 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >STATEMENT: UPDATE stig_test SET id = 0 WHERE id = 1;
 < 2016-02-23 14:55:23.723 EDT psql postgres postgres 570bf307.3b0a 2016-04-11 14:55:03 EDT [local] >LOG: AUDIT: SESSION,1,1,DDL,DROP TABLE,,,DROP TABLE stig_test;,<none>
 
-If audit records exist without the outcome of the event that occurred, this is a finding."
-  desc	'fix', "Using pgaudit PostgreSQL can be configured to audit various facets of PostgreSQL. See supplementary
+If audit records exist without the outcome of the event that occurred, this is a finding.'
+  desc 'fix', %q(Using pgaudit PostgreSQL can be configured to audit various facets of PostgreSQL. See supplementary
   content APPENDIX-B for documentation on installing pgaudit.
 
 All errors, denials, and unsuccessful requests are logged if logging is enabled. See supplementary content APPENDIX-C
@@ -63,7 +62,7 @@ Note: The following instructions use the PGDATA and PGVER environment variables.
 for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 With pgaudit and logging enabled, set the following configuration settings in postgresql.conf, as the database
-administrator (shown here as \"postgres\"), to the following:
+administrator (shown here as "postgres"), to the following:
 
 $ sudo su - postgres
 $ vi ${PGDATA?}/postgresql.conf
@@ -82,16 +81,16 @@ log_error_verbosity = default
 
 Last, as the system administrator, restart PostgreSQL:
 
-$ sudo systemctl reload postgresql-${PGVER?}"
+$ sudo systemctl reload postgresql-${PGVER?})
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000099-DB-000043'
   tag gid: 'V-233512'
-  tag rid: 'SV-233512r617333_rule'
+  tag rid: 'SV-233512r606761_rule'
   tag stig_id: 'CD12-00-000200'
   tag fix_id: 'F-36671r606760_fix'
   tag cci: ['CCI-000134']
-  tag nist: ['AU-3']
+  tag nist: ['AU-3', 'AU-3 e']
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

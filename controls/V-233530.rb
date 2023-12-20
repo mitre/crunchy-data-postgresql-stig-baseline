@@ -1,7 +1,7 @@
-control	'V-233530' do
-  title	"PostgreSQL must enforce discretionary access control policies, as defined by the data owner, over
-	defined subjects and objects."
-  desc	"Discretionary Access Control (DAC) is based on the notion that individual users are \"owners\" of
+control 'V-233530' do
+  title 'PostgreSQL must enforce discretionary access control policies, as defined by the data owner, over
+	defined subjects and objects.'
+  desc 'Discretionary Access Control (DAC) is based on the notion that individual users are "owners" of
 	objects and therefore have discretion over who should be authorized to access the object and in which mode
 	(e.g., read or write). Ownership is usually acquired as a consequence of creating the object or via specified
 	ownership assignment. DAC allows the owner to determine who will have access to objects they control. An example
@@ -20,50 +20,47 @@ requirement permits the subject to pass the information to any subject at the sa
 The policy is bounded by the information system boundary. Once the information is passed outside of the control of
 the information system, additional means may be required to ensure the constraints remain in effect. While the older,
 more traditional definitions of discretionary access control require identity-based access control, that limitation
-is not required for this use of discretionary access control."
-  desc	'rationale', ''
-  desc	'check', "Review system documentation to identify the required discretionary access control (DAC).
+is not required for this use of discretionary access control.'
+  desc 'check', 'Review system documentation to identify the required discretionary access control (DAC).
 
-Review the security configuration of the database and PostgreSQL. If applicable, review the security configuration of
-the application(s) using the database.
+Review the security configuration of the database and PostgreSQL. If applicable, review the security configuration of the application(s) using the database.
 
-If the discretionary access control defined in the documentation is not implemented in the security configuration,
-this is a finding.
+If the discretionary access control defined in the documentation is not implemented in the security configuration, this is a finding.
 
 If any database objects are found to be owned by users not authorized to own database objects, this is a finding.
 
 To check the ownership of objects in the database, as the database administrator, run the following:
 
 $ sudo su - postgres
-$ psql -c \"\dn *.*\"
-$ psql -c \"\dt *.*\"
-$ psql -c \"\ds *.*\"
-$ psql -c \"\dv *.*\"
-$ psql -c \"\df+ *.*\"
+$ psql -c "\dn *.*"
+$ psql -c "\dt *.*"
+$ psql -c "\ds *.*"
+$ psql -c "\dv *.*"
+$ psql -c "\df+ *.*"
 
-If any role is given privileges to objects it should not have, this is a finding."
-  desc	'fix', "Implement the organization's DAC policy in the security configuration of the database and
+If any role is given privileges to objects it should not have, this is a finding.'
+  desc 'fix', %q(Implement the organization's DAC policy in the security configuration of the database and
 	PostgreSQL, and, if applicable, the security configuration of the application(s) using the database.
 
-To GRANT privileges to roles, as the database administrator (shown here as \"postgres\"), run statements like the
+To GRANT privileges to roles, as the database administrator (shown here as "postgres"), run statements like the
 following examples:
 
 $ sudo su - postgres
-$ psql -c \"CREATE SCHEMA test\"
-$ psql -c \"GRANT CREATE ON SCHEMA test TO bob\"
-$ psql -c \"CREATE TABLE test.test_table(id INT)\"
-$ psql -c \"GRANT SELECT ON TABLE test.test_table TO bob\"
+$ psql -c "CREATE SCHEMA test"
+$ psql -c "GRANT CREATE ON SCHEMA test TO bob"
+$ psql -c "CREATE TABLE test.test_table(id INT)"
+$ psql -c "GRANT SELECT ON TABLE test.test_table TO bob"
 
-To REVOKE privileges to roles, as the database administrator (shown here as \"postgres\"), run statements like the
+To REVOKE privileges to roles, as the database administrator (shown here as "postgres"), run statements like the
 following examples:
 
-$ psql -c \"REVOKE SELECT ON TABLE test.test_table FROM bob\"
-$ psql -c \"REVOKE CREATE ON SCHEMA test FROM bob\""
+$ psql -c "REVOKE SELECT ON TABLE test.test_table FROM bob"
+$ psql -c "REVOKE CREATE ON SCHEMA test FROM bob")
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000328-DB-000301'
   tag gid: 'V-233530'
-  tag rid: 'SV-233530r617333_rule'
+  tag rid: 'SV-233530r606815_rule'
   tag stig_id: 'CD12-00-002200'
   tag fix_id: 'F-36689r606814_fix'
   tag cci: ['CCI-002165']

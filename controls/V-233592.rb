@@ -1,31 +1,30 @@
-control	'V-233592' do
-  title	'Unused database components, PostgreSQL software, and database objects must be removed.'
-  desc	"Information systems are capable of providing a wide variety of functions and services. Some of the
+control 'V-233592' do
+  title 'Unused database components, PostgreSQL software, and database objects must be removed.'
+  desc 'Information systems are capable of providing a wide variety of functions and services. Some of the
 	functions and services, provided by default, may not be necessary to support essential organizational operations
 	(e.g., key missions, functions).
 
 It is detrimental for software products to provide, or install by default, functionality exceeding requirements or
 mission objectives.
 
-PostgreSQL must adhere to the principles of least functionality by providing only essential capabilities."
-  desc	'rationale', ''
-  desc	'check', "To get a list of all extensions installed, use the following commands:
+PostgreSQL must adhere to the principles of least functionality by providing only essential capabilities.'
+  desc 'check', %q(To get a list of all extensions installed, use the following commands:
 
 $ sudo su - postgres
-$ psql -c \"select * from pg_extension where extname != 'plpgsql'\"
+$ psql -c "select * from pg_extension where extname != 'plpgsql'"
 
-If any extensions exist that are not approved, this is a finding."
-  desc	'fix', "To remove extensions, use the following commands:
+If any extensions exist that are not approved, this is a finding.)
+  desc 'fix', 'To remove extensions, use the following commands:
 
 $ sudo su - postgres
-$ psql -c \"DROP EXTENSION <extension_name>\"
+$ psql -c "DROP EXTENSION <extension_name>"
 
-Note: It is recommended that plpgsql not be removed."
+Note: It is recommended that plpgsql not be removed.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000141-DB-000091'
   tag gid: 'V-233592'
-  tag rid: 'SV-233592r617333_rule'
+  tag rid: 'SV-233592r607001_rule'
   tag stig_id: 'CD12-00-008900'
   tag fix_id: 'F-36751r607000_fix'
   tag cci: ['CCI-000381']

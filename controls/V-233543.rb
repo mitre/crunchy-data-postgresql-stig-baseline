@@ -1,7 +1,7 @@
-control	'V-233543' do
-  title	"Execution of software modules (to include functions and trigger procedures) with elevated privileges
-	must be restricted to necessary cases only."
-  desc	"In certain situations, to provide required functionality, PostgreSQL needs to execute internal logic
+control 'V-233543' do
+  title 'Execution of software modules (to include functions and trigger procedures) with elevated privileges
+	must be restricted to necessary cases only.'
+  desc 'In certain situations, to provide required functionality, PostgreSQL needs to execute internal logic
 	(stored procedures, functions, triggers, etc.) and/or external code modules with elevated privileges. However,
 	if the privileges required for execution are at a higher level than the privileges assigned to organizational
 		users invoking the functionality applications/programs, those users are indirectly provided with greater
@@ -14,18 +14,17 @@ developers. It is recognized that in many cases, the database administrator (DBA
 from the application developers, and may have limited, if any, access to source code. Nevertheless, protections of
 this type are so important to the secure operation of databases that they must not be ignored. At a minimum, the
 DBA must attempt to obtain assurances from the development organization that this issue has been addressed, and must
-document what has been discovered."
-  desc	'rationale', ''
-  desc	'check', "Functions in PostgreSQL can be created with the SECURITY DEFINER option. When SECURITY DEFINER
+document what has been discovered.'
+  desc 'check', 'Functions in PostgreSQL can be created with the SECURITY DEFINER option. When SECURITY DEFINER
 	functions are executed by a user, said function is run with the privileges of the user who created it.
 
-To list all functions that have SECURITY DEFINER, as, the DBA (shown here as \"postgres\"), run the following SQL:
+To list all functions that have SECURITY DEFINER, as, the DBA (shown here as "postgres"), run the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SELECT nspname, proname, proargtypes, prosecdef, rolname, proconfig FROM pg_proc p JOIN pg_namespace
-n ON p.pronamespace = n.oid JOIN pg_authid a ON a.oid = p.proowner WHERE prosecdef OR NOT proconfig IS NULL\"
+$ psql -c "SELECT nspname, proname, proargtypes, prosecdef, rolname, proconfig FROM pg_proc p JOIN pg_namespace
+n ON p.pronamespace = n.oid JOIN pg_authid a ON a.oid = p.proowner WHERE prosecdef OR NOT proconfig IS NULL"
 
-In the query results, a prosecdef value of \"t\" on a row indicates that that function uses privilege elevation.
+In the query results, a prosecdef value of "t" on a row indicates that that function uses privilege elevation.
 
 If elevation of PostgreSQL privileges is utilized but not documented, this is a finding.
 
@@ -33,19 +32,19 @@ If elevation of PostgreSQL privileges is documented, but not implemented as desc
 is a finding.
 
 If the privilege-elevation logic can be invoked in ways other than intended, or in contexts other than intended, or
-by subjects/principals other than intended, this is a finding."
-  desc	'fix', "Determine where, when, how, and by what principals/subjects elevated privilege is needed.
+by subjects/principals other than intended, this is a finding.'
+  desc 'fix', 'Determine where, when, how, and by what principals/subjects elevated privilege is needed.
 
-To change a SECURITY DEFINER function to SECURITY INVOKER, as the database administrator (shown here as \"postgres\"),
+To change a SECURITY DEFINER function to SECURITY INVOKER, as the database administrator (shown here as "postgres"),
 run the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"ALTER FUNCTION <function_name> SECURITY INVOKER\""
+$ psql -c "ALTER FUNCTION <function_name> SECURITY INVOKER"'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000342-DB-000302'
   tag gid: 'V-233543'
-  tag rid: 'SV-233543r617333_rule'
+  tag rid: 'SV-233543r606854_rule'
   tag stig_id: 'CD12-00-003600'
   tag fix_id: 'F-36702r606853_fix'
   tag cci: ['CCI-002233']

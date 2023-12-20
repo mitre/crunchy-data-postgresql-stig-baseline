@@ -1,7 +1,7 @@
-control	'V-233587' do
-  title	"PostgreSQL must prohibit user installation of logic modules (functions, trigger procedures, views, etc.)
-	without explicit privileged status."
-  desc	"Allowing regular users to install software, without explicit privileges, creates the risk that untested
+control 'V-233587' do
+  title 'PostgreSQL must prohibit user installation of logic modules (functions, trigger procedures, views, etc.)
+	without explicit privileged status.'
+  desc 'Allowing regular users to install software, without explicit privileges, creates the risk that untested
 	or potentially malicious software will be installed on the system. Explicit privileges (escalated or
 		administrative privileges) provide the regular user with explicit capabilities and control that exceed the
 		rights of a regular user.
@@ -16,30 +16,25 @@ PostgreSQL must enforce software installation by users based upon what types of 
 	software whose pedigree with regard to being potentially malicious is unknown or suspect) by the organization).
 
 In the case of a database management system, this requirement covers stored procedures, functions, triggers, views,
-	etc."
-  desc	'rationale', ''
-  desc	'check', "If PostgreSQL supports only software development, experimentation and/or developer-level
-	testing (that is, excluding production systems, integration testing, stress testing, and user acceptance
-		testing), this is not a finding.
+	etc.'
+  desc 'check', 'If PostgreSQL supports only software development, experimentation and/or developer-level testing (that is, excluding production systems, integration testing, stress testing, and user acceptance testing), this is not a finding.
 
-Review PostgreSQL and database security settings with respect to non-administrative users ability to create, alter,
-or replace logic modules, to include but not necessarily only stored procedures, functions, triggers, and views.
+Review PostgreSQL and database security settings with respect to non-administrative users ability to create, alter, or replace logic modules, to include but not necessarily only stored procedures, functions, triggers, and views.
 
-To list the privileges for all tables and schemas, as the database administrator (shown here as \"postgres\"), run
-the following:
+To list the privileges for all tables and schemas, as the database administrator (shown here as "postgres"), run the following:
 
 $ sudo su - postgres
-$ psql -c \"\dp\"
-$ psql -c \"\dn+\"
+$ psql -c "\dp"
+$ psql -c "\dn+"
 
 The privileges are as follows:
 
 rolename=xxxx -- privileges granted to a role
 =xxxx -- privileges granted to PUBLIC
 
-r -- SELECT (\"read\")
-w -- UPDATE (\"write\")
-a -- INSERT (\"append\")
+r -- SELECT ("read")
+w -- UPDATE ("write")
+a -- INSERT ("append")
 d -- DELETE
 D -- TRUNCATE
 x -- REFERENCES
@@ -54,16 +49,16 @@ arwdDxt -- ALL PRIVILEGES (for tables, varies for other objects)
 
 /yyyy -- role that granted this privilege
 
-If any such permissions exist and are not documented and approved, this is a finding."
-  desc	'fix', "Document and obtain approval for any non-administrative users who require the ability to
+If any such permissions exist and are not documented and approved, this is a finding.'
+  desc 'fix', 'Document and obtain approval for any non-administrative users who require the ability to
 	create, alter, or replace logic modules.
 
-Implement the approved permissions. Revoke any unapproved permissions."
+Implement the approved permissions. Revoke any unapproved permissions.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000378-DB-000365'
   tag gid: 'V-233587'
-  tag rid: 'SV-233587r617333_rule'
+  tag rid: 'SV-233587r606986_rule'
   tag stig_id: 'CD12-00-008400'
   tag fix_id: 'F-36746r606985_fix'
   tag cci: ['CCI-001812']

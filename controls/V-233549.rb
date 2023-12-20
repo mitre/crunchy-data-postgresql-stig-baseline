@@ -1,6 +1,6 @@
-control	'V-233549' do
-  title	'The audit information produced by PostgreSQL must be protected from unauthorized read access.'
-  desc	"If audit data were to become compromised, then competent forensic analysis and discovery of the true
+control 'V-233549' do
+  title 'The audit information produced by PostgreSQL must be protected from unauthorized read access.'
+  desc 'If audit data were to become compromised, then competent forensic analysis and discovery of the true
 	source of potentially malicious system activity is difficult, if not impossible, to achieve. In addition, access
 	to audit records provides information an attacker could potentially use to their advantage.
 
@@ -16,9 +16,8 @@ or access to those records via the application. If the application provides acce
 becomes accountable for ensuring that audit information is protected from unauthorized access.
 
 Audit information includes all information (e.g., audit records, audit settings, and audit reports) needed to
-successfully audit information system activity."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGLOG environment variable. See supplementary content
+successfully audit information system activity.'
+  desc 'check', %q(Note: The following instructions use the PGLOG environment variable. See supplementary content
 	APPENDIX-I for instructions on configuring PGLOG.
 
 Review locations of audit logs, both internal to the database and database audit logs located at the operating
@@ -33,13 +32,13 @@ files.
 
 #### stderr Logging
 
-As the database administrator (shown here as \"postgres\"), check the current log_file_mode configuration by running
+As the database administrator (shown here as "postgres"), check the current log_file_mode configuration by running
 the following:
 
 Note: Consult the organization's documentation on acceptable log privileges.
 
 $ sudo su - postgres
-$ psql -c \"SHOW log_file_mode\"
+$ psql -c "SHOW log_file_mode"
 
 If log_file_mode is not 600, this is a finding.
 
@@ -54,8 +53,8 @@ total 32
 -rw-------. 1 postgres postgres 16212 Apr 7 17:05 postgresql-Thu.log 
 -rw-------. 1 postgres postgres 1130 Apr 6 17:56 postgresql-Wed.log 
 
-If logs with 600 permissions do not exist in ${PG_LOG?}, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If logs with 600 permissions do not exist in ${PG_LOG?}, this is a finding.)
+  desc 'fix', %q(Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
@@ -69,7 +68,7 @@ files.
 
 If PostgreSQL is configured to use stderr for logging, permissions of the log files can be set in postgresql.conf.
 
-As the database administrator (shown here as \"postgres\"), edit the following settings of logs in the
+As the database administrator (shown here as "postgres"), edit the following settings of logs in the
 postgresql.conf file:
 
 Note: Consult the organization's documentation on acceptable log privileges.
@@ -80,16 +79,16 @@ log_file_mode = 0600
 
 Next, as the system administrator, reload the server with the new configuration:
 
-$ sudo systemctl reload postgresql-${PGVER?}"
+$ sudo systemctl reload postgresql-${PGVER?})
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000118-DB-000059'
   tag gid: 'V-233549'
-  tag rid: 'SV-233549r617333_rule'
+  tag rid: 'SV-233549r606872_rule'
   tag stig_id: 'CD12-00-004200'
   tag fix_id: 'F-36708r606871_fix'
   tag cci: ['CCI-000162']
-  tag nist: ['AU-9']
+  tag nist: ['AU-9', 'AU-9 a']
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

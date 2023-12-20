@@ -1,7 +1,7 @@
-control	'V-233536' do
-  title	"PostgreSQL must be configurable to overwrite audit log records, oldest first (First-In-First-Out [FIFO]),
-	in the event of unavailability of space for more audit log records."
-  desc	"It is critical that when PostgreSQL is at risk of failing to process audit logs as required, it take
+control 'V-233536' do
+  title 'PostgreSQL must be configurable to overwrite audit log records, oldest first (First-In-First-Out [FIFO]),
+	in the event of unavailability of space for more audit log records.'
+  desc 'It is critical that when PostgreSQL is at risk of failing to process audit logs as required, it take
 	action to mitigate the failure. Audit processing failures include software/hardware errors; failures in the
 	audit capturing mechanisms; and audit storage capacity being reached or exceeded. Responses to audit failure
 	depend upon the nature of the failure mode.
@@ -18,9 +18,8 @@ should be taken to synchronize the local audit data with the collection server.
 
 Systems where availability is paramount will most likely be MAC I; the final determination is the prerogative of
 the application owner, subject to Authorizing Official concurrence. Sufficient auditing resources must be allocated
-to avoid audit data loss in all but the most extreme situations."
-  desc	'rationale', ''
-  desc	'check', "If the AO approved system documentation states that system availability takes precedence, this
+to avoid audit data loss in all but the most extreme situations.'
+  desc 'check', 'If the AO approved system documentation states that system availability takes precedence, this
 	requirement is not applicable (NA).
 
 If an externally managed and monitored partition or logical volume that can be grown dynamically is being used for
@@ -32,15 +31,15 @@ creation of new audit logs, this is a finding.
 
 If a tool, utility, script, or other mechanism is being used to rotate audit logs, and oldest logs are not being
 removed to ensure sufficient space for newest logs, or oldest logs are not being replaced by newest logs, this is a
-finding."
-  desc	'fix', "Establish a process with accompanying tools for monitoring available disk space and ensuring
+finding.'
+  desc 'fix', 'Establish a process with accompanying tools for monitoring available disk space and ensuring
 	that sufficient disk space is maintained in order to continue generating audit logs, overwriting the oldest
-	existing records if necessary."
+	existing records if necessary.'
   impact 0.3
   tag severity: 'low'
   tag gtitle: 'SRG-APP-000109-DB-000321'
   tag gid: 'V-233536'
-  tag rid: 'SV-233536r617333_rule'
+  tag rid: 'SV-233536r606833_rule'
   tag stig_id: 'CD12-00-002800'
   tag fix_id: 'F-36695r606832_fix'
   tag cci: ['CCI-000140']

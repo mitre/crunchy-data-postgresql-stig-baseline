@@ -1,7 +1,7 @@
-control	'V-233542' do
-  title	"PostgreSQL must include additional, more detailed, organization-defined information in the audit records
-	for audit events identified by type, location, or subject."
-  desc	"Information system auditing capability is critical for accurate forensic analysis. Reconstruction of
+control 'V-233542' do
+  title 'PostgreSQL must include additional, more detailed, organization-defined information in the audit records
+	for audit events identified by type, location, or subject.'
+  desc 'Information system auditing capability is critical for accurate forensic analysis. Reconstruction of
 	harmful events or forensic analysis is not possible if audit records do not contain enough information. To
 		support analysis, some types of events will need information to be logged that exceeds the basic requirements
 		of event type, time stamps, location, source, outcome, and user identity. If additional information is not
@@ -14,9 +14,8 @@ The additional information required is dependent on the type of information (e.g
 	 maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of compromise.
 
 Examples of detailed information the organization may require in audit records are full-text recording of privileged
-commands or the individual identities of shared account users."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGDATA and PGLOG environment variables. See
+commands or the individual identities of shared account users.'
+  desc 'check', 'Note: The following instructions use the PGDATA and PGLOG environment variables. See
 	supplementary content APPENDIX-F and APPENDIX-I for instructions on configuring them.
 
 Review the system documentation to identify what additional information the organization has determined necessary.
@@ -26,19 +25,19 @@ then examine existing audit records in ${PGLOG?}/<latest.log> to verify that all
 more detailed information is in the audit records for audit events identified by type, location, or subject after
 executing SQL commands that fall under the additional audit classes.
 
-If any additional information is defined and is not contained in the audit records, this is a finding."
-  desc	'fix', "Configure PostgreSQL audit settings to include all organization-defined detailed information
+If any additional information is defined and is not contained in the audit records, this is a finding.'
+  desc 'fix', 'Configure PostgreSQL audit settings to include all organization-defined detailed information
 	in the audit records for audit events identified by type, location, or subject.
 
 Using pgaudit, PostgreSQL can be configured to audit these requests. See supplementary content APPENDIX-B for
 documentation on installing pgaudit.
 
-To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging."
+To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000101-DB-000044'
   tag gid: 'V-233542'
-  tag rid: 'SV-233542r617333_rule'
+  tag rid: 'SV-233542r606851_rule'
   tag stig_id: 'CD12-00-003500'
   tag fix_id: 'F-36701r606850_fix'
   tag cci: ['CCI-000135']

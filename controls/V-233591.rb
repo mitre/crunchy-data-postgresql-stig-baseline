@@ -1,7 +1,7 @@
-control	'V-233591' do
-  title	"PostgreSQL must produce audit records containing sufficient information to establish the sources
-	(origins) of the events."
-  desc	"Information system auditing capability is critical for accurate forensic analysis. Without
+control 'V-233591' do
+  title 'PostgreSQL must produce audit records containing sufficient information to establish the sources
+	(origins) of the events.'
+  desc 'Information system auditing capability is critical for accurate forensic analysis. Without
 	establishing the source of the event, it is impossible to establish, correlate, and investigate the events
 	relating to an incident.
 
@@ -13,23 +13,22 @@ In addition to logging where events occur within the application, the applicatio
 that identify the application itself as the source of the event.
 
 Associating information about the source of the event within the application provides a means of investigating an
-attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured application."
-  desc	'rationale', ''
-  desc	'check', "Check PostgreSQL settings and existing audit records to verify information specific to the
+attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured application.'
+  desc 'check', 'Check PostgreSQL settings and existing audit records to verify information specific to the
 	source (origin) of the event is being captured and stored with audit records.
 
 As the database administrator (usually postgres, check the current log_line_prefix and log_hostname setting by
 	running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW log_line_prefix\"
-$ psql -c \"SHOW log_hostname\"
+$ psql -c "SHOW log_line_prefix"
+$ psql -c "SHOW log_hostname"
 
 For a complete list of extra information that can be added to log_line_prefix, see the official documentation:
 https://www.postgresql.org/docs/current/static/runtime-config-logging.html#GUC-LOG-LINE-PREFIX.
 
-If the current settings do not provide enough information regarding the source of the event, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If the current settings do not provide enough information regarding the source of the event, this is a finding.'
+  desc 'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 To ensure logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
@@ -69,11 +68,11 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000098-DB-000042'
   tag gid: 'V-233591'
-  tag rid: 'SV-233591r617333_rule'
+  tag rid: 'SV-233591r606998_rule'
   tag stig_id: 'CD12-00-008800'
   tag fix_id: 'F-36750r606997_fix'
   tag cci: ['CCI-000133']
-  tag nist: ['AU-3']
+  tag nist: ['AU-3', 'AU-3 d']
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

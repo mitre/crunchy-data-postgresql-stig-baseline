@@ -1,7 +1,7 @@
-control	'V-233515' do
-  title	"PostgreSQL must integrate with an organization-level authentication/access mechanism providing account
-	management and automation for all users, groups, roles, and any other principals."
-  desc	"Enterprise environments make account management for applications and databases challenging and complex.
+control 'V-233515' do
+  title 'PostgreSQL must integrate with an organization-level authentication/access mechanism providing account
+	management and automation for all users, groups, roles, and any other principals.'
+  desc "Enterprise environments make account management for applications and databases challenging and complex.
 	A manual process for account management functions adds the risk of a potential oversight or other error. Managing
 	accounts for the same person in multiple places is inefficient and prone to problems with consistency and
 	synchronization.
@@ -22,14 +22,13 @@ functions must immediately enforce the organization's current account policy.
 
 Automation may be comprised of differing technologies that when placed together contain an overall mechanism
 supporting an organization's automated account management requirements."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGDATA environment variable. See supplementary content
+  desc 'check', 'Note: The following instructions use the PGDATA environment variable. See supplementary content
 	APPENDIX-F for instructions on configuring PGDATA.
 
 If all accounts are authenticated by the organization-level authentication/access mechanism, such as LDAP or Kerberos
 and not by PostgreSQL, this is not a finding.
 
-As the database administrator (shown here as \"postgres\"), review pg_hba.conf authentication file settings:
+As the database administrator (shown here as "postgres"), review pg_hba.conf authentication file settings:
 
 $ sudo su - postgres
 $ cat ${PGDATA?}/pg_hba.conf
@@ -41,26 +40,26 @@ If there are any records with a different auth-method than gss, sspi, or ldap, r
 justification and approval of these records.
 
 If there are any records with a different auth-method than gss, sspi, or ldap, that are not documented and approved,
-this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA environment variable. See supplementary content
+this is a finding.'
+  desc 'fix', 'Note: The following instructions use the PGDATA environment variable. See supplementary content
 	APPENDIX-F for instructions on configuring PGDATA.
 
 Integrate PostgreSQL security with an organization-level authentication/access mechanism providing account management
 for all users, groups, roles, and any other principals.
 
-As the database administrator (shown here as \"postgres\"), edit pg_hba.conf authentication file:
+As the database administrator (shown here as "postgres"), edit pg_hba.conf authentication file:
 
 $ sudo su - postgres
 $ vi ${PGDATA?}/pg_hba.conf
 
 For each PostgreSQL-managed account that is not documented and approved, either
 transfer it to management by the external mechanism, or document the need for it
-and obtain approval, as appropriate."
+and obtain approval, as appropriate.'
   impact 0.7
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000023-DB-000001'
   tag gid: 'V-233515'
-  tag rid: 'SV-233515r617333_rule'
+  tag rid: 'SV-233515r606770_rule'
   tag stig_id: 'CD12-00-000500'
   tag fix_id: 'F-36674r606769_fix'
   tag cci: ['CCI-000015']

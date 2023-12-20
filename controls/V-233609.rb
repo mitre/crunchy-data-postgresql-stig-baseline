@@ -1,6 +1,6 @@
-control	'V-233609' do
-  title	'PostgreSQL must protect its audit features from unauthorized removal.'
-  desc	"Protecting audit data also includes identifying and protecting the tools used to view and manipulate
+control 'V-233609' do
+  title 'PostgreSQL must protect its audit features from unauthorized removal.'
+  desc 'Protecting audit data also includes identifying and protecting the tools used to view and manipulate
 	log data. Therefore, protecting audit tools is necessary to prevent unauthorized operation on audit data.
 
 Applications providing tools to interface with audit data will leverage user permissions and roles identifying the
@@ -8,12 +8,11 @@ user accessing the tools and the corresponding rights the user enjoys in order m
 deletion of audit tools.
 
 Audit tools include, but are not limited to, vendor-provided and open source audit tools needed to successfully view
-and manipulate audit information system activity and records. Audit tools include custom queries and report generators."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+and manipulate audit information system activity and records. Audit tools include custom queries and report generators.'
+  desc 'check', 'Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
-As the database administrator (shown here as \"postgres\"), verify the permissions of PGDATA:
+As the database administrator (shown here as "postgres"), verify the permissions of PGDATA:
 
 $ sudo su - postgres
 $ ls -la ${PGDATA?}
@@ -27,8 +26,8 @@ $ ls -la /usr/pgsql-${PGVER?}/include
 $ ls -la /usr/pgsql-${PGVER?}/lib
 $ ls -la /usr/pgsql-${PGVER?}/share
 
-If any of these are not owned by root:root, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If any of these are not owned by root:root, this is a finding.'
+  desc 'fix', 'Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 As the system administrator, change the permissions of PGDATA:
@@ -38,12 +37,12 @@ $ sudo chmod 700 ${PGDATA?}
 
 As the system administrator, change the permissions of pgsql:
 
-$ sudo chown -R root:root /usr/pgsql-${PGVER?}"
+$ sudo chown -R root:root /usr/pgsql-${PGVER?}'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000123-DB-000204'
   tag gid: 'V-233609'
-  tag rid: 'SV-233609r617333_rule'
+  tag rid: 'SV-233609r607052_rule'
   tag stig_id: 'CD12-00-011200'
   tag fix_id: 'F-36768r607051_fix'
   tag cci: ['CCI-001495']

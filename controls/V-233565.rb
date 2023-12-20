@@ -1,6 +1,6 @@
-control	'V-233565' do
-  title	'PostgreSQL must generate audit records for all privileged activities or other system-level access.'
-  desc	"Without tracking privileged activity, it would be difficult to establish, correlate, and investigate
+control 'V-233565' do
+  title 'PostgreSQL must generate audit records for all privileged activities or other system-level access.'
+  desc 'Without tracking privileged activity, it would be difficult to establish, correlate, and investigate
 	the events relating to an incident or identify those responsible for one.
 
 System documentation should include a definition of the functionality considered privileged.
@@ -30,21 +30,20 @@ logging may be achieved by means of DBMS auditing features, database triggers, o
 of these.
 
 Note: It is particularly important to audit, and tightly control, any action that weakens the implementation of this
-requirement itself, since the objective is to have a complete audit trail of all administrative activity."
-  desc	'rationale', ''
-  desc	'check', "First, as the database administrator, verify pgaudit is enabled by running the following SQL:
+requirement itself, since the objective is to have a complete audit trail of all administrative activity.'
+  desc 'check', 'First, as the database administrator, verify pgaudit is enabled by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW shared_preload_libraries\"
+$ psql -c "SHOW shared_preload_libraries"
 
 If the output does not contain pgaudit, this is a finding.
 
 Next, verify that role, read, write, and ddl auditing are enabled:
 
-$ psql -c \"SHOW pgaudit.log\"
+$ psql -c "SHOW pgaudit.log"
 
-If the output does not contain role, read, write, and ddl, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If the output does not contain role, read, write, and ddl, this is a finding.'
+  desc 'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 Using pgaudit PostgreSQL can be configured to audit these requests. See supplementary content APPENDIX-B for
@@ -66,7 +65,7 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000504-DB-000354'
   tag gid: 'V-233565'
-  tag rid: 'SV-233565r617333_rule'
+  tag rid: 'SV-233565r606920_rule'
   tag stig_id: 'CD12-00-005800'
   tag fix_id: 'F-36724r606919_fix'
   tag cci: ['CCI-000172']

@@ -1,29 +1,28 @@
-control	'V-233573' do
-  title	'PostgreSQL must generate audit records when security objects are modified.'
-  desc	"Changes in the database objects (tables, views, procedures, functions) that record and control
+control 'V-233573' do
+  title 'PostgreSQL must generate audit records when security objects are modified.'
+  desc 'Changes in the database objects (tables, views, procedures, functions) that record and control
 	permissions, privileges, and roles granted to users and roles must be tracked. Without an audit trail,
 	unauthorized changes to the security subsystem could go undetected. The database could be severely compromised
-	or rendered inoperative."
-  desc	'rationale', ''
-  desc	'check', "First, as the database administrator, verify pgaudit is enabled by running the following SQL:
+	or rendered inoperative.'
+  desc 'check', 'First, as the database administrator, verify pgaudit is enabled by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c \"SHOW shared_preload_libraries\"
+$ psql -c "SHOW shared_preload_libraries"
 
 If the results does not contain pgaudit, this is a finding.
 
 Next, verify that role, read, write, and ddl auditing are enabled:
 
-$ psql -c \"SHOW pgaudit.log\"
+$ psql -c "SHOW pgaudit.log"
 
 If the output does not contain role, read, write, and ddl, this is a finding.
 
 Next, verify that accessing the catalog is audited by running the following SQL:
 
-$ psql -c \"SHOW pgaudit.log_catalog\"
+$ psql -c "SHOW pgaudit.log_catalog"
 
-If log_catalog is not on, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+If log_catalog is not on, this is a finding.'
+  desc 'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
 	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
@@ -48,7 +47,7 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000496-DB-000334'
   tag gid: 'V-233573'
-  tag rid: 'SV-233573r617333_rule'
+  tag rid: 'SV-233573r606944_rule'
   tag stig_id: 'CD12-00-006600'
   tag fix_id: 'F-36732r606943_fix'
   tag cci: ['CCI-000172']

@@ -1,6 +1,6 @@
-control	'V-233533' do
-  title	'PostgreSQL must reveal detailed error messages only to the ISSO, ISSM, SA, and DBA.'
-  desc	"If PostgreSQL provides too much information in error logs and administrative messages to the screen, this
+control 'V-233533' do
+  title 'PostgreSQL must reveal detailed error messages only to the ISSO, ISSM, SA, and DBA.'
+  desc %q(If PostgreSQL provides too much information in error logs and administrative messages to the screen, this
   could lead to compromise. The structure and content of error messages need to be carefully considered by the
   organization and development team. The extent to which the information system is able to identify and handle
   error conditions is guided by organizational policy and operational requirements.
@@ -11,24 +11,23 @@ information.
 
 It is important that detailed error messages be visible only to those who are authorized to view them; that general
 users receive only generalized acknowledgment that errors have occurred; and that these generalized messages appear
-only when relevant to the user's task. For example, a message along the lines of, \"An error has occurred. Unable to
-save your changes. If this problem persists, please contact your help desk.\" would be relevant. A message such as
-\"Warning: your transaction generated a large number of page splits.\" would likely not be relevant.
+only when relevant to the user's task. For example, a message along the lines of, "An error has occurred. Unable to
+save your changes. If this problem persists, please contact your help desk." would be relevant. A message such as
+"Warning: your transaction generated a large number of page splits." would likely not be relevant.
 
 Administrative users authorized to review detailed error messages typically are the ISSO, ISSM, SA, and DBA. Other
-individuals or roles may be specified according to organization-specific needs, with DBA approval."
-  desc	'rationale', ''
-  desc	'check', "Note: The following instructions use the PGDATA and PGLOG environment variables. See supplementary
+individuals or roles may be specified according to organization-specific needs, with DBA approval.)
+  desc 'check', %q(Note: The following instructions use the PGDATA and PGLOG environment variables. See supplementary
   content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for instructions on configuring PGLOG.
 
 Check PostgreSQL settings and custom database code to determine if detailed error messages are ever displayed to
 unauthorized individuals.
 
-To check the level of detail for errors exposed to clients, as the DBA (shown here as \"postgres\"), run the
+To check the level of detail for errors exposed to clients, as the DBA (shown here as "postgres"), run the
 following:
 
 $ sudo su - postgres
-$ psql -c \"SHOW client_min_messages;\"
+$ psql -c "SHOW client_min_messages;"
 
 If client_min_messages is set to LOG or DEBUG, this is a finding.
 
@@ -43,7 +42,7 @@ As the database administrator, verify the following settings of logs.
 Note: Consult the organization's documentation on acceptable log privileges.
 
 $ sudo su - postgres
-$ psql -c \"SHOW log_file_mode;\"
+$ psql -c "SHOW log_file_mode;"
 
 Next, verify the log files have the set configurations.
 
@@ -61,21 +60,21 @@ If logs are not owned by the database administrator or have permissions that are
 #### syslog Logging
 
 If PostgreSQL is configured to use syslog for logging, consult organization location and permissions for syslog
-log files. If the logs are not owned by root or have permissions that are not 0600, this is a finding."
-  desc	'fix', "Note: The following instructions use the PGDATA environment variable. See supplementary content
+log files. If the logs are not owned by root or have permissions that are not 0600, this is a finding.)
+  desc 'fix', 'Note: The following instructions use the PGDATA environment variable. See supplementary content
   APPENDIX-F for instructions on configuring PGDATA.
 
-To set the level of detail for error messages exposed to clients, as the DBA (shown here as \"postgres\"), run the
+To set the level of detail for error messages exposed to clients, as the DBA (shown here as "postgres"), run the
 following commands:
 
 $ sudo su - postgres
 $ vi ${PGDATA?}/postgresql.conf
-client_min_messages = error"
+client_min_messages = error'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000267-DB-000163'
   tag gid: 'V-233533'
-  tag rid: 'SV-233533r617333_rule'
+  tag rid: 'SV-233533r606824_rule'
   tag stig_id: 'CD12-00-002500'
   tag fix_id: 'F-36692r606823_fix'
   tag cci: ['CCI-001314']
