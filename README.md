@@ -83,6 +83,10 @@ If you are using a *Windows* based cinc-auditor installation, please set the `wi
 ### Example Inputs You Can Use
 
 ```yaml
+#Description: State if your database is an AWS RDS instance
+#Value type: Boolean
+aws_rds: false
+
 # Changes checks depending on if using a Windows or Linux-based InSpec Runner (default value = false)
 windows_runner: false
 
