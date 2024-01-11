@@ -50,10 +50,12 @@ $ chmod 600 ${PGDATA?}/postgresql.conf"
   tag cci: ['CCI-000171']
   tag nist: ['AU-12 b']
 
-  describe directory(input('pg_data_dir')) do
-    it { should be_directory }
-    it { should be_owned_by input('pg_owner') }
-    its('mode') { should cmp '0700' }
+  if !input('aws_rds')
+    describe directory(input('pg_data_dir')) do
+      it { should be_directory }
+      it { should be_owned_by input('pg_owner') }
+      its('mode') { should cmp '0700' }
+    end
   end
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))

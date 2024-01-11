@@ -158,8 +158,10 @@ $ sudo systemctl reload postgresql-${PGVER?})
     its('output') { should eq 'DROP ROLE' }
   end
 
-  describe postgres_conf(input('pg_conf_file')) do
-    its('log_error_verbosity') { should eq 'default' }
-    its('log_duration') { should eq 'on' }
+  if !input('aws_rds')
+    describe postgres_conf(input('pg_conf_file')) do
+      its('log_error_verbosity') { should eq 'default' }
+      its('log_duration') { should eq 'on' }
+    end
   end
 end

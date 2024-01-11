@@ -101,15 +101,17 @@ $ chmod 0600 <log directory name>/*.log'
   describe sql.query('SHOW logging_collector;', [input('pg_db')]) do
     its('output') { should_not match /off|false/i }
   end
+  
+  if !input('aws_rds')
+    describe directory(input('pg_log_dir')) do
+      it { should be_directory }
+      it { should be_owned_by pg_owner }
+      it { should be_grouped_into pg_owner }
+      its('mode') { should  cmp '0700' }
+    end
 
-  describe directory(input('pg_log_dir')) do
-    it { should be_directory }
-    it { should be_owned_by pg_owner }
-    it { should be_grouped_into pg_owner }
-    its('mode') { should  cmp '0700' }
-  end
-
-  describe command("find #{input('pg_log_dir')} -type f -perm 600 ! -perm 600 | wc -l") do
-    its('stdout.strip') { should eq '0' }
+    describe command("find #{input('pg_log_dir')} -type f -perm 600 ! -perm 600 | wc -l") do
+      its('stdout.strip') { should eq '0' }
+    end
   end
 end
