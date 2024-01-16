@@ -1,5 +1,6 @@
 ---
 windows_runner: false
+aws_rds: true
 pg_owner: ''
 pg_group: ''
 pg_dba: ''
