@@ -42,15 +42,17 @@ If other applications are located in the same directory as PostgreSQL, this is a
       it { should be_grouped_into 'root' }
       its('mode') { should cmp '0755' }
     end
-    if virtualization.system == 'docker'
-      describe 'If any non-PostgreSQL software directories exist on the disk directory, examine or investigate their use.' do
-        skip 'If this directory is used by other applications, including third-party applications that use the PostgreSQL, this is a finding.'
-      end
+    if !input('aws_rds')
+      if virtualization.system == 'docker'
+        describe 'If any non-PostgreSQL software directories exist on the disk directory, examine or investigate their use.' do
+          skip 'If this directory is used by other applications, including third-party applications that use the PostgreSQL, this is a finding.'
+        end
 
-    else
-      describe command("lsof | awk '$9 ~ \"#{dir}\" {print $1}'") do
-        its('stdout') { should match /^$|postgres|postmaste/ }
-        its('stderr') { should eq '' }
+      else
+        describe command("lsof | awk '$9 ~ \"#{dir}\" {print $1}'") do
+          its('stdout') { should match /^$|postgres|postmaste/ }
+          its('stderr') { should eq '' }
+        end
       end
     end
   end
