@@ -50,7 +50,12 @@ inputs:
     value: 5432
     required: true
     sensitive: true
-
+    
+  - name: aws_rds
+    description: 'State if your database is an AWS RDS instance'
+    type: Boolean
+    value: false
+    
   # V-233520, V-233523, # V-233524, V-233530, V-233534, V-233539, V-233588, V-233593,
   # V-233597, V-233607
   - name: pg_superusers
