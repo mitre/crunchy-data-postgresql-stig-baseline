@@ -167,6 +167,14 @@ $ sudo systemctl reload postgresql-${PGVER?})
 
   pg_replicas = input('pg_replicas')
 
+	if input('aws_rds')
+    roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r AND r.rolname != \'rdsadmin\';'
+    databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate AND datname != \'rdsadmin\';'
+	else
+    roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
+    databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
+	end
+	  
   if input('windows_runner')
     describe 'Requires manual review at this time.' do
       skip 'Requires manual review at this time.'
@@ -174,7 +182,6 @@ $ sudo systemctl reload postgresql-${PGVER?})
   else
     sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-    roles_sql = 'SELECT r.rolname FROM pg_catalog.pg_roles r;'
     roles_query = sql.query(roles_sql, [input('pg_db')])
     roles = roles_query.lines
 
@@ -204,7 +211,6 @@ $ sudo systemctl reload postgresql-${PGVER?})
       "WHERE c.relkind IN ('r', 'v', 'm', 'S', 'f') "\
       "AND n.nspname !~ '^pg_' AND pg_catalog.pg_table_is_visible(c.oid);"
 
-    databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
     databases_query = sql.query(databases_sql, [input('pg_db')])
     databases = databases_query.lines
 
@@ -228,25 +234,28 @@ $ sudo systemctl reload postgresql-${PGVER?})
       end
     end
 
-    describe 'Column acl check' do
-      skip "Review all access privileges and column access privileges list. If any roles'
-		privileges exceed those documented, this is a finding."
-    end
-
-    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
-      its('user.uniq') { should cmp input('pg_owner') }
-      its('auth_method.uniq') { should_not cmp 'trust' }
-    end
-
-    describe postgres_hba_conf(input('pg_hba_conf_file')).where { database == 'replication' } do
-      its('type.uniq') { should cmp 'host' }
-      its('address.uniq.sort') { should cmp pg_replicas.sort }
-      its('user.uniq') { should cmp 'replication' }
-      its('auth_method.uniq') { should be_in input('approved_auth_methods') }
-    end
-
-    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
-      its('auth_method.uniq') { should be_in input('approved_auth_methods') }
-    end
+		if !input('aws_rds')
+	    describe 'Column acl check' do
+	      skip "Review all access privileges and column access privileges list. If any roles'
+			privileges exceed those documented, this is a finding."
+	    end
+	
+	    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
+	      its('user.uniq') { should cmp input('pg_owner') }
+	      its('auth_method.uniq') { should_not cmp 'trust' }
+	    end
+	
+	    describe postgres_hba_conf(input('pg_hba_conf_file')).where { database == 'replication' } do
+	      its('type.uniq') { should cmp 'host' }
+	      its('address.uniq.sort') { should cmp pg_replicas.sort }
+	      its('user.uniq') { should cmp 'replication' }
+	      its('auth_method.uniq') { should be_in input('approved_auth_methods') }
+	    end
+	
+	    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
+	      its('auth_method.uniq') { should be_in input('approved_auth_methods') }
+	    end
+		end
+		
   end
 end
