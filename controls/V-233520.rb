@@ -176,8 +176,8 @@ $ sudo systemctl reload postgresql-${PGVER?})
 	end
 	  
   if input('windows_runner')
-    describe 'Requires manual review at this time.' do
-      skip 'Requires manual review at this time.'
+    describe 'Requires manual review at this time when using an Windows-based InSpec validation profile runner.' do
+      skip 'Requires manual review at this time when using an Windows-based InSpec validation profile runner.'
     end
   else
     sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
