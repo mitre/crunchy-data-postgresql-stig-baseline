@@ -39,8 +39,17 @@ control 'V-233519' do
   tag cci: ['CCI-000197']
   tag nist: ['IA-5 (1) (c)']
 
-  describe postgres_hba_conf("#{input('pg_hba_conf_file')}") do
-    its('auth_method') { should_not include 'password' }
-    its('auth_method') { should_not include 'md5' }
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
+    end
+  else	
+	
+	  describe postgres_hba_conf("#{input('pg_hba_conf_file')}") do
+	    its('auth_method') { should_not include 'password' }
+	    its('auth_method') { should_not include 'md5' }
+	  end
+		
   end
 end
