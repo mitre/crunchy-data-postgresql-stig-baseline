@@ -67,27 +67,27 @@ If PostgreSQL is not at the latest version and the evaluated version has CVEs (I
       skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
     end
   else	
-	  pg_version = input('pg_version')
+		pg_version = input('pg_version')
 	 
-	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+		sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 	 
-	  describe sql.query('SHOW server_version;', [input('pg_db')]) do
-	    its('output') { should cmp pg_version }
-	  end
+		describe sql.query('SHOW server_version;', [input('pg_db')]) do
+			its('output') { should cmp pg_version }
+		end
 	
-	  if os.debian?
-	    describe command('apt-cache policy postgresql | grep "Candidate:"') do
-	      its('stdout') { should match pg_version }
-	    end
+		if os.debian?
+			describe command('apt-cache policy postgresql | grep "Candidate:"') do
+				its('stdout') { should match pg_version }
+			end
 	
-	  elsif os.linux? || os.redhat?
-	    rpm_packages = command('rpm -qa | grep "postgres"').stdout.split("\n")
+		elsif os.linux? || os.redhat?
+			rpm_packages = command('rpm -qa | grep "postgres"').stdout.split("\n")
 	
-	    rpm_packages.each do |packages|
-	      describe(packages) do
+			rpm_packages.each do |packages|
+				describe(packages) do
 		it { should match pg_version }
-	      end
-	    end
-	  end
+				end
+			end
+		end
   end
 end
