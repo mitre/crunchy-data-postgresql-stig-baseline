@@ -70,7 +70,7 @@ If PostgreSQL is not at the latest version and the evaluated version has CVEs (I
 	  pg_version = input('pg_version')
 	
 	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-	
+	 
 	  describe sql.query('SHOW server_version;', [input('pg_db')]) do
 	    its('output') { should cmp pg_version }
 	  end
