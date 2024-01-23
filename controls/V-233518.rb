@@ -49,18 +49,26 @@ $ psql -c "ALTER ROLE rolename WITH NOSUPERUSER"'
   tag cci: ['CCI-001499']
   tag nist: ['CM-5 (6)']
 
-  describe file(input('pg_conf_file')) do
-    it { should be_owned_by input('pg_owner') }
-    its('mode') { should cmp '0600' }
-  end
-
-  describe file(input('pg_hba_conf_file')) do
-    it { should be_owned_by input('pg_owner') }
-    its('mode') { should cmp '0600' }
-  end
-
-  describe file(input('pg_ident_conf_file')) do
-    it { should be_owned_by input('pg_owner') }
-    its('mode') { should cmp '0600' }
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
+    end
+  else	
+	
+	  describe file(input('pg_conf_file')) do
+	    it { should be_owned_by input('pg_owner') }
+	    its('mode') { should cmp '0600' }
+	  end
+	
+	  describe file(input('pg_hba_conf_file')) do
+	    it { should be_owned_by input('pg_owner') }
+	    its('mode') { should cmp '0600' }
+	  end
+	
+	  describe file(input('pg_ident_conf_file')) do
+	    it { should be_owned_by input('pg_owner') }
+	    its('mode') { should cmp '0600' }
+	  end
   end
 end
