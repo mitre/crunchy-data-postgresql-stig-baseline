@@ -53,7 +53,7 @@ If dynamic code execution is employed without protective measures against code i
   tag cci: ['CCI-001310']
   tag nist: ['SI-10']
 
-  describe 'A manual review is require to ensure the PostgreSQL source code and application source code to identify cases of dynamic code execution. PostgreSQL and associated applications, when making use of dynamic code execution, must scan input data for invalid values that may indicate a code injection attack.' do
+  describe 'A manual review is require to ensure the PostgreSQL source code and application source code to identify cases of dynamic code execution. PostgreSQL and associated applications, when making use of dynamic code execution, must scan input data for invalid values that may indicate a code injection attack. If dynamic code execution is deployed without protective measures against code injection, this is a finding.' do
 		skip 'A manual review is require to ensure the PostgreSQL source code and application source code to identify cases of dynamic code execution. PostgreSQL and associated applications, when making use of dynamic code execution, must scan input data for invalid values that may indicate a code injection attack.'
 		skip 'If dynamic code execution is deployed without protective measures against code injection, this is a finding.'
   end
