@@ -58,8 +58,9 @@ Do not allow general users direct console access to PostgreSQL.'
   tag cci: ['CCI-001310']
   tag nist: ['SI-10']
 
-  describe "Review PostgreSQL code, application code, settings, column and field definitions, and constraints to determine
+  describe "A manual review is required to ensure PostgreSQL associates organization-defined types of security labels having organization-defined security label values with information in storage. Review PostgreSQL code, application code, settings, column and field definitions, and constraints to determine
 	whether the database is protected against invalid input." do
+		skip 'A manual review is required to ensure PostgreSQL associates organization-defined types of security labels having organization-defined security label values with information in storage'
     skip 'If code exists that allows invalid data to be acted upon or input into the database, this is a finding.'
     skip 'If column/field definitions do not exist in the database, this is a finding.'
     skip 'If columns/fields do not contain constraints and validity checking where required, this is a finding.'
