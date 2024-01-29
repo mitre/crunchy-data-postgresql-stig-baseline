@@ -90,26 +90,30 @@ $ chmod 0600 <log directory name>/*.log'
   tag cci: ['CCI-000164']
   tag nist: ['AU-9', 'AU-9 a']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  describe sql.query('show logging_collector;', [input('pg_db')]) do
-    its('output') { should_not match /off|false/i }
-  end
-
-  describe sql.query('show log_file_mode;', [input('pg_db')]) do
-    its('output') { should cmp '0600' }
-  end
-
-  if !input('aws_rds')
-    describe directory(input('pg_log_dir')) do
-      it { should be_directory }
-      it { should be_owned_by input('pg_owner') }
-      it { should be_grouped_into input('pg_owner') }
-      its('mode') { should  cmp '0700' }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
-
-    describe command("find #{input('pg_log_dir')} -type f -perm 600 ! -perm 600 | wc -l") do
-      its('stdout.strip') { should eq '0' }
-    end
+  else
+	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+	
+	  describe sql.query('show logging_collector;', [input('pg_db')]) do
+	    its('output') { should_not match /off|false/i }
+	  end
+	
+	  describe sql.query('show log_file_mode;', [input('pg_db')]) do
+	    its('output') { should cmp '0600' }
+	  end
+	
+		describe directory(input('pg_log_dir')) do
+			it { should be_directory }
+			it { should be_owned_by input('pg_owner') }
+			it { should be_grouped_into input('pg_owner') }
+			its('mode') { should  cmp '0700' }
+		end
+	
+		describe command("find #{input('pg_log_dir')} -type f -perm 600 ! -perm 600 | wc -l") do
+			its('stdout.strip') { should eq '0' }
+		end
   end
 end
