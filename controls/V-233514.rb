@@ -114,7 +114,7 @@ $ chmod 0600 <log directory name>/*.log'
 			it { should be_grouped_into pg_owner }
 			its('mode') { should  cmp '0700' }
 		end
-
+	
 		describe command("find #{input('pg_log_dir')} -type f -perm 600 ! -perm 600 | wc -l") do
 			its('stdout.strip') { should eq '0' }
 		end
