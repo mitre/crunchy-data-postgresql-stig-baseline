@@ -35,7 +35,9 @@ PostgreSQL.'
   tag cci: ['CCI-001858']
   tag nist: ['AU-5 (2)']
 
-  describe 'Review the system documentation to determine which audit failure events require real-time alerts.' do
-    skip 'If the real-time alerting that is specified in the documentation is not enabled, this is a finding.'
-  end
+    describe 'A manual review is required to ensure PostgreSQL provides an immediate real-time alert to appropriate
+      support staff of all audit failure events requiring real-time alerts' do
+      skip 'A manual review is required to ensure PostgreSQL provides an immediate real-time alert to appropriate
+      support staff of all audit failure events requiring real-time alerts'
+    end
 end
