@@ -47,19 +47,27 @@ APPENDIX-C for instructions on enabling logging.'
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  if file(input('pg_audit_log_dir')).exist?
-    describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; SELECT * FROM pg_authid; SET ROLE postgres; DROP ROLE fooaudit;', [input('pg_db')]) do
-      its('output') { should match // }
-    end
-
-    describe command("grep -r \"permission denied for table\\|relation\" #{input('pg_audit_log_dir')}") do
-      its('stdout') { should match /^.*pg_authid.*$/ }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
   else
-    describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
-      skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+  
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  
+    if file(input('pg_audit_log_dir')).exist?
+      describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; SELECT * FROM pg_authid; SET ROLE postgres; DROP ROLE fooaudit;', [input('pg_db')]) do
+        its('output') { should match // }
+      end
+  
+      describe command("grep -r \"permission denied for table\\|relation\" #{input('pg_audit_log_dir')}") do
+        its('stdout') { should match /^.*pg_authid.*$/ }
+      end
+    else
+      describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+        skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+      end
     end
+
   end
 end
