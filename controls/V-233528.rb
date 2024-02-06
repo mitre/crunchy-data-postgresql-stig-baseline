@@ -47,7 +47,7 @@ If dynamic code execution is employed without protective measures against code i
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000251-DB-000392'
   tag gid: 'V-233528'
-  tag rid: 'SV-233528r606809_rule'
+  tag rid: 'SV-233528r879652_rule'
   tag stig_id: 'CD12-00-002000'
   tag fix_id: 'F-36687r606808_fix'
   tag cci: ['CCI-001310']

@@ -59,7 +59,7 @@ $ psql -c "ALTER ROLE <rolname> CONNECTION LIMIT 1";'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000001-DB-000031'
   tag gid: 'V-233522'
-  tag rid: 'SV-233522r606791_rule'
+  tag rid: 'SV-233522r879511_rule'
   tag stig_id: 'CD12-00-001200'
   tag fix_id: 'F-36681r606790_fix'
   tag cci: ['CCI-000054']

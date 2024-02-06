@@ -32,7 +32,7 @@ when a specific percentage of log storage capacity is reached.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000109-DB-000049'
   tag gid: 'V-233537'
-  tag rid: 'SV-233537r606836_rule'
+  tag rid: 'SV-233537r879571_rule'
   tag stig_id: 'CD12-00-002900'
   tag fix_id: 'F-36696r606835_fix'
   tag cci: ['CCI-000140']

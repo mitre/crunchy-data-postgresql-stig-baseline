@@ -44,7 +44,7 @@ $ psql -c "ALTER FUNCTION <function_name> SECURITY INVOKER"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000342-DB-000302'
   tag gid: 'V-233543'
-  tag rid: 'SV-233543r606854_rule'
+  tag rid: 'SV-233543r879719_rule'
   tag stig_id: 'CD12-00-003600'
   tag fix_id: 'F-36702r606853_fix'
   tag cci: ['CCI-002233']

@@ -39,7 +39,7 @@ finding.'
   tag severity: 'low'
   tag gtitle: 'SRG-APP-000109-DB-000321'
   tag gid: 'V-233536'
-  tag rid: 'SV-233536r606833_rule'
+  tag rid: 'SV-233536r879571_rule'
   tag stig_id: 'CD12-00-002800'
   tag fix_id: 'F-36695r606832_fix'
   tag cci: ['CCI-000140']
