@@ -225,3 +225,9 @@ inputs:
     value:
       acronym: "DoD"
       full_form: "Department of Defense"
+
+  # V-259740
+  - name: org_allowed_postgres_version
+    desc: "Latest allowed Postgres version"
+    type: string
+    value: "16.2"
