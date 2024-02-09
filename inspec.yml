@@ -4,7 +4,7 @@ maintainer: MITRE SAF Team
 copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
-summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 1, Release: 1 Benchmark Date: 20 Nov 2020"
+summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 2, Release: 1 Benchmark Date: 27 Jul 2022"
 version: 2.1.0
 inspec_version: ">= 4.0"
 
