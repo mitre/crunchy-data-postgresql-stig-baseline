@@ -42,18 +42,35 @@ Upgrade unsupported DBMS or unsupported components to a supported version of the
   tag cci: ['CCI-003376']
   tag nist: ['SA-22 a']
 
-  allowed_postgres_version = input('org_allowed_postgres_version')
-  installed_postgres_version = command('psql --version').stdout.split[2]
+  postgres_changelog = inspec.http('https://www.postgresql.org/support/versioning/').body.lines.map(&:chomp)
+  postgres_changelog_supported = postgres_changelog.select{ |line| line.include? 'Yes' }
 
-  if (allowed_postgres_version.nil? || allowed_postgres_version.empty?)
-    describe "Your installed Postgres version is: #{installed_postgres_version}. You must review this control manually or set / pass the 'org_allowed_postgres_version' to the profile. The latest release can be found at http://www.postgresql.org/support/versioning/" do
-      skip "Your installed Postgres version is: #{installed_postgres_version}. You must review this control manually or set / pass the 'org_allowed_postgres_version' to the profile. The latest release can be found at http://www.postgresql.org/support/versioning/"
+  supported_lines = postgres_changelog.each_index.select { |i| postgres_changelog[i].include? 'Yes' }
+  supported_indices = supported_lines.map{ |i| i - 2 }
+
+  supported_versions = supported_indices.map { |i| postgres_changelog[i].to_f }
+
+  min_org_allowed_postgres_version = input('min_org_allowed_postgres_version')
+  installed_postgres_version = command('psql --version').stdout.split[2].to_f
+
+  # Extract major release version numbers for first test
+  supported_versions_major = supported_versions.map { |i| i.split('.').first.to_i }
+  installed_postgres_version_major = installed_postgres_version.split('.').first.to_i
+
+  # If no organization specified postgres version was given, check the internet for major and minor release versions
+  if (min_org_allowed_postgres_version.nil? || min_org_allowed_postgres_version.empty?)
+    describe "PostgreSQL major release version" do
+      subject { installed_postgres_version_major }
+      it { should be_in supported_versions_major }
     end
-  else  
+    if supported_versions_major.include?(installed_postgres_version_major)
+      min_allowed_version = supported_versions.select{ |i| i.to_i == installed_postgres_version_major }
+      describe "PostgreSQL minor release version" do
+        subject { installed_postgres_version }
+        it { should eq min_allowed_version }
+  else
     describe 'PostgreSQL installed version' do
       subject { installed_postgres_version }
-      it { should cmp >= allowed_postgres_version }
-    end
-  end
+      it { should cmp >= min_org_allowed_postgres_version }
 
 end
