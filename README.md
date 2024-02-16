@@ -125,6 +125,9 @@ pg_object_public_privileges:
 # Description: 'List of database objects that should be returned from tests'
 pg_object_exceptions: ['pg_setting']
 
+# Description: 'The minimum Postgres version allowed by the organization'
+min_org_allowed_postgres_version: '16.2'
+
 ```
 
 ## Running This Overlay Directly from Github
