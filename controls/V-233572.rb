@@ -64,27 +64,33 @@ content APPENDIX-C for instructions on enabling logging.'
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  if file(input('pg_audit_log_dir')).exist?
-    describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; CREATE ROLE fooauditbad SUPERUSER;', [input('pg_db')]) do
-      its('output') { should match // }
-    end
-
-    describe command("grep -r \"must be superuser to create superusers\" #{input('pg_audit_log_dir')}") do
-      its('stdout') { should match /^.*must be superuser to create superusers.*$/ }
-    end
-
-    describe sql.query('CREATE ROLE fooauditbad CREATEDB; CREATE ROLE fooauditbad CREATEROLE;', [input('pg_db')]) do
-      its('output') { should match // }
-    end
-
-    describe command("grep -r \"permission denied to create role\" #{input('pg_audit_log_dir')}") do
-      its('stdout') { should match /^.*permission denied to create role.*$/ }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
   else
-    describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
-      skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
-    end
+	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+	
+	  if file(input('pg_audit_log_dir')).exist?
+	    describe sql.query('CREATE ROLE fooaudit; SET ROLE fooaudit; CREATE ROLE fooauditbad SUPERUSER;', [input('pg_db')]) do
+	      its('output') { should match // }
+	    end
+	
+	    describe command("grep -r \"must be superuser to create superusers\" #{input('pg_audit_log_dir')}") do
+	      its('stdout') { should match /^.*must be superuser to create superusers.*$/ }
+	    end
+	
+	    describe sql.query('CREATE ROLE fooauditbad CREATEDB; CREATE ROLE fooauditbad CREATEROLE;', [input('pg_db')]) do
+	      its('output') { should match // }
+	    end
+	
+	    describe command("grep -r \"permission denied to create role\" #{input('pg_audit_log_dir')}") do
+	      its('stdout') { should match /^.*permission denied to create role.*$/ }
+	    end
+	  else
+	    describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+	      skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+	    end
+	  end
   end
 end
