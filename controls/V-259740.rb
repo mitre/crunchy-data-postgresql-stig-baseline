@@ -66,10 +66,10 @@ Upgrade unsupported DBMS or unsupported components to a supported version of the
       it { should be_in supported_versions_major }
     end
     if supported_versions_major.include?(installed_postgres_version_major)
-      min_allowed_version = supported_versions.find{ |i| i.split('.').first == installed_postgres_version_major }
+      allowed_version_full = supported_versions.find{ |i| i.split('.').first == installed_postgres_version_major }
       describe "PostgreSQL installed full version" do
         subject { installed_postgres_version }
-        it { should eq min_allowed_version }
+        it { should eq allowed_version_full }
       end
     end
   else
