@@ -46,31 +46,36 @@ Upgrade unsupported DBMS or unsupported components to a supported version of the
   postgres_changelog_supported = postgres_changelog.select{ |line| line.include? 'Yes' }
 
   supported_lines = postgres_changelog.each_index.select { |i| postgres_changelog[i].include? 'Yes' }
-  supported_indices = supported_lines.map{ |i| i - 2 }
+  supported_indices = supported_lines.map{ |i| i - 1 }
 
-  supported_versions = supported_indices.map { |i| postgres_changelog[i].to_f }
+  supported_versions = supported_indices.map { |i| postgres_changelog[i] }
+  supported_versions = supported_versions.map { |string| string.scan(/\d+\.\d+/).first }
 
   min_org_allowed_postgres_version = input('min_org_allowed_postgres_version')
-  installed_postgres_version = command('psql --version').stdout.split[2].to_f
+
+  installed_postgres_version = command('psql --version').stdout.split[2]
 
   # Extract major release version numbers for first test
-  supported_versions_major = supported_versions.map { |i| i.split('.').first.to_i }
-  installed_postgres_version_major = installed_postgres_version.split('.').first.to_i
+  supported_versions_major = supported_versions.map { |i| i.split('.').first }
+  installed_postgres_version_major = installed_postgres_version.split('.').first
 
   # If no organization specified postgres version was given, check the internet for major and minor release versions
   if (min_org_allowed_postgres_version.nil? || min_org_allowed_postgres_version.empty?)
-    describe "PostgreSQL major release version" do
+    describe "PostgreSQL installed major release" do
       subject { installed_postgres_version_major }
       it { should be_in supported_versions_major }
     end
     if supported_versions_major.include?(installed_postgres_version_major)
-      min_allowed_version = supported_versions.select{ |i| i.to_i == installed_postgres_version_major }
-      describe "PostgreSQL minor release version" do
+      min_allowed_version = supported_versions.find{ |i| i.split('.').first == installed_postgres_version_major }
+      describe "PostgreSQL installed full version" do
         subject { installed_postgres_version }
         it { should eq min_allowed_version }
+      end
+    end
   else
     describe 'PostgreSQL installed version' do
       subject { installed_postgres_version }
       it { should cmp >= min_org_allowed_postgres_version }
-
+    end
+  end
 end
