@@ -50,8 +50,9 @@ Schedule this script in cron to run around the clock.)
   tag cci: ['CCI-001855']
   tag nist: ['AU-5 (1)']
 
-  describe 'Check system configuration for storage alerts.' do
-    skip 'Review system configuration. If no script/tool is monitoring the partition for the PostgreSQL log directories, this is a finding.'
-    skip 'If appropriate support staff are not notified immediately upon storage volume utilization reaching 75%, this is a finding'
-  end
+    describe "A manual review is required to ensure the system provides a warning to appropriate support staff when
+      allocated audit record storage volume reaches 75% of maximum audit record storage capacity" do
+      skip "A manual review is required to ensure the system provides a warning to appropriate support staff when
+      allocated audit record storage volume reaches 75% of maximum audit record storage capacity"
+    end
 end
