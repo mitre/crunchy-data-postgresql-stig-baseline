@@ -66,6 +66,14 @@ inputs:
     required: true
     sensitive: true
 
+  # V-233588
+  - name: rds_superusers
+    description: "Members of the rds_superusers role"
+    type: array
+    value:
+      - "postgres"
+    sensitive: true
+    
   # V-233612
   - name: pg_users
     description: "authorized postgres user accounts"
