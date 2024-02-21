@@ -24,7 +24,7 @@ If there have been incidents where PostgreSQL ran out of audit log space, this i
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000357-DB-000316'
   tag gid: 'V-233529'
-  tag rid: 'SV-233529r606812_rule'
+  tag rid: 'SV-233529r879730_rule'
   tag stig_id: 'CD12-00-002100'
   tag fix_id: 'F-36688r606811_fix'
   tag cci: ['CCI-001849']

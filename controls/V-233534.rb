@@ -44,7 +44,7 @@ $ chmod 600 ${PGDATA?}/postgresql.conf"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000090-DB-000065'
   tag gid: 'V-233534'
-  tag rid: 'SV-233534r606827_rule'
+  tag rid: 'SV-233534r879560_rule'
   tag stig_id: 'CD12-00-002600'
   tag fix_id: 'F-36693r606826_fix'
   tag cci: ['CCI-000171']

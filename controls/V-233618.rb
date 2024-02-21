@@ -51,7 +51,7 @@ $ chmod 0600 ${PGDATA?}/*.conf'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000122-DB-000203'
   tag gid: 'V-233618'
-  tag rid: 'SV-233618r607079_rule'
+  tag rid: 'SV-233618r879580_rule'
   tag stig_id: 'CD12-00-012200'
   tag fix_id: 'F-36777r607078_fix'
   tag cci: ['CCI-001494']

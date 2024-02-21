@@ -102,9 +102,9 @@ For a specific audit role:
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000516-DB-000363'
   tag gid: 'V-233600'
-  tag rid: 'SV-233600r617424_rule'
+  tag rid: 'SV-233600r879887_rule'
   tag stig_id: 'CD12-00-010000'
-  tag fix_id: 'F-36759r617423_fix'
+  tag fix_id: 'F-36759r850397_fix'
   tag cci: ['CCI-001914']
   tag nist: ['AU-12 (3)']
 

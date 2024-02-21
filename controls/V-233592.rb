@@ -24,7 +24,7 @@ Note: It is recommended that plpgsql not be removed.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000141-DB-000091'
   tag gid: 'V-233592'
-  tag rid: 'SV-233592r607001_rule'
+  tag rid: 'SV-233592r879587_rule'
   tag stig_id: 'CD12-00-008900'
   tag fix_id: 'F-36751r607000_fix'
   tag cci: ['CCI-000381']

@@ -52,7 +52,7 @@ Do not allow general users direct console access to PostgreSQL.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000251-DB-000160'
   tag gid: 'V-233526'
-  tag rid: 'SV-233526r606803_rule'
+  tag rid: 'SV-233526r879652_rule'
   tag stig_id: 'CD12-00-001800'
   tag fix_id: 'F-36685r606802_fix'
   tag cci: ['CCI-001310']

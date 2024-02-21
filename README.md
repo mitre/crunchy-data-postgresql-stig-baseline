@@ -1,6 +1,6 @@
 # crunchy-data-postgresql-stig-baseline
 
-InSpec profile to validate the secure configuration of Crunchy Data PostgreSQL against [DISA's](https://public.cyber.mil/stigs/downloads/) Crunchy Data PostgreSQL Security Technical Implementation Guide (STIG) Version 2, Release 1. (Applies to database versions 10, 11, 12 & 13)
+InSpec profile to validate the secure configuration of Crunchy Data PostgreSQL against [DISA's](https://public.cyber.mil/stigs/downloads/) Crunchy Data PostgreSQL Security Technical Implementation Guide (STIG) Version 2, Release 2. (Applies to database versions 10, 11, 12 & 13)
 
 #### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of PostgreSQL
 
@@ -124,6 +124,9 @@ pg_object_public_privileges:
 
 # Description: 'List of database objects that should be returned from tests'
 pg_object_exceptions: ['pg_setting']
+
+# Description: 'The minimum Postgres version allowed by the organization'
+min_org_allowed_postgres_version: '16.2'
 
 ```
 

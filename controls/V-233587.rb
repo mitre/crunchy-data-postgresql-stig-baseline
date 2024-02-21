@@ -58,7 +58,7 @@ Implement the approved permissions. Revoke any unapproved permissions.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000378-DB-000365'
   tag gid: 'V-233587'
-  tag rid: 'SV-233587r606986_rule'
+  tag rid: 'SV-233587r879751_rule'
   tag stig_id: 'CD12-00-008400'
   tag fix_id: 'F-36746r606985_fix'
   tag cci: ['CCI-001812']

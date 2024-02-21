@@ -26,7 +26,7 @@ content APPENDIX-B.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000092-DB-000208'
   tag gid: 'V-233589'
-  tag rid: 'SV-233589r606992_rule'
+  tag rid: 'SV-233589r879562_rule'
   tag stig_id: 'CD12-00-008600'
   tag fix_id: 'F-36748r606991_fix'
   tag cci: ['CCI-001464']
