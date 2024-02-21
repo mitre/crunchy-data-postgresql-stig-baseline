@@ -35,7 +35,7 @@ with only owner permissions to read, write, and execute.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000243-DB-000374'
   tag gid: 'V-233617'
-  tag rid: 'SV-233617r607076_rule'
+  tag rid: 'SV-233617r879649_rule'
   tag stig_id: 'CD12-00-012000'
   tag fix_id: 'F-36776r607075_fix'
   tag cci: ['CCI-001090']

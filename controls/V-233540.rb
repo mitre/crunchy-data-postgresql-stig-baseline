@@ -24,7 +24,7 @@ access to the account has been granted, this is a finding.'
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000133-DB-000198'
   tag gid: 'V-233540'
-  tag rid: 'SV-233540r836819_rule'
+  tag rid: 'SV-233540r879586_rule'
   tag stig_id: 'CD12-00-003200'
   tag fix_id: 'F-36699r606844_fix'
   tag cci: ['CCI-001499']

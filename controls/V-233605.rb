@@ -39,7 +39,7 @@ INSERT INTO accounts(username, password) VALUES ('bob', crypt('mypass', gen_salt
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000429-DB-000387'
   tag gid: 'V-233605'
-  tag rid: 'SV-233605r607040_rule'
+  tag rid: 'SV-233605r879800_rule'
   tag stig_id: 'CD12-00-010500'
   tag fix_id: 'F-36764r607039_fix'
   tag cci: ['CCI-002476']

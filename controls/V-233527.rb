@@ -31,7 +31,7 @@ execution with strongly typed parameters, this is a finding.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000251-DB-000391'
   tag gid: 'V-233527'
-  tag rid: 'SV-233527r606806_rule'
+  tag rid: 'SV-233527r879652_rule'
   tag stig_id: 'CD12-00-001900'
   tag fix_id: 'F-36686r606805_fix'
   tag cci: ['CCI-001310']

@@ -74,7 +74,7 @@ http://www.postgresql.org/docs/current/static/sql-revoke.html.'
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000340-DB-000304'
   tag gid: 'V-233614'
-  tag rid: 'SV-233614r607067_rule'
+  tag rid: 'SV-233614r879717_rule'
   tag stig_id: 'CD12-00-011700'
   tag fix_id: 'F-36773r607066_fix'
   tag cci: ['CCI-002235']

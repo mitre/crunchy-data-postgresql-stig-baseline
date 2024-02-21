@@ -74,7 +74,7 @@ client_min_messages = error'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000267-DB-000163'
   tag gid: 'V-233533'
-  tag rid: 'SV-233533r606824_rule'
+  tag rid: 'SV-233533r879656_rule'
   tag stig_id: 'CD12-00-002500'
   tag fix_id: 'F-36692r606823_fix'
   tag cci: ['CCI-001314']

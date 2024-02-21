@@ -45,7 +45,7 @@ To ensure that logging is enabled, review supplementary content APPENDIX-C for i
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000089-DB-000064'
   tag gid: 'V-233580'
-  tag rid: 'SV-233580r617428_rule'
+  tag rid: 'SV-233580r879559_rule'
   tag stig_id: 'CD12-00-007400'
   tag fix_id: 'F-36739r606964_fix'
   tag cci: ['CCI-000169']

@@ -37,7 +37,7 @@ REVOKE SELECT ON some_function FROM bob;'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000362'
   tag gid: 'V-233523'
-  tag rid: 'SV-233523r613833_rule'
+  tag rid: 'SV-233523r879586_rule'
   tag stig_id: 'CD12-00-001300'
   tag fix_id: 'F-36682r606793_fix'
   tag cci: ['CCI-001499']

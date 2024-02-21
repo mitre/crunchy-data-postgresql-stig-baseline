@@ -48,7 +48,7 @@ database administrator account(s) must not be granted to anyone without official
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000233-DB-000124'
   tag gid: 'V-233546'
-  tag rid: 'SV-233546r606863_rule'
+  tag rid: 'SV-233546r879643_rule'
   tag stig_id: 'CD12-00-004000'
   tag fix_id: 'F-36705r606862_fix'
   tag cci: ['CCI-001084']

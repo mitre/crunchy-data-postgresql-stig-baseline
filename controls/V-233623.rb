@@ -11,7 +11,7 @@ If FIPS encryption is not enabled, this is a finding.'
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000179-DB-000114'
   tag gid: 'V-233623'
-  tag rid: 'SV-233623r836835_rule'
+  tag rid: 'SV-233623r879616_rule'
   tag stig_id: 'CD12-00-012800'
   tag fix_id: 'F-36782r836834_fix'
   tag cci: ['CCI-000803']

@@ -39,7 +39,7 @@ $ psql -c "ALTER SCHEMA test OWNER TO bob"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000200'
   tag gid: 'V-233539'
-  tag rid: 'SV-233539r606842_rule'
+  tag rid: 'SV-233539r879586_rule'
   tag stig_id: 'CD12-00-003100'
   tag fix_id: 'F-36698r606841_fix'
   tag cci: ['CCI-001499']

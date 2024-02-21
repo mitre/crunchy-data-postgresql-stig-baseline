@@ -36,7 +36,7 @@ for instructions on enabling logging.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000499-DB-000331'
   tag gid: 'V-233561'
-  tag rid: 'SV-233561r606908_rule'
+  tag rid: 'SV-233561r879870_rule'
   tag stig_id: 'CD12-00-005400'
   tag fix_id: 'F-36720r606907_fix'
   tag cci: ['CCI-000172']
