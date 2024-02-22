@@ -37,7 +37,7 @@ execution with strongly typed parameters, this is a finding.'
   tag cci: ['CCI-001310']
   tag nist: ['SI-10']
 
-  describe 'Review PostgreSQL source code and application source code, to identify cases of dynamic code execution.' do
-    skip 'If dynamic code execution is employed where an objective can satisfied by static execution with strongly typed parameters, this is a finding.'
+  describe 'A manual review is require to ensure PostgreSQL and associated applications reserve the use of dynamic code execution for situations that require it. Review PostgreSQL source code and application source code, to identify cases of dynamic code execution.' do
+    skip 'A manual review is require to ensure PostgreSQL and associated applications reserve the use of dynamic code execution for situations that require it. If dynamic code execution is employed where an objective can satisfied by static execution with strongly typed parameters, this is a finding.'
   end
 end

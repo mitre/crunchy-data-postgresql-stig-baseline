@@ -68,89 +68,49 @@ $ psql -c "REVOKE CREATE ON SCHEMA test FROM bob")
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{input('pg_db')}';"
-  databases_query = sql.query(databases_sql, [input('pg_db')])
-  databases = databases_query.lines
-  types = %w(t s v) # tables, sequences views
+	if input('aws_rds')
+    authorized_owners = input('pg_superusers')
+    pg_db = input('pg_db')
+    pg_owner = input('pg_owner')
 
-  databases.each do |database|
-    schemas_sql = ''
-    functions_sql = ''
+    databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{pg_db}';"
+    databases_query = sql.query(databases_sql, [pg_db])
+    databases = databases_query.lines
+    types = %w(t s v) # tables, sequences views
 
-    if database == 'postgres'
-      schemas_sql = 'SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) '\
-        'FROM pg_catalog.pg_namespace n '\
-        "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
-      functions_sql = 'SELECT n.nspname, p.proname, '\
-        'pg_catalog.pg_get_userbyid(n.nspowner) '\
-        'FROM pg_catalog.pg_proc p '\
-        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
-        "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
-    else
-      schemas_sql = 'SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) '\
-        'FROM pg_catalog.pg_namespace n '\
-        'WHERE pg_catalog.pg_get_userbyid(n.nspowner) '\
-        "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
-        "AND n.nspname !~ '^pg_' AND n.nspname <> 'information_schema';"
-      functions_sql = 'SELECT n.nspname, p.proname, '\
-        'pg_catalog.pg_get_userbyid(n.nspowner) '\
-        'FROM pg_catalog.pg_proc p '\
-        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
-        'WHERE pg_catalog.pg_get_userbyid(n.nspowner) '\
-        "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
-        "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema';"
-    end
-
-    connection_error = "FATAL:\\s+database \"#{database}\" is not currently "\
-    'accepting connections'
-    connection_error_regex = Regexp.new(connection_error)
-
-    sql_result = sql.query(schemas_sql, [database])
-
-    describe.one do
-      describe sql_result do
-        its('output') { should eq '' }
-      end
-
-      describe sql_result do
-        it { should match connection_error_regex }
-      end
-    end
-
-    sql_result = sql.query(functions_sql, [database])
-
-    describe.one do
-      describe sql_result do
-        its('output') { should eq '' }
-      end
-
-      describe sql_result do
-        it { should match connection_error_regex }
-      end
-    end
-
-    types.each do |type|
-      objects_sql = ''
+    databases.each do |database|
+      schemas_sql = ''
+      functions_sql = ''
 
       if database == 'postgres'
-        objects_sql = 'SELECT n.nspname, c.relname, c.relkind, '\
-        'pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c '\
-        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
-        "WHERE c.relkind IN ('#{type}','s','') "\
-        "AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}' "
-        "AND n.nspname !~ '^pg_toast';"
+        schemas_sql = 'SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) '\
+          'FROM pg_catalog.pg_namespace n '\
+          "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}' AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin';"
+        functions_sql = 'SELECT n.nspname, p.proname, '\
+          'pg_catalog.pg_get_userbyid(n.nspowner) '\
+          'FROM pg_catalog.pg_proc p '\
+          'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
+          "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}' AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin';"
       else
-        objects_sql = 'SELECT n.nspname, c.relname, c.relkind, '\
-        'pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c '\
-        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
-        "WHERE c.relkind IN ('#{type}','s','') "\
-        'AND pg_catalog.pg_get_userbyid(n.nspowner) '\
-        "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
-        "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema'"\
-        " AND n.nspname !~ '^pg_toast';"
+        schemas_sql = 'SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) '\
+          'FROM pg_catalog.pg_namespace n '\
+          'WHERE pg_catalog.pg_get_userbyid(n.nspowner) '\
+          "NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin' "\
+          "AND n.nspname !~ '^pg_' AND n.nspname <> 'information_schema';"
+        functions_sql = 'SELECT n.nspname, p.proname, '\
+          'pg_catalog.pg_get_userbyid(n.nspowner) '\
+          'FROM pg_catalog.pg_proc p '\
+          'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
+          'WHERE pg_catalog.pg_get_userbyid(n.nspowner) '\
+          "NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin' "\
+          "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema';"
       end
 
-      sql_result = sql.query(objects_sql, [database])
+      connection_error = "FATAL:\\s+database \"#{database}\" is not currently "\
+        'accepting connections'
+      connection_error_regex = Regexp.new(connection_error)
+
+      sql_result = sql.query(schemas_sql, [database])
 
       describe.one do
         describe sql_result do
@@ -161,6 +121,146 @@ $ psql -c "REVOKE CREATE ON SCHEMA test FROM bob")
           it { should match connection_error_regex }
         end
       end
+
+      sql_result = sql.query(functions_sql, [database])
+
+      describe.one do
+        describe sql_result do
+          its('output') { should eq '' }
+        end
+
+        describe sql_result do
+          it { should match connection_error_regex }
+        end
+      end
+
+      types.each do |type|
+        objects_sql = if database == 'postgres'
+                        'SELECT n.nspname, c.relname, c.relkind, '\
+                          'pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c '\
+                          'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
+                          "WHERE c.relkind IN ('#{type}','s','') "\
+                          "AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{pg_owner}' AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin' "\
+                          " AND n.nspname !~ '^pg_toast';"
+                      else
+                        'SELECT n.nspname, c.relname, c.relkind, '\
+                          'pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c '\
+                          'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
+                          "WHERE c.relkind IN ('#{type}','s','') "\
+                          'AND pg_catalog.pg_get_userbyid(n.nspowner) '\
+                          "NOT IN (#{authorized_owners.map { |e| "'#{e}'" }.join(',')}) AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin' "\
+                          "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema'"\
+                          " AND n.nspname !~ '^pg_toast';"
+                      end
+
+        sql_result = sql.query(objects_sql, [database])
+
+        describe.one do
+          describe sql_result do
+            its('output') { should eq '' }
+          end
+
+          describe sql_result do
+            it { should match connection_error_regex }
+          end
+        end
+      end
     end
-  end
+else
+	  databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{input('pg_db')}';"
+	  databases_query = sql.query(databases_sql, [input('pg_db')])
+	  databases = databases_query.lines
+	  types = %w(t s v) # tables, sequences views
+	
+	  databases.each do |database|
+	    schemas_sql = ''
+	    functions_sql = ''
+	
+	    if database == 'postgres'
+	      schemas_sql = 'SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        'FROM pg_catalog.pg_namespace n '\
+	        "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
+	      functions_sql = 'SELECT n.nspname, p.proname, '\
+	        'pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        'FROM pg_catalog.pg_proc p '\
+	        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
+	        "WHERE pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
+	    else
+	      schemas_sql = 'SELECT n.nspname, pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        'FROM pg_catalog.pg_namespace n '\
+	        'WHERE pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
+	        "AND n.nspname !~ '^pg_' AND n.nspname <> 'information_schema';"
+	      functions_sql = 'SELECT n.nspname, p.proname, '\
+	        'pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        'FROM pg_catalog.pg_proc p '\
+	        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
+	        'WHERE pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
+	        "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema';"
+	    end
+	
+	    connection_error = "FATAL:\\s+database \"#{database}\" is not currently "\
+	    'accepting connections'
+	    connection_error_regex = Regexp.new(connection_error)
+	
+	    sql_result = sql.query(schemas_sql, [database])
+	
+	    describe.one do
+	      describe sql_result do
+	        its('output') { should eq '' }
+	      end
+	
+	      describe sql_result do
+	        it { should match connection_error_regex }
+	      end
+	    end
+	
+	    sql_result = sql.query(functions_sql, [database])
+	
+	    describe.one do
+	      describe sql_result do
+	        its('output') { should eq '' }
+	      end
+	
+	      describe sql_result do
+	        it { should match connection_error_regex }
+	      end
+	    end
+	
+	    types.each do |type|
+	      objects_sql = ''
+	
+	      if database == 'postgres'
+	        objects_sql = 'SELECT n.nspname, c.relname, c.relkind, '\
+	        'pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c '\
+	        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
+	        "WHERE c.relkind IN ('#{type}','s','') "\
+	        "AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}' "
+	        "AND n.nspname !~ '^pg_toast';"
+	      else
+	        objects_sql = 'SELECT n.nspname, c.relname, c.relkind, '\
+	        'pg_catalog.pg_get_userbyid(n.nspowner) FROM pg_catalog.pg_class c '\
+	        'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
+	        "WHERE c.relkind IN ('#{type}','s','') "\
+	        'AND pg_catalog.pg_get_userbyid(n.nspowner) '\
+	        "NOT IN (#{input('pg_superusers').map { |e| "'#{e}'" }.join(',')}) "\
+	        "AND n.nspname <> 'pg_catalog' AND n.nspname <> 'information_schema'"\
+	        " AND n.nspname !~ '^pg_toast';"
+	      end
+	
+	      sql_result = sql.query(objects_sql, [database])
+	
+	      describe.one do
+	        describe sql_result do
+	          its('output') { should eq '' }
+	        end
+	
+	        describe sql_result do
+	          it { should match connection_error_regex }
+	        end
+	      end
+	    end
+	  end
+	end
 end

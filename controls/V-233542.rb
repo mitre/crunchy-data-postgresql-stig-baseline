@@ -43,7 +43,7 @@ To ensure that logging is enabled, review supplementary content APPENDIX-C for i
   tag cci: ['CCI-000135']
   tag nist: ['AU-3 (1)']
 
-  describe 'Check PostgreSQL settings and existing audit records to verify that all organization-defined information is in the audit' do
-    skip 'If any additional information is defined and is not contained in the audit records, this is a finding'
-  end
+    describe 'A manual review is required to ensure PostgreSQL includes additional, more detailed, organization-defined information in the audit records for audit events identified by type, location, or subject' do
+      skip 'A manual review is required to ensure PostgreSQL includes additional, more detailed, organization-defined information in the audit records for audit events identified by type, location, or subject'
+    end
 end

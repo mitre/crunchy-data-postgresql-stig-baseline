@@ -49,15 +49,29 @@ ALTER ROLE <username> NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS;'
   roles_query = sql.query(roles_sql, [input('pg_db')])
   roles = roles_query.lines
 
-  roles.each do |role|
-    next if input('pg_superusers').include?(role)
-    privileges.each do |privilege|
-      privilege_sql = "SELECT r.#{privilege} FROM pg_catalog.pg_roles r "\
-      "WHERE r.rolname = '#{role}';"
-
-      describe sql.query(privilege_sql, [input('pg_db')]) do
-        its('output') { should_not eq 't' }
-      end
-    end
+  if input('aws_rds')
+	  roles.each do |role|
+	    next if input('pg_superusers').include?(role) || input('rds_superusers').include?(role)
+	    privileges.each do |privilege|
+	      privilege_sql = "SELECT r.#{privilege} FROM pg_catalog.pg_roles r "\
+	      "WHERE r.rolname = '#{role}';"
+	
+	      describe sql.query(privilege_sql, [input('pg_db')]) do
+	        its('output') { should_not eq 't' }
+	      end
+	    end
+	  end
+  else
+	  roles.each do |role|
+	    next if input('pg_superusers').include?(role)
+	    privileges.each do |privilege|
+	      privilege_sql = "SELECT r.#{privilege} FROM pg_catalog.pg_roles r "\
+	      "WHERE r.rolname = '#{role}';"
+	
+	      describe sql.query(privilege_sql, [input('pg_db')]) do
+	        its('output') { should_not eq 't' }
+	      end
+	    end
+	  end
   end
 end

@@ -47,49 +47,56 @@ For more information on configuring PostgreSQL to use SSL, see supplementary con
   tag cci: ['CCI-000186']
   tag nist: ['IA-5 (2) (b)', 'IA-5 (2) (a) (1)']
 
-  pg_owner = input('pg_owner')
-
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  settings = %w(ssl_cert_file ssl_key_file ssl_ca_file ssl_crl_file)
-
-  settings.each do |setting|
-    file_query = sql.query("SHOW #{setting};", [input('pg_db')])
-    file = file_query.output
-
-    if file.empty?
-      name = ''
-      ext = ''
-
-      case setting
-      when /cert/
-        name = 'server'
-        ext = 'crt'
-      when /key/
-        name = 'server'
-        ext = 'key'
-      when /ca/
-        name = 'root'
-        ext = 'crt'
-      when /crl/
-        name = 'root'
-        ext = 'crl'
-      end
-
-      file = "#{input('pg_data_dir')}/#{name}.#{ext}"
-    elsif File.dirname(file) == '.'
-      file = "#{input('pg_data_dir')}/#{file}"
-    end
-
-    describe file(file) do
-      it { should be_file }
-    end
-
-    directory = File.dirname(file)
-
-    describe directory(directory) do
-      its('owner') { should match /root|#{pg_owner}/ }
-      its('mode') { should cmp '0700' }
-    end
+  if input('aws_rds')
+	    impact 0.0
+	    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+	      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
+	    end
+  else
+	  pg_owner = input('pg_owner')
+	
+	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+	
+	  settings = %w(ssl_cert_file ssl_key_file ssl_ca_file ssl_crl_file)
+	
+	  settings.each do |setting|
+	    file_query = sql.query("SHOW #{setting};", [input('pg_db')])
+	    file = file_query.output
+	
+	    if file.empty?
+	      name = ''
+	      ext = ''
+	
+	      case setting
+	      when /cert/
+	        name = 'server'
+	        ext = 'crt'
+	      when /key/
+	        name = 'server'
+	        ext = 'key'
+	      when /ca/
+	        name = 'root'
+	        ext = 'crt'
+	      when /crl/
+	        name = 'root'
+	        ext = 'crl'
+	      end
+	
+	      file = "#{input('pg_data_dir')}/#{name}.#{ext}"
+	    elsif File.dirname(file) == '.'
+	      file = "#{input('pg_data_dir')}/#{file}"
+	    end
+	
+	    describe file(file) do
+	      it { should be_file }
+	    end
+	
+	    directory = File.dirname(file)
+	
+	    describe directory(directory) do
+	      its('owner') { should match /root|#{pg_owner}/ }
+	      its('mode') { should cmp '0700' }
+	    end
+	  end
   end
 end

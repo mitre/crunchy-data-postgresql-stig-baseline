@@ -76,7 +76,47 @@ $ sudo systemctl reload postgresql-${PGVER?}"
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  log_line_prefix_escapes = %w(%m %u %d %s)
+  if input('aws_rds')
+	desc 'fix', "Note: The following instructions use the PGDATA and PGVER environment variables. See
+	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
+	
+	To ensure logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
+	
+	If logging is enabled, the following configurations can be made to log the source of an event.
+	
+	First, as the database administrator, edit postgresql.conf:
+	
+	$ sudo su - postgres
+	$ vi ${PGDATA?}/postgresql.conf
+	
+	###### Log Line Prefix
+	
+	Extra parameters can be added to the setting log_line_prefix to log source of event:
+	
+	    # %u = user name
+	    # %d = database name
+	    # %r = remote host and port
+	    # %p = process ID
+	    # %t = timestamp
+	    For example:
+	    log_line_prefix = '< %u %d %r %p %t >'
+	
+	###### Log Hostname
+	
+	By default only IP address is logged. To also log the hostname the following parameter can also be set in
+	postgresql.conf:
+	
+	log_hostname = on
+	
+	Now, as the system administrator, reload the server with the new configuration:
+	
+	$ sudo systemctl reload postgresql-${PGVER?}"
+
+	log_line_prefix_escapes = %w(%u %d %r %p %t)
+  else
+	log_line_prefix_escapes = %w(%m %u %d %s)
+  end
+	
   log_line_prefix_escapes.each do |escape|
     describe sql.query('SHOW log_line_prefix;', [input('pg_db')]) do
       its('output') { should include escape }

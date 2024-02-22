@@ -25,7 +25,14 @@ For information on configuring PostgreSQL to use SSL, see supplementary content 
   tag cci: ['CCI-002450']
   tag nist: ['SC-13', 'SC-13 b']
 
-  describe kernel_parameter('crypto.fips_enabled') do
-    its('value') { should cmp 1 }
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
+    end
+  else	  
+    describe kernel_parameter('crypto.fips_enabled') do
+      its('value') { should cmp 1 }
+    end
   end
 end

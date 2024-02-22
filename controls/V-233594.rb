@@ -44,20 +44,27 @@ $ sudo apt-get remove <package_name>'
   tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
 
-  if os.debian?
-    dpkg_packages = command('dpkg --get-selections | grep "postgres"').stdout.tr('install', '').split("\n")
-    dpkg_packages.each do |packages|
-      describe(packages) do
-        it { should be_in approvaed_packages }
-      end
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
     end
-
-  elsif os.linux? || os.redhat?
-    yum_packages = command('yum list installed | grep "postgres" | cut -d " " -f1').stdout.strip.tr(' ', '').split("\n")
-    yum_packages.each do |packages|
-      describe(packages) do
-        it { should be_in input('approved_packages') }
-      end
-    end
+  else
+	  if os.debian?
+	    dpkg_packages = command('dpkg --get-selections | grep "postgres"').stdout.tr('install', '').split("\n")
+	    dpkg_packages.each do |packages|
+	      describe(packages) do
+	        it { should be_in approvaed_packages }
+	      end
+	    end
+	
+	  elsif os.linux? || os.redhat?
+	    yum_packages = command('yum list installed | grep "postgres" | cut -d " " -f1').stdout.strip.tr(' ', '').split("\n")
+	    yum_packages.each do |packages|
+	      describe(packages) do
+	        it { should be_in input('approved_packages') }
+	      end
+	    end
+	  end
   end
 end

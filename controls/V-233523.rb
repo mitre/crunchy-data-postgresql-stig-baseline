@@ -43,8 +43,18 @@ REVOKE SELECT ON some_function FROM bob;'
   tag cci: ['CCI-001499']
   tag nist: ['CM-5 (6)']
 
-  if !input('windows_runner')
-    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+	if input('aws_rds')
+    databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate AND datname != \'rdsadmin\';'
+	else
+    databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
+	end
+	
+  if input('windows_runner')
+    describe 'Requires manual review at this time when using an Windows-based InSpec validation profile runner.' do
+      skip 'Requires manual review at this time when using an Windows-based InSpec validation profile runner.'
+    end
+  else
+		sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
     object_granted_privileges = 'arwdDxtU'
     object_public_privileges = 'r'
@@ -62,7 +72,6 @@ REVOKE SELECT ON some_function FROM bob;'
       'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace '\
       "WHERE c.relkind IN ('r', 'v', 'm', 'S', 'f');"
 
-    databases_sql = 'SELECT datname FROM pg_catalog.pg_database where not datistemplate;'
     databases_query = sql.query(databases_sql, [input('pg_db')])
     databases = databases_query.lines
 
@@ -95,19 +104,17 @@ REVOKE SELECT ON some_function FROM bob;'
       end
     end
 
-    describe 'Column acl check' do
-      skip "Review all access privileges and column access privileges list.
-		  If any roles' privileges exceed those documented, this is a finding."
-    end
-
-    describe directory(input('pg_data_dir')) do
-      it { should be_directory }
-      it { should be_owned_by input('pg_owner') }
-      its('mode') { should cmp '0700' }
-    end
-  else
-    describe 'This must be manually reviewed at this time' do
-      skip 'This must be manually reveiwed at this time'
-    end
-  end
+		if !input('aws_rds')
+	    describe 'Column acl check' do
+	      skip "Review all access privileges and column access privileges list.
+			  If any roles' privileges exceed those documented, this is a finding."
+	    end
+	
+	    describe directory(input('pg_data_dir')) do
+	      it { should be_directory }
+	      it { should be_owned_by input('pg_owner') }
+	      its('mode') { should cmp '0700' }
+	    end
+		end
+	end
 end

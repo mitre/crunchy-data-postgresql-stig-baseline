@@ -81,34 +81,40 @@ client_min_messages = error'
   tag nist: ['SI-11 b']
 
   # @todo determine how to handle stderr errors?
-
-  describe directory(input('pg_log_dir')) do
-    it { should be_directory }
-    it { should be_owned_by input('pg_owner') }
-    it { should be_grouped_into input('pg_owner') }
-    its('mode') { should cmp '0700' }
-  end
-
-  describe directory(input('pg_audit_log_dir')) do
-    it { should be_directory }
-    it { should be_owned_by input('pg_owner') }
-    it { should be_grouped_into input('pg_owner') }
-    its('mode') { should cmp '0700' }
-  end
-
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-  describe sql.query("SELECT current_setting('client_min_messages')", [input('pg_db')]) do
-    its('output') { should_not match /log|debug|LOG|DEBUG/ }
-    its('output') { should match /^error$/i }
-  end
-
-  describe postgres_conf(input('pg_conf_file')) do
-    its('log_directory') { should eq 'pg_log' }
-    its('log_file_mode') { should eq '0600' }
-    its('client_min_messages') { should match /^error$/i }
-  end
-
-  describe command("find #{input('pg_audit_log_dir')} -type f ! -perm 0600 | wc -l") do
-    its('stdout.strip') { should eq '0' }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
+    end
+  else
+  
+    describe directory(input('pg_log_dir')) do
+      it { should be_directory }
+      it { should be_owned_by input('pg_owner') }
+      it { should be_grouped_into input('pg_owner') }
+      its('mode') { should cmp '0700' }
+    end
+  
+    describe directory(input('pg_audit_log_dir')) do
+      it { should be_directory }
+      it { should be_owned_by input('pg_owner') }
+      it { should be_grouped_into input('pg_owner') }
+      its('mode') { should cmp '0700' }
+    end
+  
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+    describe sql.query("SELECT current_setting('client_min_messages')", [input('pg_db')]) do
+      its('output') { should_not match /log|debug|LOG|DEBUG/ }
+      its('output') { should match /^error$/i }
+    end
+  
+    describe postgres_conf(input('pg_conf_file')) do
+      its('log_directory') { should eq 'pg_log' }
+      its('log_file_mode') { should eq '0600' }
+      its('client_min_messages') { should match /^error$/i }
+    end
+  
+    describe command("find #{input('pg_audit_log_dir')} -type f ! -perm 0600 | wc -l") do
+      its('stdout.strip') { should eq '0' }
+    end
   end
 end

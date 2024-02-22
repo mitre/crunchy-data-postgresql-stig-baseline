@@ -45,13 +45,21 @@ $ sudo systemctl reload postgresql-${PGVER?}"
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  pgaudit_types = %w(ddl role write)
-
-  pgaudit_types.each do |type|
-    describe sql.query('SHOW pgaudit.log;', [input('pg_db')]) do
-      its('output') { should include type }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
+  else
+  
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  
+    pgaudit_types = %w(ddl role write)
+  
+    pgaudit_types.each do |type|
+      describe sql.query('SHOW pgaudit.log;', [input('pg_db')]) do
+        its('output') { should include type }
+      end
+    end
+
   end
 end

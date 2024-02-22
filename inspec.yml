@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 2, Release: 2 Benchmark Date: 22 Jan 2024"
-version: 2.2.0
+version: 2.2.1
 inspec_version: ">= 4.0"
 
 inputs:
@@ -50,7 +50,12 @@ inputs:
     value: 5432
     required: true
     sensitive: true
-
+    
+  - name: aws_rds
+    description: 'State if your database is an AWS RDS instance'
+    type: Boolean
+    value: false
+    
   # V-233520, V-233523, # V-233524, V-233530, V-233534, V-233539, V-233588, V-233593,
   # V-233597, V-233607
   - name: pg_superusers
@@ -61,6 +66,14 @@ inputs:
     required: true
     sensitive: true
 
+  # V-233588
+  - name: rds_superusers
+    description: "Members of the rds_superusers role"
+    type: array
+    value:
+      - "postgres"
+    sensitive: true
+    
   # V-233612
   - name: pg_users
     description: "authorized postgres user accounts"

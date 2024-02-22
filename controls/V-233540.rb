@@ -30,7 +30,15 @@ access to the account has been granted, this is a finding.'
   tag cci: ['CCI-001499']
   tag nist: ['CM-5 (6)']
 
-  describe 'Review procedures for controlling, granting access to, and tracking use of the PostgreSQL software installation account(s).' do
-    skip 'If account(s) are not restricted to the minimum personnel required or if unauthorized access to the account has been granted, this is a finding'
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
+    end
+  else	
+	
+	  describe 'Review procedures for controlling, granting access to, and tracking use of the PostgreSQL software installation account(s).' do
+	    skip 'If account(s) are not restricted to the minimum personnel required or if unauthorized access to the account has been granted, this is a finding'
+	  end
   end
 end

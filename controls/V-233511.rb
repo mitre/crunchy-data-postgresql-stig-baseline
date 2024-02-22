@@ -60,15 +60,18 @@ $ export PGPORT=5432'
     its('output') { should eq input('pg_port') }
   end
 
-  if virtualization.system == 'docker'
-    describe 'The docker container must have networking tools to check its ports and their processes' do
-      skip 'If the currently defined port configuration is deemed prohibited, this is a finding.'
-    end
+  if !input('aws_rds')
 
-  else
-    describe port(input('pg_port')) do
-      it { should be_listening }
-      its('processes') { should match ['postmaster'] }
-    end
+	  if virtualization.system == 'docker'
+	    describe 'The docker container must have networking tools to check its ports and their processes' do
+	      skip 'If the currently defined port configuration is deemed prohibited, this is a finding.'
+	    end
+	
+	  else
+	    describe port(input('pg_port')) do
+	      it { should be_listening }
+	      its('processes') { should match ['postmaster'] }
+	    end
+	  end
   end
 end

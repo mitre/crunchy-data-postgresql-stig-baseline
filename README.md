@@ -2,14 +2,74 @@
 
 InSpec profile to validate the secure configuration of Crunchy Data PostgreSQL against [DISA's](https://public.cyber.mil/stigs/downloads/) Crunchy Data PostgreSQL Security Technical Implementation Guide (STIG) Version 2, Release 2. (Applies to database versions 10, 11, 12 & 13)
 
+#### AWS-RDS-Ready: Profile updated to adapt checks when the running against an AWS RDS instance of PostgreSQL, by setting the input `aws_rds` to `true`. See [Inputs: Tailoring your scan to Your Environment](#inputs-tailoring-your-scan-to-your-environment) and [MySQL client setup](#mysql-client-setup) below.
+
 #### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of PostgreSQL
 
-## Getting Started
+## Getting Started  
+### InSpec (CINC-auditor) setup
+For maximum flexibility/accessibility, we’re moving to “cinc-auditor”, the open-source packaged binary version of Chef InSpec, compiled by the CINC (CINC Is Not Chef) project in coordination with Chef using Chef’s always-open-source InSpec source code. For more information: https://cinc.sh/
 
-__For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.__ 
+It is intended and recommended that CINC-auditor and this profile overlay be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target. This can be any Unix/Linux/MacOS or Windows runner host, with access to the Internet.
 
-Latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
+__For the best security of the runner, always install on the runner the _latest version_ of CINC-auditor.__ 
 
+__The simplest way to install CINC-auditor is to use this command for a UNIX/Linux/MacOS runner platform:__
+```
+curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor
+```
+
+__or this command for Windows runner platform (Powershell):__
+```
+. { iwr -useb https://omnitruck.cinc.sh/install.ps1 } | iex; install -project cinc-auditor
+```
+To confirm successful install of cinc-auditor:
+```
+cinc-auditor -v
+```
+> sample output:  _4.24.32_
+
+Latest versions and other installation options are available at https://cinc.sh/start/auditor/.
+
+### PSQL client setup
+
+To run the PostgreSQL profile against an AWS RDS Instance, CINC-auditor expects the psql client to be readily available on the same runner system it is installed on.
+ 
+For example, to install the psql client on a Linux runner host:
+```
+sudo yum install postgresql
+```
+To confirm successful install of psql:
+```
+which psql
+```
+> sample output:  _/usr/bin/psql_
+```
+psql –-version
+```		
+> sample output:  *psql (PostgreSQL) 12.9*
+
+Test psql connectivity to your instance from your runner host:
+```
+psql -d postgresql://<master user>:<password>@<endpoint>.amazonaws.com/postgres
+```		
+> *sample output:*
+> 
+>  *psql (12.9)*
+>  
+>  *SSL connection (cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256)*
+>  
+>  *Type "help" for help.*
+>  
+>  *postgres-> \conninfo*
+>  
+>  *You are connected to database "postgres" as user "postgres" on host "(endpoint).us-east-1.rds.amazonaws.com" at port "5432".*
+>  
+>  *postgres=> \q*
+>  
+>  *$*
+
+For installation of psql client on other operating systems for your runner host, visit https://www.postgresql.org/
 ## Inputs: Tailoring your scan to Your Environment
 
 The following inputs must be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
@@ -18,11 +78,15 @@ The following inputs must be configured in an inputs ".yml" file for the profile
 
 There are current issues with how the profiles run when using a windows or linux runner. We have accounted for this in the profile with the `windows_runner` input - which we *default* to `false` assuming a Linux based InSpec runner.
 
-If you are using a *Windows* based inspec installation, please set the `windows_runner` input to `true` either via your `inspec.yml` file or via the cli flag via, `--input windows_runner=true`
+If you are using a *Windows* based cinc-auditor installation, please set the `windows_runner` input to `true` either via your `inspec.yml` file or via the cli flag via, `--input windows_runner=true`
 
 ### Example Inputs You Can Use
 
 ```yaml
+#Description: State if your database is an AWS RDS instance
+#Value type: Boolean
+aws_rds: false
+
 # Changes checks depending on if using a Windows or Linux-based InSpec Runner (default value = false)
 windows_runner: false
 
@@ -134,23 +198,28 @@ min_org_allowed_postgres_version: '16.2'
 
 Against a remote target using ssh as the *postgres* user (i.e., InSpec installed on a separate runner host)
 ```bash
-inspec exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz -t ssh://postgres:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+cinc-auditor exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz -t ssh://postgres:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
 
 Against a remote target using a pem key as the *postgres* user (i.e., InSpec installed on a separate runner host)
 ```bash
-inspec exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz -t ssh://postgres@TARGET_IP:TARGET_PORT -i <postgres_PEM_KEY> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
+cinc-auditor exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz -t ssh://postgres@TARGET_IP:TARGET_PORT -i <postgres_PEM_KEY> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
 ```
 
 Against a _**locally-hosted**_ instance logged in as the *postgres* user (i.e., InSpec installed on the target hosting the postgresql database)
 
 ```bash
-inspec exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+```
+Against a _**remote aws rds**_ target:
+
+```bash
+cinc-auditor exec https://github.com/mitre/crunchy-data-postgresql-stig-baseline/archive/main.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 Against a _**docker-containerized**_ instance (i.e., InSpec installed on the node hosting the postgresql container):
 ```
-inspec exec https://github.com/mitre/crunchy-data-postgresql-stig-baseliney/archive/main.tar.gz -t docker://<instance_id> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor exec https://github.com/mitre/crunchy-data-postgresql-stig-baseliney/archive/main.tar.gz -t docker://<instance_id> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ### Different Run Options
@@ -169,8 +238,8 @@ When the __"runner"__ host uses this profile overlay for the first time, follow 
 mkdir profiles
 cd profiles
 git clone https://github.com/mitre/crunchy-data-postgresql-stig-baseline.git
-inspec archive crunchy-data-postgresql-stig-baseline
-inspec exec <name of generated archive> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor archive crunchy-data-postgresql-stig-baseline
+cinc-auditor exec <name of generated archive> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
@@ -179,8 +248,8 @@ For every successive run, follow these steps to always have the latest version o
 cd crunchy-data-postgresql-stig-baseline
 git pull
 cd ..
-inspec archive crunchy-data-postgresql-stig-baseline --overwrite
-inspec exec <name of generated archive> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor archive crunchy-data-postgresql-stig-baseline --overwrite
+cinc-auditor exec <name of generated archive> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ## Using Heimdall for Viewing the JSON Results

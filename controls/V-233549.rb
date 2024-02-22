@@ -89,16 +89,23 @@ $ sudo systemctl reload postgresql-${PGVER?})
   tag fix_id: 'F-36708r606871_fix'
   tag cci: ['CCI-000162']
   tag nist: ['AU-9', 'AU-9 a']
-
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  describe sql.query('SHOW log_file_mode;', [input('pg_db')]) do
-    its('output') { should match /0600/ }
-  end
-
-  command("find #{input('pg_audit_log_dir')} -type f").stdout.split.each do |logfile|
-    describe file(logfile) do
-      its('mode') { should cmp '0600' }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
+  else
+  
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  
+    describe sql.query('SHOW log_file_mode;', [input('pg_db')]) do
+      its('output') { should match /0600/ }
+    end
+  
+    command("find #{input('pg_audit_log_dir')} -type f").stdout.split.each do |logfile|
+      describe file(logfile) do
+        its('mode') { should cmp '0600' }
+      end
+    end
+
   end
 end

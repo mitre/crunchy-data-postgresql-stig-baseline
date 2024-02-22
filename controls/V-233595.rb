@@ -41,7 +41,9 @@ RLS policies can be very different depending on their use case. For one example 
   tag cci: ['CCI-002263']
   tag nist: ['AC-16 a']
 
-  describe 'Check security labeling requirements' do
-    skip 'If security labeling is not implemented or does not reliably maintain labels on information in process, this is a finding.'
-  end
+    describe 'A manual review is required to ensure PostgreSQL associates organization-defined types of security labels
+      having organization-defined security label values with information in process' do
+      skip 'A manual review is required to ensure PostgreSQL associates organization-defined types of security labels
+      having organization-defined security label values with information in process'
+    end
 end

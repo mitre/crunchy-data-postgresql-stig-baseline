@@ -59,13 +59,20 @@ $ sudo systemctl reload postgresql-${PGVER?})
   tag cci: ['CCI-001844']
   tag nist: ['AU-3 (2)']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  if input('aws_rds')
+    describe 'Requires manual review of the use of a centralized logging solution.' do
+      skip 'Requires manual review of the use of a centralized logging solution.'
+    end
+  else
 
-  describe sql.query('SHOW log_destination;', [input('pg_db')]) do
-    its('output') { should match /syslog/i }
-  end
-
-  describe sql.query('SHOW syslog_facility;', [input('pg_db')]) do
-    its('output') { should match /local[0-7]/i }
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  
+    describe sql.query('SHOW log_destination;', [input('pg_db')]) do
+      its('output') { should match /syslog/i }
+    end
+  
+    describe sql.query('SHOW syslog_facility;', [input('pg_db')]) do
+      its('output') { should match /local[0-7]/i }
+    end
   end
 end
