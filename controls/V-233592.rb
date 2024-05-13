@@ -34,7 +34,7 @@ Note: It is recommended that plpgsql not be removed.'
 
   installed_extensions = sql.query("select extname from pg_extension where extname != 'plpgsql';").lines
 
-  if installed_extensions[0].strip==""
+  if installed_extensions.empty? || installed_extensions[0].strip==""
     describe 'The list of installed extensions' do
       subject { installed_extensions }
       it { should be_empty }
