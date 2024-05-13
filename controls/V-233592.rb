@@ -32,7 +32,7 @@ Note: It is recommended that plpgsql not be removed.'
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  installed_extensions = sql.query("select extname from pg_extension where extname != 'plpgsql';").lines
+  installed_extensions = sql.query("select extname from pg_extension where extname != 'plpgsql';")
 
   if installed_extensions.empty?
     describe 'The list of installed extensions' do
@@ -40,7 +40,7 @@ Note: It is recommended that plpgsql not be removed.'
       it { should be_empty }
     end
   else
-    installed_extensions.each do |extension|
+    installed_extensions.lines.each do |extension|
       describe "The installed extension: #{extension}" do
         subject { extension }
         it { should be_in input('approved_ext') }
