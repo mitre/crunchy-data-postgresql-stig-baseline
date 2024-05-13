@@ -40,7 +40,7 @@ Note: It is recommended that plpgsql not be removed.'
       it { should be_empty }
     end
   else
-    installed_extensions.lines.each do |extension|
+    installed_extensions.each do |extension|
       describe "The installed extension: #{extension}" do
         subject { extension }
         it { should be_in input('approved_ext') }
