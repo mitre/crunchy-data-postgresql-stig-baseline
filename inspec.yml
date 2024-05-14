@@ -14,7 +14,7 @@ inputs:
     type: string
     value: "postgres"
     required: true
-    sensitive: true
+    sensitive: false
 
   - name: pg_group
     description: "The system group of the progress process"
