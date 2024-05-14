@@ -32,7 +32,7 @@ Note: It is recommended that plpgsql not be removed.'
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  installed_extensions = sql.query("select extname from pg_extension where extname != 'plpgsql';").lines sql.query("select extname from pg_extension where extname != 'plpgsql';").lines
+  installed_extensions = sql.query("select extname from pg_extension where extname != 'plpgsql';").lines
 
   if installed_extensions.empty? || installed_extensions[0].strip==""
     installed_extensions=""
