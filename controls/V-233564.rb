@@ -66,68 +66,76 @@ content APPENDIX-C for instructions on enabling logging.'
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  if file(input('pg_audit_log_dir')).exist?
-
-    describe sql.query('DROP TABLE IF EXISTS test_schema.test_table;', [input('pg_db')]) do
-      its('output') { should eq 'DROP TABLE' }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
-
-    describe sql.query('DROP SCHEMA IF EXISTS test_schema;', [input('pg_db')]) do
-      its('output') { should eq 'DROP SCHEMA' }
-    end
-
-    describe sql.query('CREATE SCHEMA test_schema;', [input('pg_db')]) do
-      its('output') { should eq 'CREATE SCHEMA' }
-    end
-
-    describe sql.query('CREATE TABLE test_schema.test_table(id INT);', [input('pg_db')]) do
-      its('output') { should eq 'CREATE TABLE' }
-    end
-
-    describe sql.query('INSERT INTO test_schema.test_table(id) VALUES (0);', [input('pg_db')]) do
-      its('output') { should eq 'INSERT 0 1' }
-    end
-
-    describe sql.query('CREATE ROLE bob;', [input('pg_db')]) do
-      its('output') { should eq 'CREATE ROLE' }
-    end
-
-    describe sql.query('SET ROLE bob; SELECT * FROM test_schema.test_table;', [input('pg_db')]) do
-      its('output') { should match /ERROR:  permission denied for schema test_schema/ }
-    end
-
-    describe sql.query('SET ROLE bob; INSERT INTO test_schema.test_table VALUES (0);', [input('pg_db')]) do
-      its('output') { should match /ERROR:  permission denied for schema test_schema/ }
-    end
-
-    describe sql.query('SET ROLE bob; UPDATE test_schema.test_table SET id = 1 WHERE id = 0;', [input('pg_db')]) do
-      its('output') { should match /ERROR:  permission denied for schema test_schema/ }
-    end
-
-    describe sql.query('SET ROLE bob; DROP TABLE test_schema.test_table;', [input('pg_db')]) do
-      its('output') { should match /ERROR:  permission denied for schema test_schema/ }
-    end
-
-    describe sql.query('SET ROLE bob; DROP SCHEMA test_schema;', [input('pg_db')]) do
-      its('output') { should match /ERROR:  must be owner of schema test_schema/ }
-    end
-
-    describe sql.query('DROP ROLE bob;', [input('pg_db')]) do
-    end
-
-    describe command("grep -r \"permission denied for schema test_schema\" #{input('pg_audit_log_dir')}") do
-      its('stdout') { should match /^.*permission denied for schema test_schema.*$/ }
-    end
-
-    describe command("grep -r \"must be owner of schema test_schema\" #{input('pg_audit_log_dir')}") do
-      its('stdout') { should match /^.*must be owner of schema test_schema.*$/ }
-    end
-
   else
-    describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
-      skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+  
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  
+    if file(input('pg_audit_log_dir')).exist?
+  
+      describe sql.query('DROP TABLE IF EXISTS test_schema.test_table;', [input('pg_db')]) do
+        its('output') { should eq 'DROP TABLE' }
+      end
+  
+      describe sql.query('DROP SCHEMA IF EXISTS test_schema;', [input('pg_db')]) do
+        its('output') { should eq 'DROP SCHEMA' }
+      end
+  
+      describe sql.query('CREATE SCHEMA test_schema;', [input('pg_db')]) do
+        its('output') { should eq 'CREATE SCHEMA' }
+      end
+  
+      describe sql.query('CREATE TABLE test_schema.test_table(id INT);', [input('pg_db')]) do
+        its('output') { should eq 'CREATE TABLE' }
+      end
+  
+      describe sql.query('INSERT INTO test_schema.test_table(id) VALUES (0);', [input('pg_db')]) do
+        its('output') { should eq 'INSERT 0 1' }
+      end
+  
+      describe sql.query('CREATE ROLE bob;', [input('pg_db')]) do
+        its('output') { should eq 'CREATE ROLE' }
+      end
+  
+      describe sql.query('SET ROLE bob; SELECT * FROM test_schema.test_table;', [input('pg_db')]) do
+        its('output') { should match /ERROR:  permission denied for schema test_schema/ }
+      end
+  
+      describe sql.query('SET ROLE bob; INSERT INTO test_schema.test_table VALUES (0);', [input('pg_db')]) do
+        its('output') { should match /ERROR:  permission denied for schema test_schema/ }
+      end
+  
+      describe sql.query('SET ROLE bob; UPDATE test_schema.test_table SET id = 1 WHERE id = 0;', [input('pg_db')]) do
+        its('output') { should match /ERROR:  permission denied for schema test_schema/ }
+      end
+  
+      describe sql.query('SET ROLE bob; DROP TABLE test_schema.test_table;', [input('pg_db')]) do
+        its('output') { should match /ERROR:  permission denied for schema test_schema/ }
+      end
+  
+      describe sql.query('SET ROLE bob; DROP SCHEMA test_schema;', [input('pg_db')]) do
+        its('output') { should match /ERROR:  must be owner of schema test_schema/ }
+      end
+  
+      describe sql.query('DROP ROLE bob;', [input('pg_db')]) do
+      end
+  
+      describe command("grep -r \"permission denied for schema test_schema\" #{input('pg_audit_log_dir')}") do
+        its('stdout') { should match /^.*permission denied for schema test_schema.*$/ }
+      end
+  
+      describe command("grep -r \"must be owner of schema test_schema\" #{input('pg_audit_log_dir')}") do
+        its('stdout') { should match /^.*must be owner of schema test_schema.*$/ }
+      end
+  
+    else
+      describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+        skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+      end
     end
+
   end
 end

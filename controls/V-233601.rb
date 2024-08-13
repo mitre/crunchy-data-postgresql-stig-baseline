@@ -55,7 +55,9 @@ SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE user LIKE '%'"
   tag cci: ['CCI-002038']
   tag nist: ['IA-11']
 
-  describe 'Determine all situations where a user must re-authenticate' do
-    skip 'If the provided SQL queries do not force re-authentication, this is a finding.'
-  end
+    describe "A manual review is required to ensure PostgreSQL requires users to reauthenticate when organization-defined
+      circumstances or situations require reauthentication" do
+      skip "A manual review is required to ensure PostgreSQL requires users to reauthenticate when organization-defined
+      circumstances or situations require reauthentication"
+    end
 end

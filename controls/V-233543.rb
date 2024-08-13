@@ -52,10 +52,34 @@ $ psql -c "ALTER FUNCTION <function_name> SECURITY INVOKER"'
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  security_definer_sql = 'SELECT nspname, proname, prosecdef '\
-    'FROM pg_proc p JOIN pg_namespace n ON p.pronamespace = n.oid '\
-    "JOIN pg_authid a ON a.oid = p.proowner WHERE prosecdef = 't';"
-
+	if input('aws_rds')
+		  desc 'check', 'Functions in PostgreSQL can be created with the SECURITY DEFINER option. When SECURITY DEFINER
+			functions are executed by a user, said function is run with the privileges of the user who created it.
+		
+		To list all functions that have SECURITY DEFINER, as, the DBA (shown here as "postgres"), run the following SQL:
+		
+		$ sudo su - postgres
+		$ psql -c "SELECT nspname, proname, proargtypes, prosecdef, rolname, proconfig FROM pg_proc p JOIN pg_namespace
+		n ON p.pronamespace = n.oid JOIN pg_roles a ON a.oid = p.proowner WHERE prosecdef OR NOT proconfig IS NULL"
+		
+		In the query results, a prosecdef value of "t" on a row indicates that that function uses privilege elevation.
+		
+		If elevation of PostgreSQL privileges is utilized but not documented, this is a finding.
+		
+		If elevation of PostgreSQL privileges is documented, but not implemented as described in the documentation, this
+		is a finding.
+		
+		If the privilege-elevation logic can be invoked in ways other than intended, or in contexts other than intended, or
+		by subjects/principals other than intended, this is a finding.'  
+	  security_definer_sql = 'SELECT nspname, proname, prosecdef '\
+	    'FROM pg_proc p JOIN pg_namespace n ON p.pronamespace = n.oid '\
+	    "JOIN pg_roles a ON a.oid = p.proowner WHERE prosecdef = 't';"
+	else
+	  security_definer_sql = 'SELECT nspname, proname, prosecdef '\
+	    'FROM pg_proc p JOIN pg_namespace n ON p.pronamespace = n.oid '\
+	    "JOIN pg_authid a ON a.oid = p.proowner WHERE prosecdef = 't';"
+	end
+	
   databases_sql = "SELECT datname FROM pg_catalog.pg_database where datname = '#{input('pg_db')}';"
   databases_query = sql.query(databases_sql, [input('pg_db')])
   databases = databases_query.lines

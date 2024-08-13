@@ -79,32 +79,39 @@ $ sudo systemctl reload postgresql-${PGVER?})
   tag cci: ['CCI-000185']
   tag nist: ['IA-5 (2) (a)', 'IA-5 (2) (b) (1)']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  ssl_crl_file_query = sql.query('SHOW ssl_crl_file;', [input('pg_db')])
-
-  describe ssl_crl_file_query do
-    its('output') { should match /^#{input('pg_data_dir')}root\.crl$/ }
-  end
-
-  ssl_crl_file = ssl_crl_file_query.output
-
-  if ssl_crl_file.empty?
-    ssl_crl_file = "#{input('pg_data_dir')}/root.crl"
-  elsif File.dirname(ssl_crl_file) == '.'
-    ssl_crl_file = "#{input('pg_data_dir')}/#{ssl_crl_file}"
-  end
-
-  describe file(ssl_crl_file) do
-    it { should be_file }
-  end
-
-  describe.one do
-    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'hostssl' } do
-      its('auth_method') { should include 'cert' }
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages this capability' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages this capability'
     end
-    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'hostssl' } do
-      its('auth_params') { should match [/clientcert=1.*/] }
-    end
+  else
+	  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+	
+	  ssl_crl_file_query = sql.query('SHOW ssl_crl_file;', [input('pg_db')])
+	
+	  describe ssl_crl_file_query do
+	    its('output') { should match /^#{input('pg_data_dir')}root\.crl$/ }
+	  end
+	
+	  ssl_crl_file = ssl_crl_file_query.output
+	
+	  if ssl_crl_file.empty?
+	    ssl_crl_file = "#{input('pg_data_dir')}/root.crl"
+	  elsif File.dirname(ssl_crl_file) == '.'
+	    ssl_crl_file = "#{input('pg_data_dir')}/#{ssl_crl_file}"
+	  end
+	
+	  describe file(ssl_crl_file) do
+	    it { should be_file }
+	  end
+	
+	  describe.one do
+	    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'hostssl' } do
+	      its('auth_method') { should include 'cert' }
+	    end
+	    describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'hostssl' } do
+	      its('auth_params') { should match [/clientcert=1.*/] }
+	    end
+	  end
   end
 end

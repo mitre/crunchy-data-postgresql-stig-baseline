@@ -30,7 +30,7 @@ If there have been incidents where PostgreSQL ran out of audit log space, this i
   tag cci: ['CCI-001849']
   tag nist: ['AU-4']
 
-  describe 'Investigate if there are any incidents where PostgreSQL ran out of audit log space.' do
-    skip 'If there have been incidents where PostgreSQL ran out of audit log space, this is a finding.'
+  describe 'A manual review is required to ensure PostgreSQL allocates audit record storage capacity in accordance with organization-defined audit record storage requirements. Investigate if there are any incidents where PostgreSQL ran out of audit log space. If there have been incidents where PostgreSQL ran out of audit log space, this is a finding.' do
+    skip 'A manual review is required to ensure PostgreSQL allocates audit record storage capacity in accordance with organization-defined audit record storage requirements. Investigate if there are any incidents where PostgreSQL ran out of audit log space. If there have been incidents where PostgreSQL ran out of audit log space, this is a finding.'
   end
 end

@@ -65,15 +65,23 @@ and obtain approval, as appropriate.'
   tag cci: ['CCI-000015']
   tag nist: ['AC-2 (1)']
 
-  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
-    its('auth_method.uniq') { should be_in input('approved_auth_methods') }
-  end
-
-  describe postgres_hba_conf(input('pg_hba_conf_file')).where { database == 'replication' } do
-    its('auth_method.uniq') { should be_in input('approved_auth_methods') }
-  end
-
-  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
-    its('auth_method.uniq') { should be_in input('approved_auth_methods') }
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
+    end
+  else	
+	
+	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'local' } do
+	    its('auth_method.uniq') { should be_in input('approved_auth_methods') }
+	  end
+	
+	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { database == 'replication' } do
+	    its('auth_method.uniq') { should be_in input('approved_auth_methods') }
+	  end
+	
+	  describe postgres_hba_conf(input('pg_hba_conf_file')).where { type == 'host' } do
+	    its('auth_method.uniq') { should be_in input('approved_auth_methods') }
+	  end
   end
 end

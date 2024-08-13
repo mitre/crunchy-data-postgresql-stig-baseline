@@ -55,8 +55,13 @@ database administrator account(s) must not be granted to anyone without official
   tag nist: ['SC-3']
 
   exceptions = "#{input('pg_object_exceptions').map { |e| "'#{e}'" }.join(',')}"
-  object_acl = "^(((#{input('pg_owner')}=[#{input('pg_object_granted_privileges')}]+|"\
+  if input('aws_rds')
+	  object_acl = "^(((#{input('pg_owner')}|rdsadmin=[#{input('pg_object_granted_privileges')}]+|"\
     "=[#{input('pg_object_public_privileges')}]+)\\/\\w+,?)+|)$"
+  else
+	  object_acl = "^(((#{input('pg_owner')}=[#{input('pg_object_granted_privileges')}]+|"\
+    "=[#{input('pg_object_public_privileges')}]+)\\/\\w+,?)+|)$"
+  end    
   schemas = %w(pg_catalog information_schema)
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
@@ -73,13 +78,22 @@ database administrator account(s) must not be granted to anyone without official
       its('output') { should eq '' }
     end
 
-    functions_sql = 'SELECT n.nspname, p.proname, '\
-    'pg_catalog.pg_get_userbyid(n.nspowner) '\
-    'FROM pg_catalog.pg_proc p '\
-    'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
-    "WHERE n.nspname ~ '^(#{schema})$' "\
-    "AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
-
+    if input('aws_rds')
+      functions_sql = 'SELECT n.nspname, p.proname, '\
+      'pg_catalog.pg_get_userbyid(n.nspowner) '\
+      'FROM pg_catalog.pg_proc p '\
+      'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
+      "WHERE n.nspname ~ '^(#{schema})$' "\
+      "AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}' AND pg_catalog.pg_get_userbyid(n.nspowner) <> 'rdsadmin';"
+    else
+      functions_sql = 'SELECT n.nspname, p.proname, '\
+      'pg_catalog.pg_get_userbyid(n.nspowner) '\
+      'FROM pg_catalog.pg_proc p '\
+      'LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace '\
+      "WHERE n.nspname ~ '^(#{schema})$' "\
+      "AND pg_catalog.pg_get_userbyid(n.nspowner) <> '#{input('pg_owner')}';"
+    end
+    
     describe sql.query(functions_sql, [input('pg_db')]) do
       its('output') { should eq '' }
     end

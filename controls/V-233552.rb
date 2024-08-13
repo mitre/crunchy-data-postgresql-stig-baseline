@@ -180,27 +180,35 @@ APPENDIX-C for instructions on enabling logging.'
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
 
-  sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
-
-  if file(input('pg_audit_log_dir')).exist?
-
-    describe sql.query('CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);', [input('pg_db')]) do
-      its('output') { should match // }
-    end
-
-    # Find the most recently modified log file in the input('pg_audit_log_dir'), grep for the syntax error statement, and then
-    # test to validate the output matches the regex.
-
-    describe command("grep -r \"permission denied for schema\" #{input('pg_audit_log_dir')}") do
-      its('stdout') { should match /^.*permission denied for schema permdeniedschema..*$/ }
-    end
-
-    describe sql.query('SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;', [input('pg_db')]) do
-      its('output') { should match // }
+  if input('aws_rds')
+    describe 'Requires manual review of the RDS audit log system.' do
+      skip 'Requires manual review of the RDS audit log system.'
     end
   else
-    describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
-      skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+  
+    sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
+  
+    if file(input('pg_audit_log_dir')).exist?
+  
+      describe sql.query('CREATE ROLE permdeniedtest; CREATE SCHEMA permdeniedschema; SET ROLE permdeniedtest; CREATE TABLE permdeniedschema.usertable(index int);', [input('pg_db')]) do
+        its('output') { should match // }
+      end
+  
+      # Find the most recently modified log file in the input('pg_audit_log_dir'), grep for the syntax error statement, and then
+      # test to validate the output matches the regex.
+  
+      describe command("grep -r \"permission denied for schema\" #{input('pg_audit_log_dir')}") do
+        its('stdout') { should match /^.*permission denied for schema permdeniedschema..*$/ }
+      end
+  
+      describe sql.query('SET ROLE postgres; DROP SCHEMA IF EXISTS permdeniedschema; DROP ROLE IF EXISTS permdeniedtest;', [input('pg_db')]) do
+        its('output') { should match // }
+      end
+    else
+      describe "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter." do
+        skip "The #{input('pg_audit_log_dir')} directory was not found. Check path for this postgres version/install to define the value for the 'input('pg_audit_log_dir')' inspec input parameter."
+      end
     end
+
   end
 end

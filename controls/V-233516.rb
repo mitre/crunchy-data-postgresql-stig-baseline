@@ -53,8 +53,10 @@ $ sudo systemctl reload postgresql-${PGVER?}'
     its('output') { should match /^error$/i }
   end
 
-  cmm_conf = override.client_min_messages ? override : default
-  describe cmm_conf do
-    its('client_min_messages') { should match /^error$/i }
+  if !input('aws_rds')
+    cmm_conf = override.client_min_messages ? override : default
+    describe cmm_conf do
+      its('client_min_messages') { should match /^error$/i }
+    end
   end
 end

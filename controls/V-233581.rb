@@ -65,7 +65,57 @@ $ sudo systemctl reload postgresql-${PGVER?})
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
-  describe sql.query('SHOW log_line_prefix;', [input('pg_db')]) do
-    its('output') { should match '%m' }
+  if input('aws_rds')
+	desc 'check', 'Note: The following instructions use the PGDATA environment variable. See supplementary
+	content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.
+	
+	First, as the database administrator (shown here as "postgres"), verify the current log_line_prefix setting by
+	running the following SQL:
+	
+	$ sudo su - postgres
+	$ psql -c "SHOW log_line_prefix"
+	
+	If log_line_prefix does not contain %t, this is a finding.
+	
+	Next check the logs to verify time stamps are being logged:
+	
+	$ sudo su - postgres
+	$ cat ${PGDATA?}/${PGLOG?}/<latest_log>
+	< 2016-02-23 12:53:33.947 EDT postgres postgres 570bd68d.3912 >LOG: connection authorized: user=postgres
+	database=postgres
+	< 2016-02-23 12:53:41.576 EDT postgres postgres 570bd68d.3912 >LOG: AUDIT: SESSION,1,1,DDL,CREATE TABLE,,,CREATE
+	TABLE test_srg(id INT);,<none>
+	< 2016-02-23 12:53:44.372 EDT postgres postgres 570bd68d.3912 >LOG: disconnection: session time: 0:00:10.426
+	user=postgres database=postgres host=[local]
+	
+	If time stamps are not being logged, this is a finding.'
+	  desc 'fix', %q(Note: The following instructions use the PGDATA and PGVER environment variables. See
+		supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
+	
+	PostgreSQL will not log anything if logging is not enabled. To ensure that logging is enabled, review supplementary
+	content APPENDIX-C for instructions on enabling logging.
+	
+	If logging is enabled the following configurations must be made to log events with time stamps:
+	
+	First, as the database administrator (shown here as "postgres"), edit postgresql.conf:
+	
+	$ sudo su - postgres
+	$ vi ${PGDATA?}/postgresql.conf
+	
+	Add %t to log_line_prefix to enable time stamps with milliseconds:
+	
+	log_line_prefix = '< %m >'
+	
+	Now, as the system administrator, reload the server with the new configuration:
+	
+	$ sudo systemctl reload postgresql-${PGVER?})
+
+	  describe sql.query('SHOW log_line_prefix;', [input('pg_db')]) do
+	    its('output') { should match '%t' }
+	  end	  
+  else
+	  describe sql.query('SHOW log_line_prefix;', [input('pg_db')]) do
+	    its('output') { should match '%m' }
+	  end
   end
 end

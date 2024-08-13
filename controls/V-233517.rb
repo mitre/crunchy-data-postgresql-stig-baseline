@@ -60,17 +60,25 @@ $ sudo chmod 0755 /usr/pgsql-${PGVER?}/bin/*'
   tag cci: ['CCI-001499']
   tag nist: ['CM-5 (6)']
 
-  describe file(input('pg_data_dir')) do
-    it { should be_directory }
-    it { should be_owned_by input('pg_owner') }
-    its('mode') { should cmp '0700' }
-  end
-
-  input('pg_shared_dirs').each do |dirs|
-    describe file(dirs) do
-      it { should be_directory }
-      it { should be_owned_by 'root' }
-      its('mode') { should cmp '0755' }
+  if input('aws_rds')
+    impact 0.0
+    describe 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running' do
+      skip 'This control is not applicable on postgres within aws rds, as aws manages the operating system on which the postgres database is running'
     end
+  else	
+	
+	  describe file(input('pg_data_dir')) do
+	    it { should be_directory }
+	    it { should be_owned_by input('pg_owner') }
+	    its('mode') { should cmp '0700' }
+	  end
+	
+	  input('pg_shared_dirs').each do |dirs|
+	    describe file(dirs) do
+	      it { should be_directory }
+	      it { should be_owned_by 'root' }
+	      its('mode') { should cmp '0755' }
+	    end
+	  end
   end
 end
