@@ -34,7 +34,6 @@ If multiple versions of postgres are installed but are unused, this is a finding
         it { should match input('pg_version') }
       end
     end
-    crunchy - data - postgresql - stig - baseline / controls / V - 233552.rb
   elsif os.linux? || os.redhat?
     rpm_packages = command('rpm -qa | grep "postgres"').stdout.split("\n")
 
