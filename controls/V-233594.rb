@@ -48,7 +48,7 @@ $ sudo apt-get remove <package_name>'
     dpkg_packages = command('dpkg --get-selections | grep "postgres"').stdout.tr('install', '').split("\n")
     dpkg_packages.each do |packages|
       describe(packages) do
-        it { should be_in approved_packages }
+        it { should be_in input('approved_packages') }
       end
     end
 
