@@ -44,7 +44,7 @@ Schedule this script in cron to run around the clock.)
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000359-DB-000319'
   tag gid: 'V-233599'
-  tag rid: 'SV-233599r879732_rule'
+  tag rid: 'SV-233599r961398_rule'
   tag stig_id: 'CD12-00-009900'
   tag fix_id: 'F-36758r607021_fix'
   tag cci: ['CCI-001855']

@@ -21,18 +21,18 @@ By default, all objects in pg_catalog and information_schema are owned by the da
 To check the access controls for those schemas, as the database administrator (shown here as "postgres"), run the following commands to review the access privileges granted on the data dictionary and security tables, views, sequences, functions and trigger procedures:
 
 $ sudo su - postgres
-$ psql -x -c "\dp pg_catalog.*"
-$ psql -x -c "\dp information_schema.*"
+$ psql -x -c "\\dp pg_catalog.*"
+$ psql -x -c "\\dp information_schema.*"
 
-Repeat the \dp statements for any additional schemas that contain locally defined security objects.
+Repeat the \\dp statements for any additional schemas that contain locally defined security objects.
 
-Repeat using \df+*.* to review ownership of PostgreSQL functions:
+Repeat using \\df+*.* to review ownership of PostgreSQL functions:
 
 $ sudo su - postgres
-$ psql -x -c "\df+ pg_catalog.*"
-$ psql -x -c "\df+ information_schema.*"
+$ psql -x -c "\\df+ pg_catalog.*"
+$ psql -x -c "\\df+ information_schema.*"
 
-Refer to the PostgreSQL online documentation for GRANT for help in interpreting the Access Privileges column in the output from \du. Note that an entry starting with an equals sign indicates privileges granted to Public (all users). By default, most of the tables and views in the pg_catalog and information_schema schemas can be read by Public.
+Refer to the PostgreSQL online documentation for GRANT for help in interpreting the Access Privileges column in the output from \\du. Note that an entry starting with an equals sign indicates privileges granted to Public (all users). By default, most of the tables and views in the pg_catalog and information_schema schemas can be read by Public.
 
 If any user besides the database administrator(s) is listed in access privileges and not documented, this is a finding.
 
@@ -48,7 +48,7 @@ database administrator account(s) must not be granted to anyone without official
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000233-DB-000124'
   tag gid: 'V-233546'
-  tag rid: 'SV-233546r879643_rule'
+  tag rid: 'SV-233546r961131_rule'
   tag stig_id: 'CD12-00-004000'
   tag fix_id: 'F-36705r606862_fix'
   tag cci: ['CCI-001084']

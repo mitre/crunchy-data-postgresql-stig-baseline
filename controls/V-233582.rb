@@ -47,7 +47,7 @@ $ sudo systemctl reload postgresql-${PGVER?})
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000100-DB-000201'
   tag gid: 'V-233582'
-  tag rid: 'SV-233582r879568_rule'
+  tag rid: 'SV-233582r960906_rule'
   tag stig_id: 'CD12-00-007800'
   tag fix_id: 'F-36741r606970_fix'
   tag cci: ['CCI-001487']

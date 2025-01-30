@@ -54,7 +54,7 @@ $ sudo chmod 0755 /usr/pgsql-${PGVER?}/bin/*'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000179'
   tag gid: 'V-233517'
-  tag rid: 'SV-233517r879586_rule'
+  tag rid: 'SV-233517r960960_rule'
   tag stig_id: 'CD12-00-000700'
   tag fix_id: 'F-36676r606775_fix'
   tag cci: ['CCI-001499']

@@ -42,7 +42,7 @@ $ psql -c "DROP EXTENSION extension_name"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000141-DB-000093'
   tag gid: 'V-233593'
-  tag rid: 'SV-233593r879587_rule'
+  tag rid: 'SV-233593r960963_rule'
   tag stig_id: 'CD12-00-009100'
   tag fix_id: 'F-36752r607003_fix'
   tag cci: ['CCI-000381']

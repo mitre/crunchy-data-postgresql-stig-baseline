@@ -22,7 +22,7 @@ If anything in PGDATA is not owned by the database administrator, this is a find
 Next, as the database administrator, run the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\du"
+$ psql -c "\\du"
 
 Review the role permissions, if any role is listed as superuser but should not have that access, this is a finding.'
   desc 'fix', "Configure PostgreSQL's settings to allow designated personnel to select which auditable events
@@ -44,7 +44,7 @@ $ chmod 600 ${PGDATA?}/postgresql.conf"
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000090-DB-000065'
   tag gid: 'V-233534'
-  tag rid: 'SV-233534r879560_rule'
+  tag rid: 'SV-233534r960882_rule'
   tag stig_id: 'CD12-00-002600'
   tag fix_id: 'F-36693r606826_fix'
   tag cci: ['CCI-000171']

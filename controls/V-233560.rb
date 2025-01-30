@@ -41,7 +41,7 @@ APPENDIX-C for instructions on enabling logging.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000091-DB-000325'
   tag gid: 'V-233560'
-  tag rid: 'SV-233560r879561_rule'
+  tag rid: 'SV-233560r960885_rule'
   tag stig_id: 'CD12-00-005300'
   tag fix_id: 'F-36719r606904_fix'
   tag cci: ['CCI-000172']

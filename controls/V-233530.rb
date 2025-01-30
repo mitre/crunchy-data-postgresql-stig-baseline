@@ -32,11 +32,11 @@ If any database objects are found to be owned by users not authorized to own dat
 To check the ownership of objects in the database, as the database administrator, run the following:
 
 $ sudo su - postgres
-$ psql -c "\dn *.*"
-$ psql -c "\dt *.*"
-$ psql -c "\ds *.*"
-$ psql -c "\dv *.*"
-$ psql -c "\df+ *.*"
+$ psql -c "\\dn *.*"
+$ psql -c "\\dt *.*"
+$ psql -c "\\ds *.*"
+$ psql -c "\\dv *.*"
+$ psql -c "\\df+ *.*"
 
 If any role is given privileges to objects it should not have, this is a finding.'
   desc 'fix', %q(Implement the organization's DAC policy in the security configuration of the database and
@@ -60,7 +60,7 @@ $ psql -c "REVOKE CREATE ON SCHEMA test FROM bob")
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000328-DB-000301'
   tag gid: 'V-233530'
-  tag rid: 'SV-233530r879705_rule'
+  tag rid: 'SV-233530r961317_rule'
   tag stig_id: 'CD12-00-002200'
   tag fix_id: 'F-36689r606814_fix'
   tag cci: ['CCI-002165']
@@ -163,4 +163,5 @@ $ psql -c "REVOKE CREATE ON SCHEMA test FROM bob")
       end
     end
   end
+end
 end

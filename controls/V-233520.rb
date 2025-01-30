@@ -1,9 +1,9 @@
 control 'V-233520' do
   title 'PostgreSQL must enforce approved authorizations for logical access to information and system resources
 	in accordance with applicable access control policies.'
-  desc "Authentication with a #{input('org_name')[:acronym]}-approved PKI certificate does not necessarily imply authorization to access
+  desc 'Authentication with a DoD-approved PKI certificate does not necessarily imply authorization to access
 	PostgreSQL. To mitigate the risk of unauthorized access to sensitive information by entities that have been
-	issued certificates by #{input('org_name')[:acronym]}-approved PKIs, all #{input('org_name')[:acronym]} systems, including databases, must be properly configured to
+	issued certificates by DoD-approved PKIs, all DoD systems, including databases, must be properly configured to
 	implement access control policies.
 
 Successful authentication must not automatically give an entity access to an asset or security boundary.
@@ -20,7 +20,7 @@ mechanisms must be employed by the application to control access between users (
 This requirement is applicable to access control enforcement applications, a category that includes database
 management systems. If PostgreSQL does not follow applicable policy when approving access, it may be in conflict with
 networks or other applications in the information system. This may result in users either gaining or being denied
-access inappropriately and in conflict with applicable policy."
+access inappropriately and in conflict with applicable policy.'
   desc 'check', %q(Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for instructions on configuring PGDATA.
 
 From the system security plan or equivalent documentation, determine the appropriate permissions on database objects for each kind (group role) of user. If this documentation is missing, this is a finding.
@@ -159,7 +159,7 @@ $ sudo systemctl reload postgresql-${PGVER?})
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000033-DB-000084'
   tag gid: 'V-233520'
-  tag rid: 'SV-233520r879530_rule'
+  tag rid: 'SV-233520r960792_rule'
   tag stig_id: 'CD12-00-000900'
   tag fix_id: 'F-36679r606784_fix'
   tag cci: ['CCI-000213']

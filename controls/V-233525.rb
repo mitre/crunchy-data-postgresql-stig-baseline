@@ -19,7 +19,7 @@ If the security labels are lost when the data is stored, there is the risk of a 
 First, as the database administrator (shown here as "postgres"), run the following SQL against each table that requires security labels:
 
 $ sudo su - postgres
-$ psql -c "\d+ <schema_name>.<table_name>"
+$ psql -c "\\d+ <schema_name>.<table_name>"
 
 If security labeling is required and the results of the SQL above do not show a policy attached to the table, this is a finding.
 
@@ -36,7 +36,7 @@ RLS policies can be very different depending on their use case. For one example 
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000311-DB-000308'
   tag gid: 'V-233525'
-  tag rid: 'SV-233525r879689_rule'
+  tag rid: 'SV-233525r961269_rule'
   tag stig_id: 'CD12-00-001700'
   tag fix_id: 'F-36684r606799_fix'
   tag cci: ['CCI-002262']

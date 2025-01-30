@@ -1,7 +1,7 @@
 control 'V-233577' do
   title 'PostgreSQL, when utilizing PKI-based authentication, must validate certificates by performing RFC
 	5280-compliant certification path validation.'
-  desc "The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates.
+  desc "The DoD standard for authentication is DoD-approved PKI certificates.
 
 A certificate's certification path is the path from the end entity certificate to a trusted root certification
 authority (CA). Certification path validation is necessary for a relying party to make an informed decision
@@ -73,7 +73,7 @@ $ sudo systemctl reload postgresql-${PGVER?})
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000175-DB-000067'
   tag gid: 'V-233577'
-  tag rid: 'SV-233577r879612_rule'
+  tag rid: 'SV-233577r961038_rule'
   tag stig_id: 'CD12-00-007000'
   tag fix_id: 'F-36736r606955_fix'
   tag cci: ['CCI-000185']

@@ -1,6 +1,6 @@
 control 'V-233602' do
   title 'PostgreSQL must enforce authorized access to all PKI private keys stored/utilized by PostgreSQL.'
-  desc "The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates. PKI certificate-based authentication is performed by requiring the certificate holder to cryptographically prove possession of the corresponding private key.
+  desc "The DoD standard for authentication is DoD-approved PKI certificates. PKI certificate-based authentication is performed by requiring the certificate holder to cryptographically prove possession of the corresponding private key.
 
 If the private key is stolen, an attacker can use the private key(s) to impersonate the certificate holder. In cases where PostgreSQL-stored private keys are used to authenticate PostgreSQL to the system's clients, loss of the corresponding private keys would allow an attacker to successfully perform undetected man-in-the-middle attacks against PostgreSQL system and its clients.
 
@@ -41,7 +41,7 @@ For more information on configuring PostgreSQL to use SSL, see supplementary con
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000176-DB-000068'
   tag gid: 'V-233602'
-  tag rid: 'SV-233602r879613_rule'
+  tag rid: 'SV-233602r961041_rule'
   tag stig_id: 'CD12-00-010200'
   tag fix_id: 'F-36761r836828_fix'
   tag cci: ['CCI-000186']

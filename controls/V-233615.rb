@@ -1,8 +1,8 @@
 control 'V-233615' do
   title 'PostgreSQL must map the PKI-authenticated identity to an associated user account.'
-  desc "The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates. Once a PKI certificate has been
+  desc 'The DoD standard for authentication is DoD-approved PKI certificates. Once a PKI certificate has been
 	validated, it must be mapped to PostgreSQL user account for the authenticated identity to be meaningful to
-	PostgreSQL and useful for authorization decisions."
+	PostgreSQL and useful for authorization decisions.'
   desc 'check', 'The Common Name (cn) attribute of the certificate will be compared to the requested database
 	user name and, if they match, the login will be allowed.
 
@@ -34,7 +34,7 @@ For information on configuring PostgreSQL to use SSL, see supplementary content 
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000177-DB-000069'
   tag gid: 'V-233615'
-  tag rid: 'SV-233615r879614_rule'
+  tag rid: 'SV-233615r961044_rule'
   tag stig_id: 'CD12-00-011800'
   tag fix_id: 'F-36774r607069_fix'
   tag cci: ['CCI-000187']

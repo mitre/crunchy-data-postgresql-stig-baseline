@@ -29,7 +29,7 @@ PostgreSQL.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000360-DB-000320'
   tag gid: 'V-233535'
-  tag rid: 'SV-233535r879733_rule'
+  tag rid: 'SV-233535r961401_rule'
   tag stig_id: 'CD12-00-002700'
   tag fix_id: 'F-36694r606829_fix'
   tag cci: ['CCI-001858']

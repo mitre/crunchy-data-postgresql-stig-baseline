@@ -13,15 +13,15 @@ the purposes of initiating changes, including upgrades and modifications.'
   desc 'check', 'To list all the permissions of individual roles, as the database administrator (shown here as "postgres"), run the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\du
+$ psql -c "\\du
 
 If any role has SUPERUSER that should not, this is a finding.
 
 Next, list all the permissions of databases and schemas by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\l"
-$ psql -c "\dn+"
+$ psql -c "\\l"
+$ psql -c "\\dn+"
 
 If any database or schema has update ("W") or create ("C") privileges and should not, this is a finding.'
   desc 'fix', 'Configure PostgreSQL to enforce access restrictions associated with changes to the configuration
@@ -38,7 +38,7 @@ $ psql -c "REVOKE ALL PRIVILEGES ON <table> FROM <role_name>"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000380-DB-000360'
   tag gid: 'V-233597'
-  tag rid: 'SV-233597r879753_rule'
+  tag rid: 'SV-233597r961461_rule'
   tag stig_id: 'CD12-00-009600'
   tag fix_id: 'F-36756r607015_fix'
   tag cci: ['CCI-001813']
@@ -104,4 +104,5 @@ $ psql -c "REVOKE ALL PRIVILEGES ON <table> FROM <role_name>"'
       end
     end
   end
+end
 end

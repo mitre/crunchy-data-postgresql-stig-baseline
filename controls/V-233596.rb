@@ -1,14 +1,11 @@
 control 'V-233596' do
   title 'If passwords are used for authentication, PostgreSQL must store only hashed, salted representations of
 	passwords.'
-  desc "The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates.
+  desc 'The DOD standard for authentication is DOD-approved PKI certificates.
 
-Authentication based on User ID and Password may be used only when it is not possible to employ a PKI certificate,
-and requires Authorizing Official (AO) approval.
+Authentication based on User ID and Password may be used only when it is not possible to employ a PKI certificate, and requires Authorizing Official (AO) approval.
 
-In such cases, database passwords stored in clear text, using reversible encryption, or using unsalted hashes would
-be vulnerable to unauthorized disclosure. Database passwords must always be in the form of one-way, salted hashes
-when stored internally or externally to PostgreSQL."
+In such cases, database passwords stored in clear text, using reversible encryption, or using unsalted hashes would be vulnerable to unauthorized disclosure. Database passwords must always be in the form of one-way, salted hashes when stored internally or externally to PostgreSQL.'
   desc 'check', %q(Note: The following instructions use the PGVER environment variables. See supplementary content
 	APPENDIX-H for PGVER.
 
@@ -27,18 +24,15 @@ $ sudo su - postgres
 $ psql -x -c "SELECT usename, passwd FROM pg_shadow WHERE passwd IS NULL AND passwd NOT LIKE 'SCRAM-SHA-256%';"
 
 If any password is in plaintext, this is a finding.)
-  desc 'fix', %q(Note: The following instructions use the PGDATA and PGVER environment variables. See
-	supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
+  desc 'fix', %q(Note: The following instructions use the PGDATA and PGVER environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
 
 To enable password_encryption, as the database administrator, edit postgresql.conf:
-
 
 $ sudo su - postgres
 $ vi ${PGDATA?}/postgresql.conf
 password_encryption = 'scram-sha-256'
 
-Institute a policy of not using the "WITH UNENCRYPTED PASSWORD" option with the CREATE ROLE/USER and ALTER
-ROLE/USER commands. (This option overrides the setting of the password_encryption configuration parameter).
+Institute a policy of not using the "WITH UNENCRYPTED PASSWORD" option with the CREATE ROLE/USER and ALTER ROLE/USER commands. This option overrides the setting of the password_encryption configuration parameter.
 
 As the system administrator, restart the server with the new configuration:
 
@@ -48,11 +42,11 @@ $ sudo systemctl restart postgresql-${PGVER?})
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000171-DB-000074'
   tag gid: 'V-233596'
-  tag rid: 'SV-233596r879608_rule'
+  tag rid: 'SV-233596r998202_rule'
   tag stig_id: 'CD12-00-009500'
-  tag fix_id: 'F-36755r607012_fix'
-  tag cci: ['CCI-000196']
-  tag nist: ['IA-5 (1) (c)']
+  tag fix_id: 'F-36755r998200_fix'
+  tag cci: ['CCI-000196', 'CCI-004062']
+  tag nist: ['IA-5 (1) (c)', 'IA-5 (1) (d)']
 
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 

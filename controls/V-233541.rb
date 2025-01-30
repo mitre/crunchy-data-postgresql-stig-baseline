@@ -29,7 +29,7 @@ If other applications are located in the same directory as PostgreSQL, this is a
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000199'
   tag gid: 'V-233541'
-  tag rid: 'SV-233541r879586_rule'
+  tag rid: 'SV-233541r960960_rule'
   tag stig_id: 'CD12-00-003300'
   tag fix_id: 'F-36700r606847_fix'
   tag cci: ['CCI-001499']

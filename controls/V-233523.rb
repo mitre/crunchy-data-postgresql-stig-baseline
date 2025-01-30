@@ -16,7 +16,7 @@ compromised installations.'
 As the database administrator (shown here as "postgres"), list all users and their permissions by running the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\dp *.*"
+$ psql -c "\\dp *.*"
 
 Verify that all objects have the correct privileges. If they do not, this is a finding.
 
@@ -37,7 +37,7 @@ REVOKE SELECT ON some_function FROM bob;'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000362'
   tag gid: 'V-233523'
-  tag rid: 'SV-233523r879586_rule'
+  tag rid: 'SV-233523r960960_rule'
   tag stig_id: 'CD12-00-001300'
   tag fix_id: 'F-36682r606793_fix'
   tag cci: ['CCI-001499']
@@ -110,4 +110,5 @@ REVOKE SELECT ON some_function FROM bob;'
       skip 'This must be manually reveiwed at this time'
     end
   end
+end
 end

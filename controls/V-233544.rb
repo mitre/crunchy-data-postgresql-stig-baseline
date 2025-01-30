@@ -40,7 +40,7 @@ All errors and denials are logged if logging is enabled.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000447-DB-000393'
   tag gid: 'V-233544'
-  tag rid: 'SV-233544r879818_rule'
+  tag rid: 'SV-233544r961656_rule'
   tag stig_id: 'CD12-00-003700'
   tag fix_id: 'F-36703r606856_fix'
   tag cci: ['CCI-002754']

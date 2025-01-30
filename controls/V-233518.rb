@@ -12,7 +12,7 @@ Unmanaged changes that occur to the database code can lead to unauthorized or co
   desc 'check', 'Only owners of objects can change them. To view all functions, triggers, and trigger procedures, their ownership and source, as the database administrator (shown here as "postgres") run the following SQL:
 
 $ sudo su - postgres
-$ psql -x -c "\df+"
+$ psql -x -c "\\df+"
 
 Only the OS database owner user (shown here as "postgres") or a PostgreSQL superuser can change links to external software. As the database administrator (shown here as "postgres"), check the permissions of configuration files for the database:
 
@@ -43,7 +43,7 @@ $ psql -c "ALTER ROLE rolename WITH NOSUPERUSER"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000179'
   tag gid: 'V-233518'
-  tag rid: 'SV-233518r879586_rule'
+  tag rid: 'SV-233518r960960_rule'
   tag stig_id: 'CD12-00-000710'
   tag fix_id: 'F-36677r606778_fix'
   tag cci: ['CCI-001499']

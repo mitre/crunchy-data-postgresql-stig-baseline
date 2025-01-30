@@ -19,7 +19,7 @@ for access to federal information and information systems with the need to prote
 To list all roles in the database, as the database administrator (shown here as "postgres"), run the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\du"
+$ psql -c "\\du"
 
 If users are not uniquely identified per organizational documentation, this is a finding.'
   desc 'fix', 'To drop a role, as the database administrator (shown here as "postgres"), run the following SQL:
@@ -38,7 +38,7 @@ https://www.postgresql.org/docs/current/static/sql-createrole.html'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000180-DB-000115'
   tag gid: 'V-233524'
-  tag rid: 'SV-233524r879617_rule'
+  tag rid: 'SV-233524r961053_rule'
   tag stig_id: 'CD12-00-001400'
   tag fix_id: 'F-36683r606796_fix'
   tag cci: ['CCI-000804']

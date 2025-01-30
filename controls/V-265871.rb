@@ -1,4 +1,4 @@
-control 'V-259740' do
+control 'V-265871' do
   title 'PostgreSQL products must be a version supported by the vendor.'
   desc 'Unsupported commercial and database systems should not be used because fixes to newly identified bugs will not be implemented by the vendor. The lack of support can result in potential vulnerabilities.
 
@@ -31,29 +31,14 @@ If PostgreSQL is not at the latest version, this is a finding.'
 
 Upgrade unsupported DBMS or unsupported components to a supported version of the product.'
   impact 0.7
-  tag check_id: 'C-54617r944424_chk'
+  tag check_id: 'C-69790r999517_chk'
   tag severity: 'high'
-  tag gid: 'V-259740'
-  tag rid: 'SV-259740r944425_rule'
+  tag gid: 'V-265871'
+  tag rid: 'SV-265871r999519_rule'
   tag stig_id: 'CD12-00-012900'
   tag gtitle: 'SRG-APP-000456-DB-000400'
-  tag fix_id: 'F-54571r944425_fix'
+  tag fix_id: 'F-69694r999518_fix'
   tag 'documentable'
   tag cci: ['CCI-003376']
   tag nist: ['SA-22 a']
-
-  min_org_allowed_postgres_version = input('min_org_allowed_postgres_version')
-  installed_postgres_version = command('psql --version').stdout.split[2]
-
-  # If no organization specified postgres version was given, check the internet for major and minor release versions
-  if (min_org_allowed_postgres_version.nil? || min_org_allowed_postgres_version.empty?)
-    describe "Your installed Postgres version is: #{installed_postgres_version}. You must review this control manually or set / pass the 'min_org_allowed_postgres_version' to the profile. The latest supported releases can be found at http://www.postgresql.org/support/versioning/" do
-      skip "Your installed Postgres version is: #{installed_postgres_version}. You must review this control manually or set / pass the 'min_org_allowed_postgres_version' to the profile. The latest supported releases can be found at http://www.postgresql.org/support/versioning/"
-    end
-  else
-    describe 'PostgreSQL installed version' do
-      subject { installed_postgres_version }
-      it { should cmp >= min_org_allowed_postgres_version }
-    end
-  end
 end

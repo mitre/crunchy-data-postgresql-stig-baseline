@@ -48,7 +48,7 @@ Deploy NSA-approved encrypting devices to protect the server on the network.'
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000416-DB-000380'
   tag gid: 'V-233584'
-  tag rid: 'SV-233584r944971_rule'
+  tag rid: 'SV-233584r962034_rule'
   tag stig_id: 'CD12-00-008100'
   tag fix_id: 'F-36743r606976_fix'
   tag cci: ['CCI-002450']

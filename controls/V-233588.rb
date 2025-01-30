@@ -20,7 +20,7 @@ for users, information on DBMS settings may be inadvertently made available to t
 As the database administrator (shown here as "postgres"), list all roles and permissions for the database:
 
 $ sudo su - postgres
-$ psql -c "\du"
+$ psql -c "\\du"
 
 If any non-administrative role has the attribute "Superuser", "Create role", "Create DB" or "Bypass RLS", this is a finding.
 
@@ -36,7 +36,7 @@ ALTER ROLE <username> NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS;'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000211-DB-000122'
   tag gid: 'V-233588'
-  tag rid: 'SV-233588r879631_rule'
+  tag rid: 'SV-233588r961095_rule'
   tag stig_id: 'CD12-00-008500'
   tag fix_id: 'F-36747r606988_fix'
   tag cci: ['CCI-001082']

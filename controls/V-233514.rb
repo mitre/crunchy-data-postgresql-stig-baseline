@@ -84,7 +84,7 @@ $ chmod 0600 <log directory name>/*.log'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000119-DB-000060'
   tag gid: 'V-233514'
-  tag rid: 'SV-233514r879577_rule'
+  tag rid: 'SV-233514r960933_rule'
   tag stig_id: 'CD12-00-000400'
   tag fix_id: 'F-36673r606766_fix'
   tag cci: ['CCI-000163']

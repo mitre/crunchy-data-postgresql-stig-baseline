@@ -15,11 +15,11 @@ If any database objects are found to be owned by users not authorized to own dat
 To check the ownership of objects in the database, as the database administrator, run the following SQL:
 
 $ sudo su - postgres
-$ psql -x -c "\dn *.*"
-$ psql -x -c "\dt *.*"
-$ psql -x -c "\ds *.*"
-$ psql -x -c "\dv *.*"
-$ psql -x -c "\df+ *.*"
+$ psql -x -c "\\dn *.*"
+$ psql -x -c "\\dt *.*"
+$ psql -x -c "\\ds *.*"
+$ psql -x -c "\\dv *.*"
+$ psql -x -c "\\df+ *.*"
 
 If any object is not owned by an authorized role for ownership, this is a finding.'
   desc 'fix', 'Assign ownership of authorized objects to authorized object owner accounts.
@@ -39,7 +39,7 @@ $ psql -c "ALTER SCHEMA test OWNER TO bob"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000133-DB-000200'
   tag gid: 'V-233539'
-  tag rid: 'SV-233539r879586_rule'
+  tag rid: 'SV-233539r960960_rule'
   tag stig_id: 'CD12-00-003100'
   tag fix_id: 'F-36698r606841_fix'
   tag cci: ['CCI-001499']
@@ -142,4 +142,5 @@ $ psql -c "ALTER SCHEMA test OWNER TO bob"'
       end
     end
   end
+end
 end

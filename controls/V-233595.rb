@@ -22,7 +22,7 @@ or custom application code.'
 First, as the database administrator (shown here as "postgres"), run the following SQL against each table that requires security labels:
 
 $ sudo su - postgres
-$ psql -c "\d+ <schema_name>.<table_name>"
+$ psql -c "\\d+ <schema_name>.<table_name>"
 
 If security labeling requirements have been specified, but the security labeling is not implemented or does not reliably maintain labels on information in process, this is a finding.'
   desc 'fix', 'In addition to the SQL-standard privilege system available through GRANT, tables can have row
@@ -35,7 +35,7 @@ RLS policies can be very different depending on their use case. For one example 
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000313-DB-000309'
   tag gid: 'V-233595'
-  tag rid: 'SV-233595r879690_rule'
+  tag rid: 'SV-233595r961272_rule'
   tag stig_id: 'CD12-00-009400'
   tag fix_id: 'F-36754r607009_fix'
   tag cci: ['CCI-002263']

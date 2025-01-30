@@ -18,7 +18,7 @@ individual activity.'
 To list all roles in the database, as the database administrator (shown here as "postgres"), run the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\du"
+$ psql -c "\\du"
 
 If organizational users are not uniquely identified and authenticated, this is a finding.
 
@@ -59,7 +59,7 @@ https://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html.'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000148-DB-000103'
   tag gid: 'V-233612'
-  tag rid: 'SV-233612r879589_rule'
+  tag rid: 'SV-233612r960969_rule'
   tag stig_id: 'CD12-00-011500'
   tag fix_id: 'F-36771r607060_fix'
   tag cci: ['CCI-000764']
