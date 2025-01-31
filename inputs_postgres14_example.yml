@@ -10,7 +10,7 @@ pg_db: 'testdb'
 pg_version: '14.15'
 pg_data_dir: "/var/lib/postgresql/data/"
 pg_log_dir: "/var/log/postgresql"
-pg_audit_log_dir: "/opt/pgsql/data/pg_log/"
+pg_audit_log_dir: "/var/log/postgresql/pg_log/"
 pg_conf_file: "/var/lib/postgresql/data/postgresql.conf"
 pg_user_defined_conf: ""
 pg_hba_conf_file: "/var/lib/postgresql/data/pg_hba.conf"
