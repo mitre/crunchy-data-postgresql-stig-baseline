@@ -1,11 +1,11 @@
 control 'V-233596' do
   title 'If passwords are used for authentication, PostgreSQL must store only hashed, salted representations of
 	passwords.'
-  desc 'The DOD standard for authentication is DOD-approved PKI certificates.
+  desc "The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates.
 
 Authentication based on User ID and Password may be used only when it is not possible to employ a PKI certificate, and requires Authorizing Official (AO) approval.
 
-In such cases, database passwords stored in clear text, using reversible encryption, or using unsalted hashes would be vulnerable to unauthorized disclosure. Database passwords must always be in the form of one-way, salted hashes when stored internally or externally to PostgreSQL.'
+In such cases, database passwords stored in clear text, using reversible encryption, or using unsalted hashes would be vulnerable to unauthorized disclosure. Database passwords must always be in the form of one-way, salted hashes when stored internally or externally to PostgreSQL."
   desc 'check', %q(Note: The following instructions use the PGVER environment variables. See supplementary content
 	APPENDIX-H for PGVER.
 

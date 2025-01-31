@@ -1,7 +1,7 @@
 control 'V-233519' do
   title 'If passwords are used for authentication, PostgreSQL must transmit only encrypted representations of
   passwords.'
-  desc 'The DoD standard for authentication is DoD-approved PKI certificates.
+  desc "The #{input('org_name')[:acronym]} standard for authentication is #{input('org_name')[:acronym]}-approved PKI certificates.
 
   Authentication based on User ID and Password may be used only when it is not possible to employ a PKI certificate,
   and requires Authorizing Official (AO) approval.
@@ -10,7 +10,7 @@ control 'V-233519' do
   passwords during transmission.
 
   PostgreSQL passwords sent in clear text format across the network are vulnerable to discovery by unauthorized users.
-  Disclosure of passwords may easily lead to unauthorized access to the database.'
+  Disclosure of passwords may easily lead to unauthorized access to the database."
   desc 'check', 'Note: The following instructions use the PGDATA environment variable. See supplementary
 	content APPENDIX-F for instructions on configuring PGDATA.
 

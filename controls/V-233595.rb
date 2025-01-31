@@ -22,7 +22,7 @@ or custom application code.'
 First, as the database administrator (shown here as "postgres"), run the following SQL against each table that requires security labels:
 
 $ sudo su - postgres
-$ psql -c "\\d+ <schema_name>.<table_name>"
+$ psql -c "\d+ <schema_name>.<table_name>"
 
 If security labeling requirements have been specified, but the security labeling is not implemented or does not reliably maintain labels on information in process, this is a finding.'
   desc 'fix', 'In addition to the SQL-standard privilege system available through GRANT, tables can have row

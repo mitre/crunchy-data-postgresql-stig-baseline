@@ -15,8 +15,8 @@ Review PostgreSQL and database security settings with respect to non-administrat
 To list the privileges for all tables and schemas, as the database administrator (shown here as "postgres"), run the following:
 
 $ sudo su - postgres
-$ psql -c "\\dp"
-$ psql -c "\\dn+"
+$ psql -c "\dp"
+$ psql -c "\dn+"
 
 The privileges are as follows:
 

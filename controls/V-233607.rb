@@ -42,7 +42,7 @@ If pgaudit installation is not owned by root, this is a finding.
 Next, as the database administrator (shown here as "postgres"), run the following SQL to list all roles and their privileges:
 
 $ sudo su - postgres
-$ psql -x -c "\\du"
+$ psql -x -c "\du"
 
 If any role has "superuser" that should not, this is a finding.'
   desc 'fix', 'Note: The following instructions use the PGDATA and PGVER environment variables. See

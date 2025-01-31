@@ -18,7 +18,7 @@ individual activity.'
 To list all roles in the database, as the database administrator (shown here as "postgres"), run the following SQL:
 
 $ sudo su - postgres
-$ psql -c "\\du"
+$ psql -c "\du"
 
 If organizational users are not uniquely identified and authenticated, this is a finding.
 

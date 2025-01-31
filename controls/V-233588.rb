@@ -20,7 +20,7 @@ for users, information on DBMS settings may be inadvertently made available to t
 As the database administrator (shown here as "postgres"), list all roles and permissions for the database:
 
 $ sudo su - postgres
-$ psql -c "\\du"
+$ psql -c "\du"
 
 If any non-administrative role has the attribute "Superuser", "Create role", "Create DB" or "Bypass RLS", this is a finding.
 

@@ -19,7 +19,7 @@ If pgaudit is not found in the results, this is a finding.
 Next, as the database administrator (shown here as "postgres"), list all role memberships for the database:
 
 $ sudo su - postgres
-$ psql -c "\\du"
+$ psql -c "\du"
 
 Next, verify the query was logged:
 

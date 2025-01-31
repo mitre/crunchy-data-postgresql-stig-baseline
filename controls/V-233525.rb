@@ -19,7 +19,7 @@ If the security labels are lost when the data is stored, there is the risk of a 
 First, as the database administrator (shown here as "postgres"), run the following SQL against each table that requires security labels:
 
 $ sudo su - postgres
-$ psql -c "\\d+ <schema_name>.<table_name>"
+$ psql -c "\d+ <schema_name>.<table_name>"
 
 If security labeling is required and the results of the SQL above do not show a policy attached to the table, this is a finding.
 
