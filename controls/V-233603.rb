@@ -15,7 +15,7 @@ $ sudo su - postgres
 $ psql -c \"SHOW ssl_ca_file\"
 $ psql -c \"SHOW ssl_cert_file\"
 
-If the database is not configured to use only DOD-approved certificates, this is a finding."
+If the database is not configured to use only #{input('org_name')[:acronym]}-approved certificates, this is a finding."
   desc 'fix', "Revoke trust in any certificates not issued by a DoD-approved certificate authority.
 
 Configure PostgreSQL to accept only #{input('org_name')[:acronym]} and #{input('org_name')[:acronym]}-approved PKI end-entity certificates.
