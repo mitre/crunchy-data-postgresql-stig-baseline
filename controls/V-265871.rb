@@ -41,4 +41,19 @@ Upgrade unsupported DBMS or unsupported components to a supported version of the
   tag 'documentable'
   tag cci: ['CCI-003376']
   tag nist: ['SA-22 a']
+
+  min_org_allowed_postgres_version = input('min_org_allowed_postgres_version')
+  installed_postgres_version = command('psql --version').stdout.split[2]
+
+  # If no organization specified postgres version was given, check the internet for major and minor release versions
+  if (min_org_allowed_postgres_version.nil? || min_org_allowed_postgres_version.empty?)
+    describe "Your installed Postgres version is: #{installed_postgres_version}. You must review this control manually or set / pass the 'min_org_allowed_postgres_version' to the profile. The latest supported releases can be found at http://www.postgresql.org/support/versioning/" do
+      skip "Your installed Postgres version is: #{installed_postgres_version}. You must review this control manually or set / pass the 'min_org_allowed_postgres_version' to the profile. The latest supported releases can be found at http://www.postgresql.org/support/versioning/"
+    end
+  else
+    describe 'PostgreSQL installed version' do
+      subject { installed_postgres_version }
+      it { should cmp >= min_org_allowed_postgres_version }
+    end
+  end
 end
