@@ -16,7 +16,7 @@ In addition to the reauthentication requirements associated with session locks, 
 (v) After a fixed period of time; or
 (vi) Periodically.
 
-Within the DOD, the minimum circumstances requiring reauthentication are privilege escalation and role changes."
+Within the #{input('org_name')[:acronym]}, the minimum circumstances requiring reauthentication are privilege escalation and role changes."
   desc 'check', "Determine all situations where a user must reauthenticate. Check if the mechanisms that handle such situations use the following SQL:
 
 To make a single user reauthenticate, the following must be present:
