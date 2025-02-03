@@ -38,7 +38,7 @@ $ sudo apt-get remove <package_name>'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000141-DB-000092'
   tag gid: 'V-233594'
-  tag rid: 'SV-233594r879587_rule'
+  tag rid: 'SV-233594r960963_rule'
   tag stig_id: 'CD12-00-009200'
   tag fix_id: 'F-36753r607006_fix'
   tag cci: ['CCI-000381']

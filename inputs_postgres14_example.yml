@@ -1,0 +1,55 @@
+---
+windows_runner: false
+pg_owner: 'testuser'
+pg_group: ''
+pg_dba: 'testuser'
+pg_dba_password: 'testpassword'
+pg_host: 'localhost'
+pg_port: '5432'
+pg_db: 'testdb'
+pg_version: '14.15'
+pg_data_dir: "/var/lib/postgresql/data/"
+pg_log_dir: "/var/log/postgresql"
+pg_audit_log_dir: "/var/log/postgresql/pg_log/"
+pg_conf_file: "/var/lib/postgresql/data/postgresql.conf"
+pg_user_defined_conf: ""
+pg_hba_conf_file: "/var/lib/postgresql/data/pg_hba.conf"
+pg_ident_conf_file: "/var/lib/postgresql/data/pg_ident.conf"
+pg_shared_dirs:
+  - "/usr/lib/postgresql/14"
+  - "/usr/lib/postgresql/14/bin"
+  - "/usr/lib/postgresql/14/lib"
+  - "/usr/share/postgresql/14"
+pg_superusers:
+  - 'postgres'
+pg_users:
+  - 'pg_execute_server_program'
+  - 'pg_monitor'
+  - 'pg_read_all_settings'
+  - 'pg_read_all_stats'
+  - 'pg_read_server_files'
+  - 'pg_signal_backend'
+  - 'pg_stat_scan_tables'
+  - 'pg_write_server_files'
+  - 'postgres'
+pg_replicas:
+  - ''
+approved_auth_methods:
+  - 'gss'
+  - 'sspi'
+  - 'ldap'
+  - 'cert clientcert=verify-full'
+pgaudit_installation: '/usr/lib/postgresql/14/lib/bitcode/pgaudit'
+pg_max_connections: 100
+pg_timezone: 'UTC'
+pg_object_granted_privileges: 'arwdDxt'
+pg_object_public_privileges: 'rw'
+approved_packages:
+  - 'postgresql14-server.x86_64'
+  - 'postgresql14-libs.x86_64'
+  - 'postgresql14-contrib.x86_64'
+  - 'postgresql14.x86_64'
+approved_ext: 
+  - ''
+pg_object_exceptions:
+  - 'pg_setting'

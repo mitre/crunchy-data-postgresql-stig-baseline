@@ -38,7 +38,7 @@ https://www.postgresql.org/docs/current/static/ssl-tcp.html'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000224-DB-000384'
   tag gid: 'V-233611'
-  tag rid: 'SV-233611r879639_rule'
+  tag rid: 'SV-233611r961119_rule'
   tag stig_id: 'CD12-00-011400'
   tag fix_id: 'F-36770r607057_fix'
   tag cci: ['CCI-001188']

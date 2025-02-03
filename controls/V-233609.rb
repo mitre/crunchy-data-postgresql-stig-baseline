@@ -42,7 +42,7 @@ $ sudo chown -R root:root /usr/pgsql-${PGVER?}'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000123-DB-000204'
   tag gid: 'V-233609'
-  tag rid: 'SV-233609r879581_rule'
+  tag rid: 'SV-233609r960945_rule'
   tag stig_id: 'CD12-00-011200'
   tag fix_id: 'F-36768r607051_fix'
   tag cci: ['CCI-001495']

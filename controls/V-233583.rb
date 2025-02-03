@@ -19,7 +19,7 @@ For information on configuring PostgreSQL to use SSL, see supplementary content 
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000514-DB-000382'
   tag gid: 'V-233583'
-  tag rid: 'SV-233583r879885_rule'
+  tag rid: 'SV-233583r961857_rule'
   tag stig_id: 'CD12-00-008000'
   tag fix_id: 'F-36742r860659_fix'
   tag cci: ['CCI-002450']

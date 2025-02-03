@@ -59,7 +59,7 @@ and obtain approval, as appropriate.'
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000023-DB-000001'
   tag gid: 'V-233515'
-  tag rid: 'SV-233515r879522_rule'
+  tag rid: 'SV-233515r960768_rule'
   tag stig_id: 'CD12-00-000500'
   tag fix_id: 'F-36674r606769_fix'
   tag cci: ['CCI-000015']

@@ -66,7 +66,7 @@ $ psql -c "ALTER ROLE <role-name> WITH NOSUPERUSER"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000121-DB-000202'
   tag gid: 'V-233607'
-  tag rid: 'SV-233607r879579_rule'
+  tag rid: 'SV-233607r960939_rule'
   tag stig_id: 'CD12-00-010700'
   tag fix_id: 'F-36766r607045_fix'
   tag cci: ['CCI-001493']

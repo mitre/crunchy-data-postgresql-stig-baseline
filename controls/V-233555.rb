@@ -38,7 +38,7 @@ Unsuccessful attempts to modify security objects can be logged if logging is ena
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000496-DB-000335'
   tag gid: 'V-233555'
-  tag rid: 'SV-233555r879867_rule'
+  tag rid: 'SV-233555r961803_rule'
   tag stig_id: 'CD12-00-004800'
   tag fix_id: 'F-36714r606889_fix'
   tag cci: ['CCI-000172']

@@ -57,7 +57,7 @@ account, ensure it also captures the individual user identification and passes i
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000080-DB-000063'
   tag gid: 'V-233598'
-  tag rid: 'SV-233598r879554_rule'
+  tag rid: 'SV-233598r960864_rule'
   tag stig_id: 'CD12-00-009700'
   tag fix_id: 'F-36757r607018_fix'
   tag cci: ['CCI-000166']

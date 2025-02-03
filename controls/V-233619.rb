@@ -27,7 +27,7 @@ FIPS documentation can be downloaded from https://csrc.nist.gov/publications/fip
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000179-DB-000114'
   tag gid: 'V-233619'
-  tag rid: 'SV-233619r879616_rule'
+  tag rid: 'SV-233619r961050_rule'
   tag stig_id: 'CD12-00-012300'
   tag fix_id: 'F-36778r836831_fix'
   tag cci: ['CCI-000803']

@@ -60,7 +60,7 @@ $ psql -c "REVOKE CREATE ON SCHEMA test FROM bob")
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000328-DB-000301'
   tag gid: 'V-233530'
-  tag rid: 'SV-233530r879705_rule'
+  tag rid: 'SV-233530r961317_rule'
   tag stig_id: 'CD12-00-002200'
   tag fix_id: 'F-36689r606814_fix'
   tag cci: ['CCI-002165']

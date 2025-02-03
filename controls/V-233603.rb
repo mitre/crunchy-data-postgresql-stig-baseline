@@ -16,7 +16,7 @@ $ psql -c \"SHOW ssl_ca_file\"
 $ psql -c \"SHOW ssl_cert_file\"
 
 If the database is not configured to use only #{input('org_name')[:acronym]}-approved certificates, this is a finding."
-  desc 'fix', "Revoke trust in any certificates not issued by a DoD-approved certificate authority.
+  desc 'fix', "Revoke trust in any certificates not issued by a #{input('org_name')[:acronym]}-approved certificate authority.
 
 Configure PostgreSQL to accept only #{input('org_name')[:acronym]} and #{input('org_name')[:acronym]}-approved PKI end-entity certificates.
 
@@ -28,7 +28,7 @@ For more information on configuring PostgreSQL to use SSL, see supplementary con
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000427-DB-000385'
   tag gid: 'V-233603'
-  tag rid: 'SV-233603r879798_rule'
+  tag rid: 'SV-233603r961596_rule'
   tag stig_id: 'CD12-00-010300'
   tag fix_id: 'F-36762r607033_fix'
   tag cci: ['CCI-002470']

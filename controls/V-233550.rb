@@ -21,7 +21,7 @@ If multiple versions of postgres are installed but are unused, this is a finding
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000454-DB-000389'
   tag gid: 'V-233550'
-  tag rid: 'SV-233550r879825_rule'
+  tag rid: 'SV-233550r961677_rule'
   tag stig_id: 'CD12-00-004300'
   tag fix_id: 'F-36709r606874_fix'
   tag cci: ['CCI-002617']

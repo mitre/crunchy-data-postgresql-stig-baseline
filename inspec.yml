@@ -1,12 +1,28 @@
 name: crunchy-data-postgresql-stig-baseline
-title: crunchy-data-postgresql-stig-baseline
+title: "Crunchy Data PostgreSQL Security Technical Implementation Guide :: Version 3, Release 1 :: Benchmark Date:  24 Jul 2024"
 maintainer: MITRE SAF Team
-copyright: MITRE, 2022
+copyright: MITRE, 2025
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
-summary: "Inspec Validation Profile for Crunchy Data PostgreSQL Security Technical Implementation Guide Version 2, Release: 2 Benchmark Date: 22 Jan 2024"
-version: 2.2.0
+summary: InSpec profile aligned to STIG Guidance for Crunchy Data PostgreSQL Security Technical Implementation Guide
+version: 3.1.0
 inspec_version: ">= 4.0"
+
+### INPUTS ###
+# Inputs are variables that can be referenced by any control in the profile,
+# and are defined and given a default value in this file.
+
+# By default, each parameter is set to exactly comply with the profile baseline
+# wherever possible. Some profile controls will require a unique value reflecting
+# the necessary context for the supporting system.
+
+# Values provided here can be overridden using an input file or a CLI flag at
+# execution time. See InSpec's Inputs docs at https://docs.chef.io/inspec/profiles/inputs/
+# for details.
+
+# NOTE: DO NOT directly change the default values by editing this file. Use
+# overrides instead.
+###
 
 inputs:
   - name: pg_owner

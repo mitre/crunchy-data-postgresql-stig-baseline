@@ -33,7 +33,7 @@ control 'V-233519' do
   tag severity: 'high'
   tag gtitle: 'SRG-APP-000172-DB-000075'
   tag gid: 'V-233519'
-  tag rid: 'SV-233519r836817_rule'
+  tag rid: 'SV-233519r961029_rule'
   tag stig_id: 'CD12-00-000800'
   tag fix_id: 'F-36678r606781_fix'
   tag cci: ['CCI-000197']

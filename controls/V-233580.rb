@@ -37,15 +37,14 @@ $ psql -c 'DROP TABLE example;'
 If organization-defined auditable events are not being audited, this is a finding.)
   desc 'fix', "Configure PostgreSQL to generate audit records for at least the #{input('org_name')[:acronym]} minimum set of events.
 
-Using 'pgaudit', PostgreSQL can be configured to audit these requests. See supplementary content APPENDIX-B for
-documentation on installing pgaudit.
+Using 'pgaudit', PostgreSQL can be configured to audit these requests. See supplementary content APPENDIX-B for documentation on installing pgaudit.
 
 To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging."
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000089-DB-000064'
   tag gid: 'V-233580'
-  tag rid: 'SV-233580r879559_rule'
+  tag rid: 'SV-233580r960879_rule'
   tag stig_id: 'CD12-00-007400'
   tag fix_id: 'F-36739r606964_fix'
   tag cci: ['CCI-000169']

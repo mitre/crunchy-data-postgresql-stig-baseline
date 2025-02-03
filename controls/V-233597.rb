@@ -38,7 +38,7 @@ $ psql -c "REVOKE ALL PRIVILEGES ON <table> FROM <role_name>"'
   tag severity: 'medium'
   tag gtitle: 'SRG-APP-000380-DB-000360'
   tag gid: 'V-233597'
-  tag rid: 'SV-233597r879753_rule'
+  tag rid: 'SV-233597r961461_rule'
   tag stig_id: 'CD12-00-009600'
   tag fix_id: 'F-36756r607015_fix'
   tag cci: ['CCI-001813']
