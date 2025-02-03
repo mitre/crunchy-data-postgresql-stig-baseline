@@ -7,6 +7,8 @@ requirements.
 - Benchmark Date: **24 Jul 2024**
 - Benchmark Version: **Version 3 Release 1 (V3R1)**
 
+> [!Note]
+> This Profile applies to database versions 10, 11, 12, 13, 14, 15
 
 This profile was developed to reduce the time it takes to perform a security checks based upon the
 STIG Guidance from the Defense Information Systems Agency (DISA) in partnership between the DISA Services Directorate (SD) and the DISA Risk Management Executive (RME) office.
