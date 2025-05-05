@@ -51,7 +51,7 @@ $ sudo systemctl restart postgresql-${PGVER?})
   sql = postgres_session(input('pg_dba'), input('pg_dba_password'), input('pg_host'), input('pg_port'))
 
   describe sql.query('SHOW password_encryption;', [input('pg_db')]) do
-    its('output') { should match /on|true|scram-sha-256/i }
+    its('output') { should match /scram-sha-256/i }
   end
 
   passwords_sql = 'SELECT usename FROM pg_shadow '\
