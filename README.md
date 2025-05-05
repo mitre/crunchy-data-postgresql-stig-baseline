@@ -263,6 +263,25 @@ After installing `ruby` install the necessary dependencies by invoking the bundl
 bundle install
 ```
 
+[top](#table-of-contents)
+
+#### Testing against a Local Postgres Container
+As a developer or someone wanting to test the profile without an existing database target, there are files available to start up a docker container with a test PostgreSQL 2016 database instance. Starting this requires the runner to have InSpec or CINC Auditor installed, psql, and docker.
+To pull the container image, run:
+```bash
+docker pull
+```
+
+To start the container, run:
+```bash
+docker compose up -D
+```
+
+To run the InSpec profile against the test database, run:
+```bash
+inspec exec ./ --input-file ./inputs_postgres16_example.yml --reporter cli json:./results/file.json
+```
+
 #### Testing Commands
 
 Linting and validating controls:
