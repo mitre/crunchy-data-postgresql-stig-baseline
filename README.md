@@ -279,7 +279,7 @@ docker compose up -D
 
 To run the InSpec profile against the test database, run:
 ```bash
-inspec exec ./ --input-file ./inputs_postgres16_example.yml --reporter cli json:./results/file.json
+inspec exec ./ --input-file ./inputs_postgres14_example.yml --reporter cli json:./results/file.json
 ```
 
 #### Testing Commands
