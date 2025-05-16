@@ -1,5 +1,5 @@
 name: crunchy-data-postgresql-stig-baseline
-title: "Crunchy Data PostgreSQL Security Technical Implementation Guide :: Version 3, Release 1 :: Benchmark Date:  24 Jul 2024"
+title: "Crunchy Data PostgreSQL Security Technical Implementation Guide"
 maintainer: MITRE SAF Team
 copyright: MITRE, 2025
 copyright_email: saf@groups.mitre.org
